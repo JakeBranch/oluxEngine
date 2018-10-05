@@ -1,5 +1,9 @@
+#include <oluxEngine/OluxEngine.h>
+#include <glm.hpp>
+
 #include <cstdio>
 #include <iostream>
+#include <memory>
 
 #include <exception>
 
@@ -8,6 +12,8 @@
 #include <SDL.h>
 
 #include <SDL_opengl.h>
+
+#include "TestScene.h"
 
 const GLchar *vertexShaderSrc =
 "attribute vec3 in_Position;				" \
@@ -33,7 +39,18 @@ const GLfloat positions[] = {
 
 int main(int argc, char* argv[])
 {
-  std::cout << "OluxEngine Example game" << std::endl;
+	std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
+
+	std::shared_ptr<OluxEngine::Entity> entity = core->addEntity();
+
+	std::shared_ptr<TestScene> ts = entity->addComponent<TestScene>();
+
+	core->Start();
+
+	/*std::cout << "OluxEngine Example game" << std::endl;
+
+	std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
+	//core->Start();
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
@@ -146,7 +163,7 @@ int main(int argc, char* argv[])
 	/*glDetachShader(programId, vertexShaderId);
 	glDeleteShader(vertexShaderId);
 	glDetachShader(programId, fragmentShaderId);
-	glDeleteShader(fragmentShaderId);*/
+	glDeleteShader(fragmentShaderId);
 
 	while (true)
 	{
@@ -175,5 +192,5 @@ int main(int argc, char* argv[])
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
-	return 0;
+	return 0;*/
 }

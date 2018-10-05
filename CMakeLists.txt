@@ -3,6 +3,7 @@ project(OLUXENGINE)
 
 include_directories(
 	src
+	contrib/glm
 )	
 
 if(MSVC)
@@ -23,8 +24,11 @@ endif()
 
 add_library(
 	oluxEngine
-	src/oluxEngine/core.cpp
-	src/oluxEngine/core.h
+	src/oluxEngine/Core.cpp
+	src/oluxEngine/Entity.cpp
+	src/oluxEngine/Component.cpp
+	src/oluxEngine/VertexArray.cpp
+	src/oluxEngine/VertexBuffer.cpp
 )
 
 add_executable(
@@ -44,6 +48,8 @@ else()
 	)
 endif()
 
+target_link_libraries(game oluxEngine)
+
 if(MSVC)
 	add_custom_command(TARGET game POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -57,5 +63,3 @@ if(MSVC)
 		"$<TARGET_FILE_DIR:game>"
 	)
 endif()
-
-target_link_libraries(game oluxEngine)
