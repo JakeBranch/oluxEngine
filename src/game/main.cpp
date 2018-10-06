@@ -15,7 +15,7 @@
 
 #include "TestScene.h"
 
-const GLchar *vertexShaderSrc =
+/*const GLchar *vertexShaderSrc =
 "attribute vec3 in_Position;				" \
 "											" \
 "void main()								" \
@@ -35,7 +35,7 @@ const GLfloat positions[] = {
 0.0f, 0.5f, 0.0f,
 -0.5f, -0.5f, 0.0f,
 0.5f, -0.5f, 0.0f
-};
+};*/
 
 int main(int argc, char* argv[])
 {
@@ -44,6 +44,8 @@ int main(int argc, char* argv[])
 	std::shared_ptr<OluxEngine::Entity> entity = core->addEntity();
 
 	std::shared_ptr<TestScene> ts = entity->addComponent<TestScene>();
+	std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>();
+	mr->onInit();
 
 	core->Start();
 

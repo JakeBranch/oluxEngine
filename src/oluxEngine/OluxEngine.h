@@ -4,5 +4,9 @@
 #include "Core.h"
 #include "Component.h"
 #include "Entity.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "ShaderProgram.h"
+#include "MeshRenderer.h"
 
 #endif

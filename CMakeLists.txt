@@ -29,6 +29,8 @@ add_library(
 	src/oluxEngine/Component.cpp
 	src/oluxEngine/VertexArray.cpp
 	src/oluxEngine/VertexBuffer.cpp
+	src/oluxEngine/ShaderProgram.cpp
+	src/oluxEngine/MeshRenderer.cpp
 )
 
 add_executable(
@@ -37,6 +39,8 @@ add_executable(
 	src/game/TestScene.cpp
 	src/game/TestScene.h
 )
+
+file(COPY resources DESTINATION ${CMAKE_BINARY_DIR})
 
 if(MSVC)
 	target_link_libraries(oluxEngine

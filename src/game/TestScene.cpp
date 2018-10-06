@@ -13,5 +13,5 @@ void TestScene::onInit()
 
 void TestScene::onTick()
 {
-	std::cout << "onTick" << std::endl;
+	//std::cout << "onTick" << std::endl;
 }
