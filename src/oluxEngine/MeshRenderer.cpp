@@ -27,13 +27,15 @@ void MeshRenderer::onInit()
     const char* vertLoc = "resources/shaders/simple.vert";
     const char* fragLoc = "resources/shaders/simple.frag";
 
-    shader = std::make_shared<ShaderProgram>(vertLoc, fragLoc);
+	resources = std::make_shared<Resources>();
+	shader = resources->Load<ShaderProgram>(vertLoc, fragLoc);
 }
 
 void MeshRenderer::onDisplay()
 {
     //shader->setUniform("in_Model", glm::mat4(1.0f));
     //shader->setUniform("in_Projection", glm::mat4(1.0f));
+
     shader->Draw(*shape);
 }
 

@@ -1,4 +1,5 @@
 #include "Component.h"
+#include "Resources.h"
 
 #include <memory>
 
@@ -17,5 +18,6 @@ namespace OluxEngine
 
             std::shared_ptr<VertexArray> shape;
             std::shared_ptr<ShaderProgram> shader;
+			std::shared_ptr<Resources> resources;
     };
 }

@@ -8,5 +8,7 @@
 #include "VertexBuffer.h"
 #include "ShaderProgram.h"
 #include "MeshRenderer.h"
+#include "Resources.h"
+#include "Resource.h"
 
 #endif

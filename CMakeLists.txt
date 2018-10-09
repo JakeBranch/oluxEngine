@@ -31,6 +31,8 @@ add_library(
 	src/oluxEngine/VertexBuffer.cpp
 	src/oluxEngine/ShaderProgram.cpp
 	src/oluxEngine/MeshRenderer.cpp
+	
+	src/oluxEngine/Resource.cpp
 )
 
 add_executable(
