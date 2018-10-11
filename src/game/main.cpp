@@ -20,12 +20,13 @@ int main(int argc, char* argv[])
 	std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
 
 	std::shared_ptr<OluxEngine::Entity> entity = core->addEntity();
+	
+	std::shared_ptr<OluxEngine::Sound> s = std::make_shared<OluxEngine::Sound>("dixie_horn.ogg");
+  	s->play();
 
 	std::shared_ptr<TestScene> ts = entity->addComponent<TestScene>();
 
-	std::shared_ptr<OluxEngine::Resources> resourceManager = std::make_shared<OluxEngine::Resources>();
-
-	std::shared_ptr<OluxEngine::Texture> t = resourceManager->Load<OluxEngine::Texture>("resources/texture.png");
+	std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/texture.png");
 
 	std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>();
 	mr->onInit();

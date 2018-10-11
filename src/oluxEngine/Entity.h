@@ -52,7 +52,7 @@ namespace OluxEngine
 			std::weak_ptr<Core> core;
 			std::vector<std::shared_ptr<Component>> components;
 
-			void tick();
+			void update();
 			void display();
 
 	};

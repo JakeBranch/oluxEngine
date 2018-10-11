@@ -7,7 +7,7 @@ namespace OluxEngine
 		return core.lock();
 	}
 
-	void Entity::tick()
+	void Entity::update()
 	{
 		for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
 			it != components.end(); it++)
@@ -18,7 +18,7 @@ namespace OluxEngine
 				(*it)->began = true;
 			}
 
-			(*it)->onTick();
+			(*it)->update();
 		}
 	}
 

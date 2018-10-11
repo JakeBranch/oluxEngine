@@ -5,6 +5,14 @@
 
 #include <GL\glew.h>
 
+#include "Resources.h"
+
+#include <cstdio>
+#include <ctime>
+
+#include <AL/al.h>
+#include <AL/alc.h>
+
 namespace OluxEngine
 {
 	class Entity;
@@ -18,11 +26,20 @@ namespace OluxEngine
 			void Stop();
 			std::shared_ptr<Entity> addEntity();
 
+			std::shared_ptr<Resources> getResources();
+
 		private:
 			bool running;
 			std::vector<std::shared_ptr<Entity>> entities;
 			std::weak_ptr<Core> self;
+			std::shared_ptr<Resources> resourceManager;
+
+			clock_t clockStart;
+			double timer;
 
 			SDL_Window *window;
+
+			ALCdevice* device;
+  			ALCcontext* context;
 	};
 }

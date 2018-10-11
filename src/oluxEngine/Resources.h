@@ -30,6 +30,8 @@ namespace OluxEngine
 				return rtn;
 			}
 
+			void cleanUp();
+
 		private:
 			std::list<std::shared_ptr<Resource>> resources;
 	};

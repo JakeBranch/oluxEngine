@@ -13,6 +13,8 @@ namespace OluxEngine
 		rtn->running = true;
 		rtn->self = rtn;
 
+		rtn->clockStart = clock();
+
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
 			throw std::exception();
@@ -33,6 +35,30 @@ namespace OluxEngine
 			throw std::exception();
 		}
 
+		rtn->device = alcOpenDevice(NULL);
+
+		if(!rtn->device)
+		{
+			throw std::exception();
+		}
+
+		rtn->context = alcCreateContext(rtn->device, NULL);
+
+		if(!rtn->context)
+		{
+			alcCloseDevice(rtn->device);
+			throw std::exception();
+		}
+
+		if(!alcMakeContextCurrent(rtn->context))
+		{
+			alcDestroyContext(rtn->context);
+			alcCloseDevice(rtn->device);
+			throw std::exception();
+		}
+
+		rtn->resourceManager = std::make_shared<Resources>();
+
 		return rtn;
 	}
 
@@ -51,15 +77,17 @@ namespace OluxEngine
 				}
 			}
 
+			//Update all entities
 			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
 				it != entities.end(); it++)
 			{
-				(*it)->tick();
+				(*it)->update();
 			}
 
 			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			//Display all entitites
 			for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
 				it != entities.end(); it++)
 			{
@@ -67,12 +95,28 @@ namespace OluxEngine
 			}
 
 			SDL_GL_SwapWindow(window);
+
+			//--------------------------------------------------UPDATE RESOURCES
+			timer = ( clock() - clockStart ) / (double) CLOCKS_PER_SEC;
+
+			if(timer >= 2)
+			{
+				std::cout << "CLEAN UP" << std::endl;
+				resourceManager->cleanUp();
+
+				clockStart = clock();
+			}
 		}
 	}
 
 	void Core::Stop()
 	{
 		running = false;
+	}
+
+	std::shared_ptr<Resources> Core::getResources()
+	{
+		return resourceManager;
 	}
 
 	std::shared_ptr<Entity> Core::addEntity()
