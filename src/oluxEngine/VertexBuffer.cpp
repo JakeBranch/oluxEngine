@@ -1,5 +1,7 @@
 #include "VertexBuffer.h"
 
+#include <iostream>
+
 namespace OluxEngine
 {
 	VertexBuffer::VertexBuffer() : numOfComponents(0), dirty(false)
@@ -8,8 +10,27 @@ namespace OluxEngine
 
 		if (!id)
 		{
+			std::cout << "COULDNT GEN VBO" << std::endl;
 			throw std::exception();
 		}
+	}
+
+	void VertexBuffer::add(glm::vec2 value)
+	{
+		if (!numOfComponents)
+		{
+			numOfComponents = 2;
+		}
+
+		if (numOfComponents != 2)
+		{
+			std::cout << "num of components != 2" << std::endl;
+			throw std::exception();
+		}
+
+		data.push_back(value.x);
+		data.push_back(value.y);
+		dirty = true;
 	}
 
 	void VertexBuffer::add(glm::vec3 value)
@@ -21,6 +42,7 @@ namespace OluxEngine
 
 		if (numOfComponents != 3)
 		{
+			std::cout << "num of components != 3" << std::endl;
 			throw std::exception();
 		}
 
@@ -39,6 +61,7 @@ namespace OluxEngine
 
 		if (numOfComponents != 4)
 		{
+			std::cout << "num of components != 4" << std::endl;
 			throw std::exception();
 		}
 
@@ -58,6 +81,7 @@ namespace OluxEngine
 	{
 		if (!numOfComponents)
 		{
+			std::cout << "Couldnt get numofcomponents" << std::endl;
 			throw std::exception();
 		}
 

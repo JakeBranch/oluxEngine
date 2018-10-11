@@ -1,6 +1,8 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 
+#include <iostream>
+
 namespace OluxEngine
 {
 	VertexArray::VertexArray() : dirty(false)
@@ -9,6 +11,7 @@ namespace OluxEngine
 
 		if (!id)
 		{
+			std::cout << "COULDNT GENERATE VERTEX ARRAY" << std::endl;
 			throw std::exception();
 		}
 
@@ -25,8 +28,13 @@ namespace OluxEngine
 		{
 			buffers.at(1) = buffer.lock();
 		}
+		else if (attribute == "in_TexCoord")
+		{
+			buffers.at(2) = buffer.lock();
+		}
 		else
 		{
+			std::cout << "Couldnt set buffer: " << attribute << std::endl;
 			throw std::exception();
 		}
 
@@ -37,6 +45,7 @@ namespace OluxEngine
 	{
 		if (!buffers.at(0))
 		{
+			std::cout << "COULDNT GET VERT COUNT" << std::endl;
 			throw std::exception();
 		}
 

@@ -1,7 +1,7 @@
 #include "Resource.h"
 
 #include <GL/glew.h>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 #include <string>
 #include <memory>
@@ -27,6 +27,7 @@ namespace OluxEngine
             void SetUniform(std::string uniform, glm::vec4 val);
             void SetUniform(std::string uniform, glm::mat4 val);
             void SetUniform(std::string uniform, float val);
+			void SetUniform(std::string uniform, int val);
             GLuint getId();
     };
 }

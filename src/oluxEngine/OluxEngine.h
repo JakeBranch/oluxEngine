@@ -10,5 +10,6 @@
 #include "MeshRenderer.h"
 #include "Resources.h"
 #include "Resource.h"
+#include "Texture.h"
 
 #endif

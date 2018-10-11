@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Resources.h"
+#include "Texture.h"
 
 #include <memory>
 
@@ -12,6 +13,7 @@ namespace OluxEngine
     {
         public:
             void onInit();
+			void setTexture(std::shared_ptr<Texture> t);
 
         private:
             void onDisplay();
@@ -19,5 +21,6 @@ namespace OluxEngine
             std::shared_ptr<VertexArray> shape;
             std::shared_ptr<ShaderProgram> shader;
 			std::shared_ptr<Resources> resources;
+			std::shared_ptr<Texture> texture;
     };
 }

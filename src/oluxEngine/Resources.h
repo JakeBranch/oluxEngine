@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <list>
+#include <iostream>
 
 namespace OluxEngine
 {

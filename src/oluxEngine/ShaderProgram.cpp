@@ -1,7 +1,7 @@
 #include "ShaderProgram.h"
 #include "VertexArray.h"
 
-#include "ext.hpp"
+#include <glm/ext.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -91,8 +91,8 @@ namespace OluxEngine
 		glGetShaderiv(vertShader, GL_COMPILE_STATUS, &result);
 		if (!result)
 		{
+			std::cout << " vert COMPILE STATUS" << std::endl;
 			throw std::exception();
-			std::cout << "COMPILE STATUS" << std::endl;
 		}
 
 		glAttachShader(rtn->id, vertShader);
@@ -109,8 +109,26 @@ namespace OluxEngine
 		glGetShaderiv(fragShader, GL_COMPILE_STATUS, &result);
 		if (!result)
 		{
+			GLint maxLength = 0;
+			glGetShaderiv(fragShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+			//std::vector<GLchar> errorLog(maxLength);
+			GLchar errorLog[1024];
+			glGetShaderInfoLog(fragShader, maxLength, &maxLength, &errorLog[0]);
+
+			//std::cout << errorLog[0] << std::endl;
+
+			int i = 0;
+			while(i <= maxLength)
+			{
+				std::cout << errorLog[i];
+				i++;
+			}
+
+			glDeleteShader(fragShader);
+
+			std::cout << "frag COMPILE STATUS" << std::endl;
 			throw std::exception();
-			std::cout << "COMPILE STATUS" << std::endl;
 		}
 
 		glAttachShader(rtn->id, fragShader);
@@ -119,16 +137,16 @@ namespace OluxEngine
 		glGetProgramiv(rtn->id, GL_LINK_STATUS, &result);
 		if (!result)
 		{
-			throw std::exception();
 			std::cout << "GL_LINK_STATUS" << std::endl;
+			throw std::exception();
 		}
 
 		glValidateProgram(rtn->id);
 		glGetProgramiv(rtn->id, GL_VALIDATE_STATUS, &result);
 		if (!result)
 		{
-			throw std::exception();
 			std::cout << "GL_VALIDATE_STATUS" << std::endl;
+			throw std::exception();
 		}
 
 		return rtn;
@@ -162,7 +180,7 @@ namespace OluxEngine
 
         if(!id)
         {
-            printf("Error creating shader program");
+			std::cout << "Error creating shader program" << std::endl;
             throw std::exception();
         }
 
@@ -175,16 +193,16 @@ namespace OluxEngine
         glGetProgramiv(id, GL_LINK_STATUS, &result);
         if (!result)
         {       
+			std::cout << "GL_LINK_STATUS" << std::endl;
             throw std::exception();
-             std::cout << "GL_LINK_STATUS" << std::endl;
         }
 
         glValidateProgram(id);
         glGetProgramiv(id, GL_VALIDATE_STATUS, &result);
         if (!result)
         {
+			std::cout << "GL_VALIDATE_STATUS" << std::endl;
             throw std::exception();
-             std::cout << "GL_VALIDATE_STATUS" << std::endl;
         }
     }
 
@@ -208,8 +226,8 @@ namespace OluxEngine
         glGetShaderiv(theShader, GL_COMPILE_STATUS, &result);
         if (!result)
         {
+			std::cout << "shader COMPILE STATUS" << std::endl;
             throw std::exception();
-             std::cout << "COMPILE STATUS" << std::endl;
         }
 
         glAttachShader(program, theShader);
@@ -225,6 +243,66 @@ namespace OluxEngine
         glBindVertexArray(0);
         glUseProgram(0);
     }
+
+	void ShaderProgram::SetUniform(std::string uniform, glm::vec4 value)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if (uniformId == -1)
+		{
+			std::cout << "CANNOT SET UNIFORM: " << uniform << std::endl;
+			throw std::exception();
+		}
+
+		glUseProgram(id);
+		glUniform4f(uniformId, value.x, value.y, value.z, value.w);
+		glUseProgram(0);
+	}
+
+	void ShaderProgram::SetUniform(std::string uniform, int value)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if (uniformId == -1)
+		{
+			std::cout << "CANNOT SET UNIFORM: " << uniform << std::endl;
+			throw std::exception();
+		}
+
+		glUseProgram(id);
+		glUniform1i(uniformId, value);
+		glUseProgram(0);
+	}
+
+	void ShaderProgram::SetUniform(std::string uniform, float value)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if (uniformId == -1)
+		{
+			std::cout << "CANNOT SET UNIFORM: " << uniform << std::endl;
+			throw std::exception();
+		}
+
+		glUseProgram(id);
+		glUniform1f(uniformId, value);
+		glUseProgram(0);
+	}
+
+	void ShaderProgram::SetUniform(std::string uniform, glm::mat4 value)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if (uniformId == -1)
+		{
+			std::cout << "CANNOT SET UNIFORM: " << uniform << std::endl;
+			throw std::exception();
+		}
+
+		glUseProgram(id);
+		glUniformMatrix4fv(uniformId, 1, GL_FALSE, glm::value_ptr(value));
+		glUseProgram(0);
+	}
 
     GLuint ShaderProgram::getId()
     {
