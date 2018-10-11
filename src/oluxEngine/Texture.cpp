@@ -38,13 +38,9 @@ namespace OluxEngine
 
 		glBindTexture(GL_TEXTURE_2D, rtn->id);
 
-		std::cout << "START" << std::endl;
-
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		free(data);
 		glGenerateMipmap(GL_TEXTURE_2D);
-
-		std::cout << "FINISH" << std::endl;
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
