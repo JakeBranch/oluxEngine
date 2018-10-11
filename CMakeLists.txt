@@ -44,8 +44,6 @@ add_executable(
 	contrib/stb_image/stb_image.cpp
 )
 
-file(COPY resources DESTINATION ${CMAKE_BINARY_DIR})
-
 if(MSVC)
 	target_link_libraries(oluxEngine
 		SDL2 glew32 opengl32
