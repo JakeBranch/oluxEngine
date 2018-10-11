@@ -21,7 +21,7 @@ namespace OluxEngine
     }
 
 	std::shared_ptr<ShaderProgram> ShaderProgram::Load(const char* vertLoc, const char* fragLoc)
-	{
+	{		
 		std::ifstream fileStream(vertLoc, std::ios::in);
 		std::string vertSrc;
 

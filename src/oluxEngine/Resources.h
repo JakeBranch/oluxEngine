@@ -12,12 +12,6 @@ namespace OluxEngine
 	class Resources
 	{
 		public:
-			/*template <typename T>
-			std::shared_ptr<T> Load()
-			{
-				T::Load();
-			}*/
-
 			template <typename T, typename A>
 			std::shared_ptr<T> Load(A a)
 			{
@@ -35,12 +29,6 @@ namespace OluxEngine
 
 				return rtn;
 			}
-
-			/*template <typename T>
-			std::shared_ptr<T> Create()
-			{
-
-			}*/
 
 		private:
 			std::list<std::shared_ptr<Resource>> resources;
