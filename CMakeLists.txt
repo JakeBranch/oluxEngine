@@ -3,7 +3,7 @@ project(OLUXENGINE)
 
 include_directories(
 	src
-	contrib/glm
+	contrib
 )	
 
 if(MSVC)
@@ -31,8 +31,9 @@ add_library(
 	src/oluxEngine/VertexBuffer.cpp
 	src/oluxEngine/ShaderProgram.cpp
 	src/oluxEngine/MeshRenderer.cpp
-	
+	src/oluxEngine/Resources.cpp
 	src/oluxEngine/Resource.cpp
+	src/oluxEngine/Texture.cpp
 )
 
 add_executable(
@@ -40,6 +41,7 @@ add_executable(
 	src/game/main.cpp
 	src/game/TestScene.cpp
 	src/game/TestScene.h
+	contrib/stb_image/stb_image.cpp
 )
 
 file(COPY resources DESTINATION ${CMAKE_BINARY_DIR})
