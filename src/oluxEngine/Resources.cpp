@@ -10,6 +10,7 @@ namespace OluxEngine
                 {
                     std::cout << "DELETE" << std::endl;
                     it = resources.erase(it);
+                    it--;
                 }
         }
     }

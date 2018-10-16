@@ -6,5 +6,5 @@ class TestScene : public OluxEngine::Component
 	public:
 		void onInit();
 		void onBegin();
-		void onTick();
+		void update();
 };

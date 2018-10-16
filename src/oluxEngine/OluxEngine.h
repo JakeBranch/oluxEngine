@@ -12,5 +12,6 @@
 #include "Resource.h"
 #include "Texture.h"
 #include "Sound.h"
+#include "Exception.h"
 
 #endif

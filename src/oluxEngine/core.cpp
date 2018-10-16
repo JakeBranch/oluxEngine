@@ -81,7 +81,27 @@ namespace OluxEngine
 			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
 				it != entities.end(); it++)
 			{
-				(*it)->update();
+				try
+				{
+					(*it)->update();
+				}
+				catch(Exception& e)
+				{
+					std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+					(*it)->destroy();
+				}
+			}
+
+			for(auto it = entities.begin(); it != entities.end();)
+			{
+				if(!(*it)->getAlive())
+				{
+					it = entities.erase(it);
+				}
+				else
+				{
+					it++;
+				}
 			}
 
 			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);

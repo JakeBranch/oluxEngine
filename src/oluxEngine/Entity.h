@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 
+#include "Exception.h"
+
 #define ADDCOMPONENT \
 	std::shared_ptr<T> rtn = std::make_shared<T>(); \
 	rtn->entity = self; \
@@ -47,6 +49,8 @@ namespace OluxEngine
 
 			std::shared_ptr<Core> getCore();
 
+			bool alive = true;
+
 		private:
 			std::weak_ptr<Entity> self;
 			std::weak_ptr<Core> core;
@@ -54,6 +58,8 @@ namespace OluxEngine
 
 			void update();
 			void display();
+			void destroy();
 
+			bool getAlive();
 	};
 }

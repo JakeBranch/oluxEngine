@@ -13,6 +13,8 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
 	class Entity;

@@ -4,6 +4,8 @@
 
 #include <memory>
 
+#include <glm/ext.hpp>
+
 namespace OluxEngine
 {
     class VertexArray;
@@ -22,5 +24,7 @@ namespace OluxEngine
             std::shared_ptr<ShaderProgram> shader;
 			std::shared_ptr<Resources> resources;
 			std::shared_ptr<Texture> texture;
+    
+            float angle;
     };
 }

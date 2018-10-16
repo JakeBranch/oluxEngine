@@ -42,6 +42,7 @@ add_library(
 	src/oluxEngine/Resource.cpp
 	src/oluxEngine/Texture.cpp
 	src/oluxEngine/Sound.cpp
+	src/oluxEngine/Exception.cpp
 )
 
 if(MSVC)

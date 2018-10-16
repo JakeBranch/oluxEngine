@@ -17,23 +17,28 @@
 
 int main(int argc, char* argv[])
 {
-	std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
+	try
+	{
+		std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
 
-	std::shared_ptr<OluxEngine::Entity> entity = core->addEntity();
-	
-	// std::shared_ptr<OluxEngine::Sound> s = std::make_shared<OluxEngine::Sound>("dixie_horn.ogg");
-  	// s->play();
+		std::shared_ptr<OluxEngine::Entity> entity = core->addEntity();
 
-	std::shared_ptr<TestScene> ts = entity->addComponent<TestScene>();
+		std::shared_ptr<TestScene> ts = entity->addComponent<TestScene>();
 
-	std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/texture.png");
+		std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/texture.png");
 
-	std::shared_ptr<OluxEngine::Sound> soundfx = core->getResources()->Load<OluxEngine::Sound>("dixie_horn.ogg");
-	soundfx->play();
+		std::shared_ptr<OluxEngine::Sound> soundfx = core->getResources()->Load<OluxEngine::Sound>("dixie_horn.ogg");
+		soundfx->play();
 
-	std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>();
-	mr->onInit();
-	mr->setTexture(t);
+		std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>();
+		mr->onInit();
+		mr->setTexture(t);
 
-	core->Start();
+		core->Start();
+	}
+	catch(OluxEngine::Exception& e)
+	{
+		std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+	}
+
 }

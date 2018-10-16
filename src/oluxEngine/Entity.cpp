@@ -1,5 +1,9 @@
 #include "Entity.h"
 
+#include <cstdlib>
+
+#include <iostream>
+
 namespace OluxEngine
 {
 	std::shared_ptr<Core> Entity::getCore()
@@ -19,6 +23,13 @@ namespace OluxEngine
 			}
 
 			(*it)->update();
+
+			/*
+			int x = (rand()%100);
+			if(x >= 90)
+			{
+				throw Exception("Entity Thrown!!");
+			}*/
 		}
 	}
 
@@ -29,5 +40,15 @@ namespace OluxEngine
 		{
 			(*it)->onDisplay();
 		}
+	}
+
+	void Entity::destroy()
+	{
+		alive = false;
+	}
+
+	bool Entity::getAlive()
+	{
+		return alive;
 	}
 }
