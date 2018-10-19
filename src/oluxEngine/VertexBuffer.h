@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
 	class VertexBuffer

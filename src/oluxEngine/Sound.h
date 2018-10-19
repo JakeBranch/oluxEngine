@@ -9,6 +9,8 @@
 #include <AL/al.h>
 #include <vorbis/vorbisfile.h>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
 

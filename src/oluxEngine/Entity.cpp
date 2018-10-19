@@ -24,8 +24,8 @@ namespace OluxEngine
 
 			(*it)->update();
 
-			/*
-			int x = (rand()%100);
+			
+			/*int x = (rand()%100);
 			if(x >= 90)
 			{
 				throw Exception("Entity Thrown!!");

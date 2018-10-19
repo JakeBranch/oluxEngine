@@ -6,6 +6,8 @@
 #include <string>
 #include <memory>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
     class VertexArray;
@@ -13,13 +15,10 @@ namespace OluxEngine
     class ShaderProgram : public Resource
     {
         GLuint id;
-        std::string ReadFile(const char* fileLocation);
-        void CompileShader(const char* vertCode, const char* fragCode);
-        void AddShader(GLuint program, const char* code, GLenum type);
 
         public:
 			static std::shared_ptr<ShaderProgram> Load(const char* vertLoc, const char* fragLoc);
-			static std::shared_ptr<ShaderProgram> Create(const char* vertCode, const char* fragCode);
+			static std::shared_ptr<ShaderProgram> Create(const char* vertCode, const char* fragCode, const char* vertLoc, const char* fragLoc);
 
 			ShaderProgram();
             //ShaderProgram(const char* vertLoc, const char* fragLoc);

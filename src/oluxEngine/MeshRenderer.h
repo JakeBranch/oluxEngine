@@ -6,6 +6,8 @@
 
 #include <glm/ext.hpp>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
     class VertexArray;

@@ -10,8 +10,7 @@ namespace OluxEngine
 
 		if (!id)
 		{
-			std::cout << "COULDNT GEN VBO" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to generate vertex buffer");
 		}
 	}
 
@@ -24,8 +23,7 @@ namespace OluxEngine
 
 		if (numOfComponents != 2)
 		{
-			std::cout << "num of components != 2" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to add component to vertex buffer");
 		}
 
 		data.push_back(value.x);
@@ -42,8 +40,7 @@ namespace OluxEngine
 
 		if (numOfComponents != 3)
 		{
-			std::cout << "num of components != 3" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to add component to vertex buffer");
 		}
 
 		data.push_back(value.x);
@@ -61,8 +58,7 @@ namespace OluxEngine
 
 		if (numOfComponents != 4)
 		{
-			std::cout << "num of components != 4" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to add component to vertex buffer");
 		}
 
 		data.push_back(value.x);
@@ -81,8 +77,7 @@ namespace OluxEngine
 	{
 		if (!numOfComponents)
 		{
-			std::cout << "Couldnt get numofcomponents" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to get number of components of vertex buffer");
 		}
 
 		return numOfComponents;

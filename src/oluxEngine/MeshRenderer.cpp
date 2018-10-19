@@ -38,7 +38,8 @@ namespace OluxEngine
 		const char* fragLoc = "resources/shaders/simple.frag";
 
 		resources = std::make_shared<Resources>();
-		shader = resources->Load<ShaderProgram>(vertLoc, fragLoc);
+
+		shader = resources->Load<ShaderProgram>(vertLoc, fragLoc);	
 	}
 
 	void MeshRenderer::onDisplay()

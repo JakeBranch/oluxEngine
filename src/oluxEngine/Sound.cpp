@@ -68,7 +68,10 @@ namespace OluxEngine
         if(ov_fopen(fileName.c_str(), &oggFile) != 0)
         {
         std::cout << "Failed to open file '" << fileName << "' for decoding" << std::endl;
-        throw std::exception();
+        
+            std::string errorMessage = "Failed to open file: ";
+			errorMessage += fileName;
+			throw Exception(errorMessage);
         }
 
         // Extract information from the file header
@@ -96,8 +99,10 @@ namespace OluxEngine
         if(bytes < 0)
         {
             ov_clear(&oggFile);
-            std::cout << "Failed to decode file '" << fileName << "'." << std::endl;
-            throw std::exception();
+    
+            std::string errorMessage = "Failed to decode file: ";
+			errorMessage += fileName;
+			throw Exception(errorMessage);
         }
         else if(bytes == 0)
         {

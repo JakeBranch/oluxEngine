@@ -11,8 +11,7 @@ namespace OluxEngine
 
 		if (!id)
 		{
-			std::cout << "COULDNT GENERATE VERTEX ARRAY" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to generate vertex array");
 		}
 
 		buffers.resize(10);
@@ -34,8 +33,9 @@ namespace OluxEngine
 		}
 		else
 		{
-			std::cout << "Couldnt set buffer: " << attribute << std::endl;
-			throw std::exception();
+			std::string errorMessage = "Failed to set buffer attribute: ";
+			errorMessage += attribute;
+			throw Exception(errorMessage);
 		}
 
 		dirty = true;
@@ -45,8 +45,7 @@ namespace OluxEngine
 	{
 		if (!buffers.at(0))
 		{
-			std::cout << "COULDNT GET VERT COUNT" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to get vertex count");
 		}
 
 		return buffers.at(0)->getDataSize() / buffers.at(0)->getNumOfComponents();

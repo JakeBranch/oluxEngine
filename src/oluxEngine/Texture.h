@@ -9,6 +9,8 @@
 #include <string>
 #include <memory>
 
+#include "Exception.h"
+
 namespace OluxEngine
 {
 	class Texture : public Resource

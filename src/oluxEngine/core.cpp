@@ -17,7 +17,7 @@ namespace OluxEngine
 
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
-			throw std::exception();
+			throw Exception("SDL: Failed to initialise");
 		}
 
 		rtn->window = SDL_CreateWindow("OluxEngine",
@@ -27,19 +27,19 @@ namespace OluxEngine
 
 		if (!SDL_GL_CreateContext(rtn->window))
 		{
-			throw std::exception();
+			throw Exception("SDL/OpenGL: Context failed to initialise");
 		}
 
 		if (glewInit() != GLEW_OK)
 		{
-			throw std::exception();
+			throw Exception("GLEW: Failed to initialise");
 		}
 
 		rtn->device = alcOpenDevice(NULL);
 
 		if(!rtn->device)
 		{
-			throw std::exception();
+			throw Exception("OpenAL: Failed to open audio device");
 		}
 
 		rtn->context = alcCreateContext(rtn->device, NULL);
@@ -47,14 +47,14 @@ namespace OluxEngine
 		if(!rtn->context)
 		{
 			alcCloseDevice(rtn->device);
-			throw std::exception();
+			throw Exception("OpenAL: Failed to create context");
 		}
 
 		if(!alcMakeContextCurrent(rtn->context))
 		{
 			alcDestroyContext(rtn->context);
 			alcCloseDevice(rtn->device);
-			throw std::exception();
+			throw Exception("OpenAL: Failed to make context current");
 		}
 
 		rtn->resourceManager = std::make_shared<Resources>();
@@ -111,7 +111,15 @@ namespace OluxEngine
 			for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
 				it != entities.end(); it++)
 			{
-				(*it)->display();
+				try
+				{
+					(*it)->display();
+				}
+				catch(Exception& e)
+				{
+					std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+					(*it)->destroy();
+				}
 			}
 
 			SDL_GL_SwapWindow(window);

@@ -15,8 +15,9 @@ namespace OluxEngine
 		unsigned char* data = stbi_load(fileLoc, &w, &h, &channels, STBI_rgb_alpha);
 		if (!data)
 		{
-			std::cout << "Couldnt load texture from: " << path << std::endl;
-			throw std::exception();
+			std::string errorMessage = "Failed to load texture: ";
+			errorMessage += path;
+			throw Exception(errorMessage);
 		}
 
 		std::shared_ptr<Texture> rtn = Create(w, h, data);
@@ -32,8 +33,7 @@ namespace OluxEngine
 
 		if (!rtn->id)
 		{
-			std::cout << "Failed to generate texture" << std::endl;
-			throw std::exception();
+			throw Exception("Failed to generate texture");
 		}
 
 		glBindTexture(GL_TEXTURE_2D, rtn->id);
