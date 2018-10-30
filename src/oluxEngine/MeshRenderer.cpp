@@ -14,25 +14,26 @@ namespace OluxEngine
 	void MeshRenderer::onInit()
 	{
 		angle = 0;
-		std::shared_ptr<VertexBuffer> positions = std::make_shared<VertexBuffer>();
+		/*std::shared_ptr<VertexBuffer> positions = std::make_shared<VertexBuffer>();
 		positions->add(glm::vec3(0.0f, 0.5f, 0.0f));
 		positions->add(glm::vec3(-0.5f, -0.5f, 0.0f));
-		positions->add(glm::vec3(0.5f, -0.5f, 0.0f));
+		positions->add(glm::vec3(0.5f, -0.5f, 0.0f)); 
 
-		std::shared_ptr<VertexBuffer> colors = std::make_shared<VertexBuffer>();
+		/*std::shared_ptr<VertexBuffer> colors = std::make_shared<VertexBuffer>();
 		colors->add(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		colors->add(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		colors->add(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		colors->add(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));*/
 
-		std::shared_ptr<VertexBuffer> texCoords = std::make_shared<VertexBuffer>();
+		/*std::shared_ptr<VertexBuffer> texCoords = std::make_shared<VertexBuffer>();
 		texCoords->add(glm::vec2(0.5f, 0.0f));
 		texCoords->add(glm::vec2(0.0f, 1.0f));
-		texCoords->add(glm::vec2(1.0f, 1.0f));
+		texCoords->add(glm::vec2(1.0f, 1.0f));*/
 
-		shape = std::make_shared<VertexArray>();
-		shape->setBuffer("in_Position", positions);
+		shape = std::make_shared<VertexArray>("resources/curuthers.obj");
+		
+		/*shape->setBuffer("in_Position", positions);
 		shape->setBuffer("in_Color", colors);
-		shape->setBuffer("in_TexCoord", texCoords);
+		shape->setBuffer("in_TexCoord", texCoords);*/
 
 		const char* vertLoc = "resources/shaders/simple.vert";
 		const char* fragLoc = "resources/shaders/simple.frag";
@@ -40,20 +41,26 @@ namespace OluxEngine
 		resources = std::make_shared<Resources>();
 
 		shader = resources->Load<ShaderProgram>(vertLoc, fragLoc);	
+
 	}
 
 	void MeshRenderer::onDisplay()
 	{
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0, 0, -2.5f));
-    	model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 1, 0));
+		shader->SetUniform("in_View", glm::inverse(model));
 
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0, -2.1f, -20.0f));
+    	model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 1, 0));
 		shader->SetUniform("in_Model", model);
+
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture->getId());
+		shader->SetUniform("in_Texture", texture);
+
+		/*glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture->getId());*/
 
 		shader->Draw(*shape);
 

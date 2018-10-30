@@ -13,5 +13,6 @@
 #include "Texture.h"
 #include "Sound.h"
 #include "Exception.h"
+#include "Camera.h"
 
 #endif

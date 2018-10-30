@@ -58,6 +58,7 @@ namespace OluxEngine
 		}
 
 		rtn->resourceManager = std::make_shared<Resources>();
+		rtn->camera = std::make_shared<Camera>();
 
 		return rtn;
 	}
@@ -104,6 +105,8 @@ namespace OluxEngine
 				}
 			}
 
+			camera->update();
+
 			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -131,7 +134,7 @@ namespace OluxEngine
 			{
 				std::cout << "CLEAN UP" << std::endl;
 				resourceManager->cleanUp();
-
+				
 				clockStart = clock();
 			}
 		}

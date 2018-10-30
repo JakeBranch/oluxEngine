@@ -14,6 +14,7 @@
 #include <AL/alc.h>
 
 #include "Exception.h"
+#include "Camera.h"
 
 namespace OluxEngine
 {
@@ -34,7 +35,8 @@ namespace OluxEngine
 			bool running;
 			std::vector<std::shared_ptr<Entity>> entities;
 			std::weak_ptr<Core> self;
-			std::shared_ptr<Resources> resourceManager;
+			std::shared_ptr <Resources> resourceManager;
+			std::shared_ptr<Camera> camera;
 
 			clock_t clockStart;
 			double timer;

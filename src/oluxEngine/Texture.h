@@ -9,6 +9,8 @@
 #include <string>
 #include <memory>
 
+#include <glm/glm.hpp>
+
 #include "Exception.h"
 
 namespace OluxEngine
@@ -18,11 +20,13 @@ namespace OluxEngine
 		GLuint id;
 		bool dirty;
 		int type;
+		glm::vec2 size;
 
 		public:
 			static std::shared_ptr<Texture> Load(std::string path);
 			static std::shared_ptr<Texture> Create(unsigned int width, unsigned int height, unsigned char* data);
 			GLuint getId();
+			glm::vec2 getSize();
 	};
 }
 

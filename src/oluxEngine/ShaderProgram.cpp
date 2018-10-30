@@ -164,7 +164,27 @@ namespace OluxEngine
         glUseProgram(id);
         glBindVertexArray(vertexArray.getId());
 
+		for(size_t i = 0; i < samplers.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+
+			if(samplers.at(i).texture)
+			{
+				glBindTexture(GL_TEXTURE_2D, samplers.at(i).texture->getId());
+			}
+			else
+			{
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
+		}
+
         glDrawArrays(GL_TRIANGLES, 0, vertexArray.getVertexCount());
+
+		for(size_t i = 0; i < samplers.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 
         glBindVertexArray(0);
         glUseProgram(0);
@@ -231,6 +251,38 @@ namespace OluxEngine
 
 		glUseProgram(id);
 		glUniformMatrix4fv(uniformId, 1, GL_FALSE, glm::value_ptr(value));
+		glUseProgram(0);
+	}
+
+	void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<Texture> texture)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if(uniformId == -1)
+		{
+			throw std::exception();
+		}
+
+		for(size_t i = 0; i < samplers.size(); i++)
+		{
+			if(samplers.at(i).id == uniformId)
+			{
+			samplers.at(i).texture = texture;
+
+			glUseProgram(id);
+			glUniform1i(uniformId, i);
+			glUseProgram(0);
+			return;
+			}
+		}
+
+		Sampler s;
+		s.id = uniformId;
+		s.texture = texture;
+		samplers.push_back(s);
+
+		glUseProgram(id);
+		glUniform1i(uniformId, samplers.size() - 1);
 		glUseProgram(0);
 	}
 

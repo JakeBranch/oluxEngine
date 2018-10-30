@@ -5,16 +5,25 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "Exception.h"
+#include "Texture.h"
 
 namespace OluxEngine
 {
     class VertexArray;
 
+    struct Sampler
+    {
+        GLint id;
+        std::shared_ptr<Texture> texture;
+    };
+
     class ShaderProgram : public Resource
     {
         GLuint id;
+        std::vector<Sampler> samplers;
 
         public:
 			static std::shared_ptr<ShaderProgram> Load(const char* vertLoc, const char* fragLoc);
@@ -27,6 +36,7 @@ namespace OluxEngine
             void SetUniform(std::string uniform, glm::mat4 val);
             void SetUniform(std::string uniform, float val);
 			void SetUniform(std::string uniform, int val);
+            void SetUniform(std::string uniform, std::shared_ptr<Texture> texture);
             GLuint getId();
     };
 }

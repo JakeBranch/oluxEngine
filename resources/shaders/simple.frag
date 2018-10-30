@@ -1,6 +1,5 @@
 uniform sampler2D in_Texture;
 
-varying vec4 ex_Color;
 varying vec2 ex_TexCoord;
 
 void main()
