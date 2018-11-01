@@ -2,6 +2,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "ShaderProgram.h"
+#include "Core.h"
 
 #include <iostream>
 
@@ -38,9 +39,10 @@ namespace OluxEngine
 		const char* vertLoc = "resources/shaders/simple.vert";
 		const char* fragLoc = "resources/shaders/simple.frag";
 
-		resources = std::make_shared<Resources>();
-
-		shader = resources->Load<ShaderProgram>(vertLoc, fragLoc);	
+		// resources = std::make_shared<Resources>();
+		// shader = resources->Load;
+		shader = getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc);
+		// getCore()->getResources();
 
 	}
 

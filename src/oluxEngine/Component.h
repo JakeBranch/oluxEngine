@@ -19,7 +19,7 @@ namespace OluxEngine
 		std::shared_ptr<Entity> getEntity();
 
 	private:
-		std::weak_ptr<Core> core;
+		//std::weak_ptr<Core> core;
 		std::weak_ptr<Entity> entity;
 		bool began;
 

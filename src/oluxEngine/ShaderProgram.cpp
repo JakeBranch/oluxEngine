@@ -142,6 +142,11 @@ namespace OluxEngine
 
 		glAttachShader(rtn->id, fragShader);
 
+		glBindAttribLocation(rtn->id, 0, "in_Position");
+		glBindAttribLocation(rtn->id, 1, "in_Color");
+		glBindAttribLocation(rtn->id, 2, "in_TexCoord");
+		glBindAttribLocation(rtn->id, 3, "in_Normal");
+
 		glLinkProgram(rtn->id);
 		glGetProgramiv(rtn->id, GL_LINK_STATUS, &result);
 		if (!result)
