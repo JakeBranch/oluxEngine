@@ -152,6 +152,11 @@ namespace OluxEngine
 		return resourceManager;
 	}
 
+	std::shared_ptr<Camera> Core::getCamera()
+	{
+		return camera;
+	}
+
 	std::shared_ptr<Entity> Core::addEntity()
 	{
 		std::shared_ptr<Entity> rtn = std::make_shared<Entity>();

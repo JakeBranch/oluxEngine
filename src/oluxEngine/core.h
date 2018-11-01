@@ -30,6 +30,7 @@ namespace OluxEngine
 			std::shared_ptr<Entity> addEntity();
 
 			std::shared_ptr<Resources> getResources();
+			std::shared_ptr<Camera> getCamera();
 
 		private:
 			bool running;

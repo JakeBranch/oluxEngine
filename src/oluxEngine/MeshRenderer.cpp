@@ -49,7 +49,9 @@ namespace OluxEngine
 	void MeshRenderer::onDisplay()
 	{
 		glm::mat4 model(1.0f);
-		shader->SetUniform("in_View", glm::inverse(model));
+		glm::mat4 viewMatrix = getCore()->getCamera()->getViewMatrix();
+
+		shader->SetUniform("in_View", viewMatrix);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0, -2.1f, -20.0f));
