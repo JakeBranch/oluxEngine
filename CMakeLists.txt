@@ -45,6 +45,9 @@ add_library(
 	src/oluxEngine/Exception.cpp
 	src/oluxEngine/Exception.cpp
 	src/oluxEngine/Camera.cpp
+	src/oluxEngine/Keyboard.cpp
+	src/oluxEngine/Mouse.cpp
+	src/oluxEngine/Transform.cpp
 )
 
 if(MSVC)

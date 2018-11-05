@@ -15,6 +15,10 @@
 
 #include "Exception.h"
 #include "Camera.h"
+#include "Keyboard.h"
+#include "Mouse.h"
+
+#include <glm/glm.hpp>
 
 namespace OluxEngine
 {
@@ -31,6 +35,8 @@ namespace OluxEngine
 
 			std::shared_ptr<Resources> getResources();
 			std::shared_ptr<Camera> getCamera();
+			std::shared_ptr<Keyboard> getKeyboard();
+			std::shared_ptr<Mouse> getMouse();
 
 		private:
 			bool running;
@@ -38,6 +44,11 @@ namespace OluxEngine
 			std::weak_ptr<Core> self;
 			std::shared_ptr <Resources> resourceManager;
 			std::shared_ptr<Camera> camera;
+			std::shared_ptr<Keyboard> keyboard;
+			std::shared_ptr<Mouse> mouse;
+
+			int mousePosX;
+			int mousePosY;
 
 			clock_t clockStart;
 			double timer;

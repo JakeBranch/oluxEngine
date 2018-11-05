@@ -73,6 +73,11 @@ namespace OluxEngine
 		return data.size();
 	}
 
+	std::vector<GLfloat> VertexBuffer::getData()
+	{
+		return data;
+	}
+
 	int VertexBuffer::getNumOfComponents()
 	{
 		if (!numOfComponents)

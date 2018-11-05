@@ -59,12 +59,15 @@ namespace OluxEngine
 
 		rtn->resourceManager = std::make_shared<Resources>();
 		rtn->camera = std::make_shared<Camera>();
+		rtn->keyboard = std::make_shared<Keyboard>();
+		rtn->mouse = std::make_shared<Mouse>();
 
 		return rtn;
 	}
 
 	void Core::Start()
 	{
+		int tick = 0;
 		running = true;
 		while (running)
 		{
@@ -78,7 +81,30 @@ namespace OluxEngine
 				}
 			}
 
-			//Update all entities
+			keyboard->update();
+
+			mouse->update();
+			
+			//-----------------| MOUSE & KEYBOARD tests |--------------------
+			/*if(tick > 250)
+			{
+				std::cout << "Mouse.x: " << mouse->getPosition().x << std::endl;
+				std::cout << "Mouse.y: " << mouse->getPosition().y << std::endl;
+				tick = 0;
+			}
+			else{
+				tick++;
+			}
+						
+			if(keyboard->getKeyDown(SDL_SCANCODE_W))
+			{
+				if(keyboard->getKeyDown(SDL_SCANCODE_LSHIFT))
+				{
+					std::cout << "W Pressed" << std::endl;
+				}
+			}*/
+			//-----------------| MOUSE & KEYBOARD tests |--------------------
+
 			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
 				it != entities.end(); it++)
 			{
@@ -155,6 +181,11 @@ namespace OluxEngine
 	std::shared_ptr<Camera> Core::getCamera()
 	{
 		return camera;
+	}
+
+	std::shared_ptr<Keyboard> Core::getKeyboard()
+	{
+		return keyboard;
 	}
 
 	std::shared_ptr<Entity> Core::addEntity()

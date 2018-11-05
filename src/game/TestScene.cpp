@@ -12,6 +12,11 @@ void TestScene::onInit()
 
 void TestScene::update()
 {
-	//std::cout << "onTick" << std::endl;
-	//throw OluxEngine::Exception("I decided to throw...");	
+	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
+	{
+		if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_LSHIFT))
+		{
+			std::cout << "FUCK YEAH" << std::endl;
+		}
+	}
 }

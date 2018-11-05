@@ -14,5 +14,8 @@
 #include "Sound.h"
 #include "Exception.h"
 #include "Camera.h"
+#include "Keyboard.h"
+#include "Mouse.h"
+#include "Transform.h"
 
 #endif

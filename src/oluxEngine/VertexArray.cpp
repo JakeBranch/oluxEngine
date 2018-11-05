@@ -135,18 +135,22 @@ namespace OluxEngine
 		if (attribute == "in_Position")
 		{
 			buffers.at(0) = buffer.lock();
+			position = buffers.at(0)->getData();
 		}
 		else if (attribute == "in_Color")
 		{
 			buffers.at(1) = buffer.lock();
+			color = buffers.at(1)->getData();
 		}
 		else if (attribute == "in_TexCoord")
 		{
 			buffers.at(2) = buffer.lock();
+			texCoord = buffers.at(2)->getData();
 		}
 		else if(attribute == "in_Normal")
 		{
 			buffers.at(3) = buffer.lock();
+			normal = buffers.at(3)->getData();
 		}
 		else
 		{
@@ -253,5 +257,25 @@ namespace OluxEngine
 		{
 			output.push_back(curr);
 		}
+	}
+
+	std::vector<GLfloat> VertexArray::getPosition()
+	{
+		return position;
+	}
+
+	std::vector<GLfloat> VertexArray::getTexCoord()
+	{
+		return texCoord;
+	}
+
+	std::vector<GLfloat> VertexArray::getNormal()
+	{
+		return normal;
+	}
+
+	std::vector<GLfloat> VertexArray::getColor()
+	{
+		return color;
 	}
 }

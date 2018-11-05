@@ -9,11 +9,6 @@ namespace OluxEngine
         yaw = -90.0f;
         pitch = 0.0f;
         front = glm::vec3(0.0f, 0.0f, -1.0f);
-
-        //moveSpeed = startMoveSpeed;
-        //turnSpeed = startTurnSpeed;
-
-        //update();
     }
 
     glm::mat4 Camera::getViewMatrix()

@@ -22,6 +22,7 @@ namespace OluxEngine
 			void add(glm::vec4 value);
 			int getNumOfComponents();
 			int getDataSize();
+			std::vector<GLfloat> getData();
 			GLuint getId();
 	};
 }
