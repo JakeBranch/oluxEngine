@@ -16,8 +16,9 @@ namespace OluxEngine
     class MeshRenderer : public Component
     {
         public:
-            void onInit();
+            void onInit(std::string meshLoc);
 			void setTexture(std::shared_ptr<Texture> t);
+            void setShaders(std::string vertShader, std::string fragShader);
 
         private:
             void onDisplay();

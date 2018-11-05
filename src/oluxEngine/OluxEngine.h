@@ -17,5 +17,6 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Transform.h"
+#include "Light.h"
 
 #endif

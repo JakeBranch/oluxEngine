@@ -34,7 +34,6 @@ namespace OluxEngine
 			{
 				ADDCOMPONENT
 				rtn->onInit(a);
-				rtn->core = core;
 
 				return rtn;
 			}

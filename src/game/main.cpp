@@ -29,8 +29,9 @@ int main(int argc, char* argv[])
 
 		/*std::shared_ptr<OluxEngine::Sound> soundfx = core->getResources()->Load<OluxEngine::Sound>("dixie_horn.ogg");
 		soundfx->play();*/
-
-		std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>();
+		
+		std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>("resources/curuthers.obj");
+		mr->setShaders("resources/shaders/simple.vert", "resources/shaders/simple.frag");
 		mr->setTexture(t);
 
 		core->Start();

@@ -12,38 +12,10 @@
 namespace OluxEngine
 {
 
-	void MeshRenderer::onInit()
+	void MeshRenderer::onInit(std::string meshLoc)
 	{
 		angle = 0;
-		/*std::shared_ptr<VertexBuffer> positions = std::make_shared<VertexBuffer>();
-		positions->add(glm::vec3(0.0f, 0.5f, 0.0f));
-		positions->add(glm::vec3(-0.5f, -0.5f, 0.0f));
-		positions->add(glm::vec3(0.5f, -0.5f, 0.0f)); 
-
-		/*std::shared_ptr<VertexBuffer> colors = std::make_shared<VertexBuffer>();
-		colors->add(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		colors->add(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		colors->add(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));*/
-
-		/*std::shared_ptr<VertexBuffer> texCoords = std::make_shared<VertexBuffer>();
-		texCoords->add(glm::vec2(0.5f, 0.0f));
-		texCoords->add(glm::vec2(0.0f, 1.0f));
-		texCoords->add(glm::vec2(1.0f, 1.0f));*/
-
-		shape = std::make_shared<VertexArray>("resources/curuthers.obj");
-		
-		/*shape->setBuffer("in_Position", positions);
-		shape->setBuffer("in_Color", colors);
-		shape->setBuffer("in_TexCoord", texCoords);*/
-
-		const char* vertLoc = "resources/shaders/simple.vert";
-		const char* fragLoc = "resources/shaders/simple.frag";
-
-		// resources = std::make_shared<Resources>();
-		// shader = resources->Load;
-		shader = getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc);
-		// getCore()->getResources();
-
+		shape = std::make_shared<VertexArray>(meshLoc);
 	}
 
 	void MeshRenderer::onDisplay()
@@ -74,5 +46,13 @@ namespace OluxEngine
 	void MeshRenderer::setTexture(std::shared_ptr<Texture> t)
 	{
 		texture = t;
+	}
+
+	void MeshRenderer::setShaders(std::string vertShader, std::string fragShader)
+	{
+		const char* vertLoc = vertShader.c_str();
+		const char* fragLoc = fragShader.c_str();
+
+		shader = getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc);
 	}
 }
