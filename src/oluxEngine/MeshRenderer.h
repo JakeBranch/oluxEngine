@@ -25,7 +25,6 @@ namespace OluxEngine
 
             std::shared_ptr<VertexArray> shape;
             std::shared_ptr<ShaderProgram> shader;
-			std::shared_ptr<Resources> resources;
 			std::shared_ptr<Texture> texture;
     
             float angle;

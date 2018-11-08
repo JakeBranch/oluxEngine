@@ -47,9 +47,6 @@ namespace OluxEngine
 			std::shared_ptr<Keyboard> keyboard;
 			std::shared_ptr<Mouse> mouse;
 
-			int mousePosX;
-			int mousePosY;
-
 			clock_t clockStart;
 			double timer;
 

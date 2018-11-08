@@ -19,7 +19,6 @@ namespace OluxEngine
 	{
 		GLuint id;
 		bool dirty;
-		int type;
 		glm::vec2 size;
 
 		public:

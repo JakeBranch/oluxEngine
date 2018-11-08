@@ -48,6 +48,7 @@ add_library(
 	src/oluxEngine/Keyboard.cpp
 	src/oluxEngine/Mouse.cpp
 	src/oluxEngine/Transform.cpp
+	src/oluxEngine/Light.cpp
 )
 
 if(MSVC)
