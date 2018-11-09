@@ -39,6 +39,7 @@ namespace OluxEngine
 
 			ShaderProgram();
             void Draw(VertexArray &VertexArray);
+            void SetUniform(std::string uniform, glm::vec3 val);
             void SetUniform(std::string uniform, glm::vec4 val);
             void SetUniform(std::string uniform, glm::mat4 val);
             void SetUniform(std::string uniform, float val);

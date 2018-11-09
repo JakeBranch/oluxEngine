@@ -205,6 +205,25 @@ namespace OluxEngine
     }
 
 	/**
+	*Sets uniform variable to vec3 value
+	*/
+	void ShaderProgram::SetUniform(std::string uniform, glm::vec3 value)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if (uniformId == -1)
+		{
+			std::string errorMessage = "Failed set uniform value: ";
+			errorMessage += uniform;
+			throw Exception(errorMessage);
+		}
+
+		glUseProgram(id);
+		glUniform3f(uniformId, value.x, value.y, value.z);
+		glUseProgram(0);
+	}
+
+	/**
 	*Sets uniform variable to vec4 value
 	*/
 	void ShaderProgram::SetUniform(std::string uniform, glm::vec4 value)

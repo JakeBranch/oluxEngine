@@ -18,5 +18,6 @@
 #include "Mouse.h"
 #include "Transform.h"
 #include "Light.h"
+#include "Material.h"
 
 #endif

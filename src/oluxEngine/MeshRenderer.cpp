@@ -19,6 +19,7 @@ namespace OluxEngine
 	{
 		angle = 0;
 		shape = std::make_shared<VertexArray>(meshLoc);
+		material = std::make_shared<Material>();
 	}
 
 	/**
@@ -41,10 +42,12 @@ namespace OluxEngine
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
 
-		shader->SetUniform("in_Texture", texture);
+		shader->SetUniform("material.ambient", material->getAmbient());
+		shader->SetUniform("material.diffuse", material->getDiffuse());
+		shader->SetUniform("material.specular", material->getSpecular());
+		shader->SetUniform("material.shininess", material->getShininess());
 
-		/*glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture->getId());*/
+		shader->SetUniform("in_Texture", viewMatrix);
 
 		shader->Draw(*shape);
 

@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "Resources.h"
 #include "Texture.h"
+#include "Material.h"
 
 #include <memory>
 
@@ -40,6 +41,11 @@ namespace OluxEngine
             * Texture attached to mesh
             */
 			std::shared_ptr<Texture> texture;
+
+            /**
+            * Material of the mesh
+            */
+            std::shared_ptr<Material> material;
     
             float angle;
     };

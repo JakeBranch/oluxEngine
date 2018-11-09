@@ -29,9 +29,9 @@ int main(int argc, char* argv[])
 		soundfx->play();*/
 		
 		//-------------------------------------------Player model
-		std::shared_ptr<OluxEngine::MeshRenderer> mr = entity->addComponent<OluxEngine::MeshRenderer>("resources/curuthers.obj");
+		std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
+		std::shared_ptr<OluxEngine::MeshRenderer> mr = player->addComponent<OluxEngine::MeshRenderer>("resources/curuthers.obj");
 		mr->setShaders("resources/shaders/simple.vert", "resources/shaders/simple.frag");
-
 		std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
 		mr->setTexture(t);
 
@@ -39,7 +39,6 @@ int main(int argc, char* argv[])
 		std::shared_ptr<OluxEngine::Entity> castle = core->addEntity();
 		std::shared_ptr<OluxEngine::MeshRenderer> shape = castle->addComponent<OluxEngine::MeshRenderer>("resources/re_hall_baked.obj");
 		shape->setShaders("resources/shaders/simple.vert", "resources/shaders/simple.frag");
-
 		std::shared_ptr<OluxEngine::Texture> castleTexture = core->getResources()->Load<OluxEngine::Texture>("resources/re_hall_diffuse.png");
 		shape->setTexture(castleTexture);
 

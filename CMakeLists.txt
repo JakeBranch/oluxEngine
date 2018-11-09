@@ -49,6 +49,7 @@ add_library(
 	src/oluxEngine/Mouse.cpp
 	src/oluxEngine/Transform.cpp
 	src/oluxEngine/Light.cpp
+	src/oluxEngine/Material.cpp
 )
 
 if(MSVC)
