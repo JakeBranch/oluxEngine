@@ -85,6 +85,18 @@ namespace OluxEngine
 				{
 					running = false;
 				}
+
+				if(event.type == SDL_KEYDOWN)
+				{
+					std::cout << "KeyDown: " << event.key.keysym.sym << std::endl;
+				}
+
+				if(event.type == SDL_KEYUP)
+				{
+					std::cout << "----------------------------------------" << std::endl;
+					std::cout << "KeyUp: " << event.key.keysym.sym << std::endl;
+					std::cout << "----------------------------------------" << std::endl;
+				}
 			}
 
 			keyboard->update();
@@ -146,7 +158,6 @@ namespace OluxEngine
 
 			if(timer >= 2)
 			{
-				std::cout << "CLEAN UP" << std::endl;
 				resourceManager->cleanUp();
 				
 				clockStart = clock();

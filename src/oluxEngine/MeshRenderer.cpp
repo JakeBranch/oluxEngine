@@ -47,7 +47,7 @@ namespace OluxEngine
 		shader->SetUniform("material.specular", material->getSpecular());
 		shader->SetUniform("material.shininess", material->getShininess());
 
-		shader->SetUniform("in_Texture", viewMatrix);
+		shader->SetUniform("in_Texture", texture);
 
 		shader->Draw(*shape);
 

@@ -7,7 +7,7 @@ namespace OluxEngine
         ambient = glm::vec3(1.0f, 1.0f, 1.0f);
         diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
         specular = glm::vec3(1.0f, 1.0f, 1.0f);
-        shininess = 1;
+        shininess = 1.0f;
     }
 
     void Material::setAmbient(glm::vec3 val)
