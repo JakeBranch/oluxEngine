@@ -1,0 +1,7 @@
+build/
+contrib/
+html/
+latex/
+tasks.todo
+uml.mdj
+DoxyFile
