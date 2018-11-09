@@ -35,4 +35,9 @@ namespace OluxEngine
         right = glm::normalize(glm::cross(front, worldUp));
         up = glm::normalize(glm::cross(right, front));
     }
+
+    glm::vec3 Camera::getPosition()
+    {
+        return position;
+    }
 }

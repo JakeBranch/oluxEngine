@@ -76,7 +76,7 @@ namespace OluxEngine
         // Use the inbuilt fopen to create a file descriptor
         if(ov_fopen(fileName.c_str(), &oggFile) != 0)
         {
-        std::cout << "Failed to open file '" << fileName << "' for decoding" << std::endl;
+            std::cout << "Failed to open file '" << fileName << "' for decoding" << std::endl;
         
             std::string errorMessage = "Failed to open file: ";
 			errorMessage += fileName;

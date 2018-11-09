@@ -20,6 +20,7 @@ namespace OluxEngine
             Camera();
             void update();
 
+            glm::vec3 getPosition();
         private:
             glm::vec3 position;
             glm::vec3 front;

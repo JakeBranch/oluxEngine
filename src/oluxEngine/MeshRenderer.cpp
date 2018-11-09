@@ -20,6 +20,7 @@ namespace OluxEngine
 		angle = 0;
 		shape = std::make_shared<VertexArray>(meshLoc);
 		material = std::make_shared<Material>();
+		phongLight = std::make_shared<Light>();
 	}
 
 	/**
@@ -41,6 +42,10 @@ namespace OluxEngine
 
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
+
+		shader->SetUniform("lightPos", glm::vec3(0.0f, 0.0f, 0.0f));
+		shader->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
+		shader->SetUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
 		shader->SetUniform("material.ambient", material->getAmbient());
 		shader->SetUniform("material.diffuse", material->getDiffuse());

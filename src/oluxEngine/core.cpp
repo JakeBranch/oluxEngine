@@ -100,7 +100,6 @@ namespace OluxEngine
 			}
 
 			keyboard->update();
-
 			mouse->update();
 
 			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();

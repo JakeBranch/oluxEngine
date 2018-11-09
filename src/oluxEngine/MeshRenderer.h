@@ -2,6 +2,7 @@
 #include "Resources.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Light.h"
 
 #include <memory>
 
@@ -48,6 +49,8 @@ namespace OluxEngine
             * Material of the mesh
             */
             std::shared_ptr<Material> material;
+
+            std::shared_ptr<Light> phongLight;
     
             float angle;
     };

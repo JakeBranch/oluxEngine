@@ -1,3 +1,6 @@
+#ifndef OLUXENGINE_LIGHT_H
+#define OLUXENGINE_LIGHT_H
+
 #include "Component.h"
 
 #include <GL/glew.h>
@@ -5,16 +8,17 @@
 
 namespace OluxEngine
 {
-    class Light : public Component
+    class Light
     {
         public:
             Light();
-            Light(GLfloat red, GLfloat green, GLfloat blue, GLfloat ambientIntensity);
-            void onInit();
 
-            void UseLight(GLfloat ambientIntensityLoc, GLfloat ambientColorLoc);
         private:
+            glm::vec3 position;
             glm::vec3 color;
+
             GLfloat ambientIntensity;
     };
 }
+
+#endif
