@@ -2,6 +2,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Sets error message
+    */
     Exception::Exception(std::string message)
     {
         this->message = message;
@@ -9,6 +12,9 @@ namespace OluxEngine
 
     Exception::~Exception() throw() { }
 
+    /**
+    * Returns error message
+    */
     const char *Exception::what()
     {
         return message.c_str();

@@ -9,11 +9,17 @@ namespace OluxEngine
 
     }
 
+    /**
+    * Returns if key is down
+    */
     bool Keyboard::getKeyDown(SDL_Scancode scanCode)
     {
         return keyboardStates[scanCode];
     }
 
+    /**
+    * Updates key states
+    */
     void Keyboard::update()
     {
         keyboardStates = SDL_GetKeyboardState(NULL);

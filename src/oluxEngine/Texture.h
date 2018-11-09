@@ -15,10 +15,19 @@
 
 namespace OluxEngine
 {
+	/**
+	* Class to handle the loading and creation of textures 
+	*/
 	class Texture : public Resource
 	{
+		/**
+		* ID of the texure
+		*/
 		GLuint id;
-		bool dirty;
+
+		/**
+		* Size of texture
+		*/
 		glm::vec2 size;
 
 		public:

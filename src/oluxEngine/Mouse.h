@@ -6,6 +6,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Class to handle mouse events
+    */
     class Mouse
     {
         public:
@@ -15,8 +18,19 @@ namespace OluxEngine
         glm::vec2 getPosition();
 
         private:
+        /**
+        * X position of mouse
+        */ 
         int x;
+
+        /**
+        * Y position of mouse
+        */ 
         int y;
+
+        /**
+        * Position of mouse
+        */
         glm::vec2 position;
     };
 }

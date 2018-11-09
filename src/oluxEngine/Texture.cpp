@@ -4,6 +4,9 @@
 
 namespace OluxEngine
 {
+	/**
+	* Loads texture data from path
+	*/
 	std::shared_ptr<Texture> Texture::Load(std::string path)
 	{
 		const char* fileLoc = path.c_str();
@@ -27,6 +30,9 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+	* Generates texture from texture data
+	*/
 	std::shared_ptr<Texture> Texture::Create(unsigned int width, unsigned int height, unsigned char* data)
 	{
 		std::shared_ptr<Texture> rtn = std::make_shared<Texture>();
@@ -57,6 +63,9 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+	* Returns ID of the texture
+	*/
 	GLuint Texture::getId()
 	{
 		return id;

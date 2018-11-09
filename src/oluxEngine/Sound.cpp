@@ -4,6 +4,9 @@ namespace OluxEngine
 {
     Sound::Sound() { }
 
+    /**
+    * Loads sound data, creates sound buffer, and returns reference to buffer
+    */
     std::shared_ptr<Sound> Sound::Load(std::string path)
     {
         std::shared_ptr<Sound> rtn = std::make_shared<Sound>();
@@ -22,6 +25,9 @@ namespace OluxEngine
         return rtn;
     }
 
+    /**
+    * Plays sound
+    */ 
     void Sound::play()
     {
         ALuint sid = 0;
@@ -54,6 +60,9 @@ namespace OluxEngine
         //audioSources.push_back(sid);
     }
 
+    /**
+    * Loads OGG file
+    */
     void Sound::loadOGG(std::string fileName, std::vector<char> &buffer,
                 ALenum &format, ALsizei &freq)
     {
@@ -117,6 +126,9 @@ namespace OluxEngine
         ov_clear(&oggFile);
     }
 
+    /**
+    * Deletes buffer upon destruction
+    */
     Sound::~Sound()
     {
         alDeleteBuffers(1, &id);

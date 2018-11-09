@@ -24,6 +24,9 @@ namespace OluxEngine
 {
 	class Entity;
 	
+	/**
+	*Core engine class. Handles initialisation, game loop, entity management, and stores references to environment variables.
+	*/
 	class Core
 	{
 		public:

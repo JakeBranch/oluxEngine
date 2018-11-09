@@ -6,6 +6,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Wrapper class for exception handling
+    */
     class Exception : public std::exception
     {
         public:
@@ -15,6 +18,9 @@ namespace OluxEngine
             const char *what();
 
         private:
+            /**
+            * Error message to be sent with exception
+            */ 
             std::string message;
     };
 }

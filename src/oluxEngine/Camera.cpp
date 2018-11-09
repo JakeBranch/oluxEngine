@@ -2,6 +2,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Initialise camera properties
+    */
     Camera::Camera()
     {
         position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -11,11 +14,17 @@ namespace OluxEngine
         front = glm::vec3(0.0f, 0.0f, -1.0f);
     }
 
+    /**
+    * Calculate and return view matrix
+    */
     glm::mat4 Camera::getViewMatrix()
     {
         return glm::lookAt(position, position + front, up);
     }
 
+    /**
+    * Update camera properties
+    */ 
     void Camera::update()
     {
         front.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));

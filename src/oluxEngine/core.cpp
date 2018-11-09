@@ -7,6 +7,9 @@
 
 namespace OluxEngine
 {
+	/**
+	*Returns a shared pointer to <Core>, Initialises SDL/OpenGL, initialises OpenAL, initialises environment objects
+	*/
 	std::shared_ptr<Core> Core::initialise()
 	{
 		std::shared_ptr<Core> rtn = std::make_shared<Core>();
@@ -65,6 +68,9 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+	* Starts game loop. Handles updating and drawing of entities and environment variables
+	*/
 	void Core::Start()
 	{
 		int tick = 0;
@@ -84,26 +90,6 @@ namespace OluxEngine
 			keyboard->update();
 
 			mouse->update();
-			
-			//-----------------| MOUSE & KEYBOARD tests |--------------------
-			/*if(tick > 250)
-			{
-				std::cout << "Mouse.x: " << mouse->getPosition().x << std::endl;
-				std::cout << "Mouse.y: " << mouse->getPosition().y << std::endl;
-				tick = 0;
-			}
-			else{
-				tick++;
-			}
-						
-			if(keyboard->getKeyDown(SDL_SCANCODE_W))
-			{
-				if(keyboard->getKeyDown(SDL_SCANCODE_LSHIFT))
-				{
-					std::cout << "W Pressed" << std::endl;
-				}
-			}*/
-			//-----------------| MOUSE & KEYBOARD tests |--------------------
 
 			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
 				it != entities.end(); it++)
@@ -168,26 +154,41 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	*Stops application
+	*/
 	void Core::Stop()
 	{
 		running = false;
 	}
 
+	/**
+	*Returns resourceManager object
+	*/
 	std::shared_ptr<Resources> Core::getResources()
 	{
 		return resourceManager;
 	}
 
+	/**
+	*Returns camera objecet
+	*/
 	std::shared_ptr<Camera> Core::getCamera()
 	{
 		return camera;
 	}
 
+	/**
+	*Returns keyboard object
+	*/
 	std::shared_ptr<Keyboard> Core::getKeyboard()
 	{
 		return keyboard;
 	}
 
+	/**
+	*Creates, stores, and returns an entity
+	*/
 	std::shared_ptr<Entity> Core::addEntity()
 	{
 		std::shared_ptr<Entity> rtn = std::make_shared<Entity>();

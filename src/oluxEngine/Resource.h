@@ -5,9 +5,15 @@
 
 namespace OluxEngine
 {
+	/**
+	* Base class for resources
+	*/
 	class Resource
 	{
 		public:
+			/**
+			* Path of resource
+			*/ 
 			std::string path;
 	};
 }

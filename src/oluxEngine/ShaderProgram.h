@@ -20,8 +20,16 @@ namespace OluxEngine
         std::shared_ptr<Texture> texture;
     };
 
+    /**
+    * Class which handles the loading, creation, and management of a shader program. 
+    *
+    * The class contains an ID pointing to the created shader program, functions to set uniform variables, and function for drawing.
+    */
     class ShaderProgram : public Resource
     {
+        /**
+        *ID of shader program
+        */
         GLuint id;
         std::vector<Sampler> samplers;
 
@@ -30,7 +38,6 @@ namespace OluxEngine
 			static std::shared_ptr<ShaderProgram> Create(const char* vertCode, const char* fragCode, const char* vertLoc, const char* fragLoc);
 
 			ShaderProgram();
-            //ShaderProgram(const char* vertLoc, const char* fragLoc);
             void Draw(VertexArray &VertexArray);
             void SetUniform(std::string uniform, glm::vec4 val);
             void SetUniform(std::string uniform, glm::mat4 val);

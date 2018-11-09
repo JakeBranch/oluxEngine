@@ -13,6 +13,9 @@ namespace OluxEngine
     class VertexArray;
     class ShaderProgram;
 
+    /**
+    * Class for loading/creating a mesh.
+    */
     class MeshRenderer : public Component
     {
         public:
@@ -23,8 +26,19 @@ namespace OluxEngine
         private:
             void onDisplay();
 
+            /**
+            * Vertex array of the mesh
+            */ 
             std::shared_ptr<VertexArray> shape;
+
+            /**
+            * Shader attached to mesh
+            */
             std::shared_ptr<ShaderProgram> shader;
+
+            /**
+            * Texture attached to mesh
+            */
 			std::shared_ptr<Texture> texture;
     
             float angle;

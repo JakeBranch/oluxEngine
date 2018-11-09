@@ -13,8 +13,20 @@ namespace OluxEngine
 
 	class VertexArray
 	{
+		/**
+		* ID of vertex array
+		*/
 		GLuint id;
+
+		/**
+		*Flag to check if buffers need to be bound before drawing.
+		*Set to false after first draw.
+		*/
 		bool dirty;
+
+		/**
+		* Reference to all vertex buffers attached to the vertex array
+		*/
 		std::vector<std::shared_ptr<VertexBuffer>> buffers;
 
 		void splitStringWhitespace(std::string& input, std::vector<std::string>& output);

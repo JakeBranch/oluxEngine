@@ -14,6 +14,9 @@ namespace OluxEngine
         
     }
 
+ 	/**
+    *Reads/Writes shader code from file
+    */
 	std::shared_ptr<ShaderProgram> ShaderProgram::Load(const char* vertLoc, const char* fragLoc)
 	{		
 		std::ifstream fileStream(vertLoc, std::ios::in);
@@ -62,6 +65,9 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+    *Compiles shaders and creates shader program
+    */
 	std::shared_ptr<ShaderProgram> ShaderProgram::Create(const char* vertCode, const char* fragCode, const char* vertLoc, const char* fragLoc)
 	{
 		std::shared_ptr<ShaderProgram> rtn = std::make_shared<ShaderProgram>();
@@ -164,6 +170,9 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+	*Draws the given mesh
+	*/
     void ShaderProgram::Draw(VertexArray& vertexArray)
     {
         glUseProgram(id);
@@ -195,6 +204,9 @@ namespace OluxEngine
         glUseProgram(0);
     }
 
+	/**
+	*Sets uniform variable to vec4 value
+	*/
 	void ShaderProgram::SetUniform(std::string uniform, glm::vec4 value)
 	{
 		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
@@ -211,6 +223,9 @@ namespace OluxEngine
 		glUseProgram(0);
 	}
 
+	/**
+	*Sets uniform variable to int value
+	*/
 	void ShaderProgram::SetUniform(std::string uniform, int value)
 	{
 		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
@@ -227,6 +242,9 @@ namespace OluxEngine
 		glUseProgram(0);
 	}
 
+	/**
+	*Sets uniform variable to float value
+	*/
 	void ShaderProgram::SetUniform(std::string uniform, float value)
 	{
 		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
@@ -243,6 +261,9 @@ namespace OluxEngine
 		glUseProgram(0);
 	}
 
+	/**
+	*Sets uniform variable to mat4 value
+	*/
 	void ShaderProgram::SetUniform(std::string uniform, glm::mat4 value)
 	{
 		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
@@ -259,6 +280,9 @@ namespace OluxEngine
 		glUseProgram(0);
 	}
 
+	/**
+	*Sets uniform variable to Texture value
+	*/
 	void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<Texture> texture)
 	{
 		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
@@ -291,6 +315,9 @@ namespace OluxEngine
 		glUseProgram(0);
 	}
 
+	/**
+	*Returns ID of the shader program
+	*/
     GLuint ShaderProgram::getId()
     {
         return id;

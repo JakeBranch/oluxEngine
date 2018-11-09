@@ -12,12 +12,20 @@
 namespace OluxEngine
 {
 
+	/**
+	* Creates vertex array of mesh
+	*/
 	void MeshRenderer::onInit(std::string meshLoc)
 	{
 		angle = 0;
 		shape = std::make_shared<VertexArray>(meshLoc);
 	}
 
+	/**
+	* Displays the mesh.
+	*
+	* Sets uniform shaders and draws mesh
+	*/
 	void MeshRenderer::onDisplay()
 	{
 		glm::mat4 model(1.0f);
@@ -27,7 +35,7 @@ namespace OluxEngine
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0, -2.1f, -20.0f));
-    	model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 1, 0));
+    	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
 		shader->SetUniform("in_Model", model);
 
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
@@ -43,11 +51,17 @@ namespace OluxEngine
 		angle += 0.1f;
 	}
 
+	/**
+	* Set texture attached to the mesh
+	*/
 	void MeshRenderer::setTexture(std::shared_ptr<Texture> t)
 	{
 		texture = t;
 	}
 
+	/**
+	* Set shaders attached to the mesh
+	*/
 	void MeshRenderer::setShaders(std::string vertShader, std::string fragShader)
 	{
 		const char* vertLoc = vertShader.c_str();

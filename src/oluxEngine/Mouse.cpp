@@ -9,6 +9,9 @@ namespace OluxEngine
 
     }
 
+    /**
+    * Update mouse position and state
+    */
     void Mouse::update()
     {
         SDL_GetMouseState(&x, &y);
@@ -16,6 +19,9 @@ namespace OluxEngine
         position.y = (float)y;
     }
 
+    /**
+    * Return mouse position
+    */ 
     glm::vec2 Mouse::getPosition()
     {
         return position;

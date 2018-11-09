@@ -5,6 +5,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Class to handle keyboard events
+    */
     class Keyboard
     {
         public:
@@ -14,6 +17,9 @@ namespace OluxEngine
         void update();
 
         private:
+        /**
+        * Holds current state of keyboard keys
+        */
         const Uint8* keyboardStates;
     };
 }

@@ -13,9 +13,14 @@
 
 namespace OluxEngine
 {
-
+    /**
+    * Class to handle the loading and creation of sound effects.
+    */
     class Sound : public Resource
     {
+        /**
+        * ID of the sound effect
+        */
         ALuint id;
 
         void loadOGG(std::string fileName, std::vector<char> &buffer,

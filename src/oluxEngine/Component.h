@@ -9,6 +9,9 @@ namespace OluxEngine
 	class Entity;
 	class Core;
 
+	/**
+	* Base class for game components
+	*/
 	class Component
 	{
 		friend class Entity;
@@ -19,8 +22,14 @@ namespace OluxEngine
 		std::shared_ptr<Entity> getEntity();
 
 	private:
-		//std::weak_ptr<Core> core;
+		/**
+		* Reference to the entity the component is attached to
+		*/
 		std::weak_ptr<Entity> entity;
+
+		/**
+		*Flag to check if components onBegin() has been called
+		*/
 		bool began;
 
 		virtual void onInit();

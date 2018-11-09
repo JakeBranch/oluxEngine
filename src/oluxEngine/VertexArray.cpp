@@ -6,6 +6,9 @@
 
 namespace OluxEngine
 {
+	/**
+	* Generates vertex array and loads mesh from 'path' 
+	*/
 	VertexArray::VertexArray(std::string path) : dirty(false)
 	{
 		glGenVertexArrays(1, &id);
@@ -118,6 +121,9 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	* Generates vertex array
+	*/
 	VertexArray::VertexArray() : dirty(false)
 	{
 		glGenVertexArrays(1, &id);
@@ -130,6 +136,9 @@ namespace OluxEngine
 		buffers.resize(10);
 	}
 
+	/**
+	* Attach a vertex buffer to the vertex array
+	*/
 	void VertexArray::setBuffer(std::string attribute, std::weak_ptr<VertexBuffer> buffer)
 	{
 		if (attribute == "in_Position")
@@ -162,6 +171,9 @@ namespace OluxEngine
 		dirty = true;
 	}
 
+	/**
+	*Returns vertex count
+	*/
 	int VertexArray::getVertexCount()
 	{
 		if (!buffers.at(0))
@@ -172,6 +184,11 @@ namespace OluxEngine
 		return buffers.at(0)->getDataSize() / buffers.at(0)->getNumOfComponents();
 	}
 
+	/**
+	* Return ID of the vertex array.
+	*
+	* Sets 'dirty' to false after first draw of new value.
+	*/
 	GLuint VertexArray::getId()
 	{
 		if (dirty)
@@ -259,21 +276,33 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	* Returns positions VertexBuffer
+	*/
 	std::vector<GLfloat> VertexArray::getPosition()
 	{
 		return position;
 	}
 
+	/**
+	* Returns texture co-oridnates VertexBuffer
+	*/
 	std::vector<GLfloat> VertexArray::getTexCoord()
 	{
 		return texCoord;
 	}
 
+	/**
+	* Returns normals VertexBuffer
+	*/
 	std::vector<GLfloat> VertexArray::getNormal()
 	{
 		return normal;
 	}
 
+	/**
+	* Returns color VertexBuffer
+	*/
 	std::vector<GLfloat> VertexArray::getColor()
 	{
 		return color;

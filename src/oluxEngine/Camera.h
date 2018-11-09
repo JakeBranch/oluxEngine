@@ -9,6 +9,9 @@
 
 namespace OluxEngine
 {
+    /**
+    * Class to manage camera properties 
+    */
     class Camera 
     {
         public:

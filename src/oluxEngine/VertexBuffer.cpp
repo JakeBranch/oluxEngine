@@ -4,6 +4,9 @@
 
 namespace OluxEngine
 {
+	/**
+	* Generates vertex buffer
+	*/
 	VertexBuffer::VertexBuffer() : numOfComponents(0), dirty(false)
 	{
 		glGenBuffers(1, &id);
@@ -14,6 +17,11 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	* Add vec2 component
+	*
+	* Throws exception if previously added value has different number of components to currently added value.
+	*/
 	void VertexBuffer::add(glm::vec2 value)
 	{
 		if (!numOfComponents)
@@ -31,6 +39,11 @@ namespace OluxEngine
 		dirty = true;
 	}
 
+	/**
+	* Add vec3 component
+	*
+	* Throws exception if previously added value has different number of components to currently added value.
+	*/
 	void VertexBuffer::add(glm::vec3 value)
 	{
 		if (!numOfComponents)
@@ -49,6 +62,11 @@ namespace OluxEngine
 		dirty = true;
 	}
 
+	/**
+	* Add vec4 component
+	*
+	* Throws exception if previously added value has different number of components to currently added value.
+	*/
 	void VertexBuffer::add(glm::vec4 value)
 	{
 		if (!numOfComponents)
@@ -68,16 +86,25 @@ namespace OluxEngine
 		dirty = true;
 	}
 
+	/**
+	* Return size of buffer data
+	*/
 	int VertexBuffer::getDataSize()
 	{
 		return data.size();
 	}
 
+	/**
+	* Return buffer data
+	*/ 
 	std::vector<GLfloat> VertexBuffer::getData()
 	{
 		return data;
 	}
 
+	/**
+	* Return number of components 
+	*/
 	int VertexBuffer::getNumOfComponents()
 	{
 		if (!numOfComponents)
@@ -88,6 +115,11 @@ namespace OluxEngine
 		return numOfComponents;
 	}
 
+	/**
+	* Returns ID of buffer
+	* 
+	* Sets 'dirty' to false after first draw of new value.
+	*/
 	GLuint VertexBuffer::getId()
 	{
 		if (dirty)
