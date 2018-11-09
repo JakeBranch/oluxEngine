@@ -72,4 +72,9 @@ namespace OluxEngine
 
 		shader = getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc);
 	}
+
+	std::shared_ptr<Material> MeshRenderer::getMaterial()
+	{
+		return material;
+	}
 }
