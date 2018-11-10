@@ -36,8 +36,8 @@ namespace OluxEngine
 		shader->SetUniform("in_View", viewMatrix);
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0, -2.1f, -20.0f));
-    	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		model = glm::translate(model, glm::vec3(0, 0.0f, -15.0f));
+    	// model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
 		shader->SetUniform("in_Model", model);
 
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
@@ -47,12 +47,10 @@ namespace OluxEngine
 		shader->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
 		shader->SetUniform("lightColor", phongLight->getColor());
 
-		shader->SetUniform("material.ambient", material->getAmbient());
-		shader->SetUniform("material.diffuse", material->getDiffuse());
 		shader->SetUniform("material.specular", material->getSpecular());
 		shader->SetUniform("material.shininess", material->getShininess());
 
-		shader->SetUniform("in_Texture", texture);
+		shader->SetUniform("material.diffuse", texture);
 
 		shader->Draw(*shape);
 

@@ -7,10 +7,10 @@ namespace OluxEngine
     */
     Camera::Camera()
     {
-        position = glm::vec3(0.0f, 0.0f, 0.0f);
+        position = glm::vec3(0.0f, 5.0f, 0.0f);
         worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
         yaw = -90.0f;
-        pitch = 0.0f;
+        pitch = -15.0f;
         front = glm::vec3(0.0f, 0.0f, -1.0f);
     }
 
@@ -27,6 +27,7 @@ namespace OluxEngine
     */ 
     void Camera::update()
     {
+        yaw += 0.25f;
         front.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));
         front.y = sin(glm::radians(pitch));
         front.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));	
