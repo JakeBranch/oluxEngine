@@ -13,8 +13,7 @@ varying out vec3 FragPos;
 
 void main()
 {
-  vec3 n = in_Normal;
-  Normal = n;
+  Normal = mat3(transpose(inverse(in_Model))) * in_Normal;
   FragPos = vec3(in_Model * vec4(in_Position, 1.0));
 
   gl_Position = in_Projection * in_View * in_Model * vec4(in_Position, 1.0);
