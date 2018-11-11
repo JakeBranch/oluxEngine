@@ -10,7 +10,7 @@ namespace OluxEngine
     }
 
     /**
-    * Update mouse position and state
+    * Update mouse position
     */
     void Mouse::update()
     {

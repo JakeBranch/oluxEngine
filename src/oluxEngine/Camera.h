@@ -20,6 +20,7 @@ namespace OluxEngine
             Camera();
             void update();
 
+            void setPosition(glm::vec3 pos);
             glm::vec3 getPosition();
         private:
             glm::vec3 position;
@@ -31,7 +32,7 @@ namespace OluxEngine
             GLfloat yaw;
             GLfloat pitch;
 
-           // GLfloat moveSpeed;
+            // GLfloat moveSpeed;
             // GLfloat turnSpeed;
     };
 }

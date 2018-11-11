@@ -27,7 +27,7 @@ namespace OluxEngine
     */ 
     void Camera::update()
     {
-        yaw += 0.25f;
+        //yaw += 0.25f;
         front.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));
         front.y = sin(glm::radians(pitch));
         front.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));	
@@ -35,6 +35,11 @@ namespace OluxEngine
 
         right = glm::normalize(glm::cross(front, worldUp));
         up = glm::normalize(glm::cross(right, front));
+    }
+
+    void Camera::setPosition(glm::vec3 pos)
+    {
+        position = pos;
     }
 
     glm::vec3 Camera::getPosition()

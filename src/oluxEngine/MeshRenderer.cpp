@@ -38,6 +38,7 @@ namespace OluxEngine
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0, 0.0f, -15.0f));
     	// model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		shader->SetUniform("in_Model", model);
 
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
