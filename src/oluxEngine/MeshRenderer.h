@@ -2,7 +2,8 @@
 #include "Resources.h"
 #include "Texture.h"
 #include "Material.h"
-#include "Light.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 #include <memory>
 
@@ -50,7 +51,8 @@ namespace OluxEngine
             */
             std::shared_ptr<Material> material;
 
-            std::shared_ptr<Light> phongLight;
+            std::shared_ptr<DirectionalLight> dirLight;
+            std::shared_ptr<PointLight> pointLight;
     
             float angle;
     };

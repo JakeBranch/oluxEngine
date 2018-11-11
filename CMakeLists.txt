@@ -50,6 +50,9 @@ add_library(
 	src/oluxEngine/Transform.cpp
 	src/oluxEngine/Light.cpp
 	src/oluxEngine/Material.cpp
+	src/oluxEngine/DirectionalLight.cpp
+	src/oluxEngine/PointLight.cpp
+	src/oluxEngine/SpotLight.cpp
 )
 
 if(MSVC)

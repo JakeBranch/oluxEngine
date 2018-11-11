@@ -4,18 +4,38 @@ namespace OluxEngine
 {
     Light::Light()
     {
-        position = glm::vec3(0.0f, 5.0f, 5.0f);
-        color = glm::vec3(1.0f, 1.0f, 1.0f);
-        ambientIntensity = 1.0f;
+        ambient = glm::vec3(0.05f, 0.05f, 0.05f);
+        diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
+        specular = glm::vec3(0.5f, 0.5f, 0.5f);
     }
 
-    glm::vec3 Light::getPosition()
+    glm::vec3 Light::getAmbient()
     {
-        return position;
+        return ambient;
     }
 
-    glm::vec3 Light::getColor()
+    glm::vec3 Light::getDiffuse()
     {
-        return color;
+        return diffuse;
+    }
+
+    glm::vec3 Light::getSpecular()
+    {
+        return specular;
+    }
+
+    void Light::setAmbient(glm::vec3 val)
+    {
+        ambient = val;
+    }
+
+    void Light::setDiffuse(glm::vec3 val)
+    {
+        diffuse = val;
+    }
+
+    void Light::setSpecular(glm::vec3 val)
+    {
+        specular = val;
     }
 }

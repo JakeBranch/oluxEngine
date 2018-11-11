@@ -6,6 +6,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <string>
+
 namespace OluxEngine
 {
     class Light
@@ -13,14 +15,21 @@ namespace OluxEngine
         public:
             Light();
 
-            glm::vec3 getPosition();
-            glm::vec3 getColor();
+            glm::vec3 getAmbient();
+            glm::vec3 getDiffuse();
+            glm::vec3 getSpecular();
 
+            void setAmbient(glm::vec3 val);
+            void setDiffuse(glm::vec3 val);
+            void setSpecular(glm::vec3 val);
+
+            std::string getType();
         private:
-            glm::vec3 position;
-            glm::vec3 color;
+            glm::vec3 ambient;
+            glm::vec3 diffuse;
+            glm::vec3 specular;
 
-            GLfloat ambientIntensity;
+            std::string type;
     };
 }
 

@@ -19,5 +19,8 @@
 #include "Transform.h"
 #include "Light.h"
 #include "Material.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 #endif

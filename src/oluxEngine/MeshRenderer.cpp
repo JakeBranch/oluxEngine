@@ -20,7 +20,8 @@ namespace OluxEngine
 		angle = 0;
 		shape = std::make_shared<VertexArray>(meshLoc);
 		material = std::make_shared<Material>();
-		phongLight = std::make_shared<Light>();
+		dirLight = std::make_shared<DirectionalLight>();
+		pointLight = std::make_shared<PointLight>();
 	}
 
 	/**
@@ -44,14 +45,26 @@ namespace OluxEngine
 		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
 
-		shader->SetUniform("lightPos", phongLight->getPosition());
+		//shader->SetUniform("lightPos", phongLight->getPosition());
 		shader->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
-		shader->SetUniform("lightColor", phongLight->getColor());
+		//shader->SetUniform("lightColor", phongLight->getColor());
 
 		shader->SetUniform("material.specular", material->getSpecular());
 		shader->SetUniform("material.shininess", material->getShininess());
-
 		shader->SetUniform("material.diffuse", texture);
+
+		shader->SetUniform("dirLight.direction", dirLight->getDirection());
+		shader->SetUniform("dirLight.ambient", dirLight->getAmbient());
+		shader->SetUniform("dirLight.diffuse", dirLight->getDiffuse());
+		shader->SetUniform("dirLight.specular", dirLight->getSpecular());
+
+		shader->SetUniform("pointLight.position", pointLight->getPosition());
+		shader->SetUniform("pointLight.constant", pointLight->getConstant());
+		shader->SetUniform("pointLight.linear", pointLight->getLinear());
+		shader->SetUniform("pointLight.quadratic", pointLight->getQuadratic());
+		shader->SetUniform("pointLight.ambient", pointLight->getAmbient());
+		shader->SetUniform("pointLight.diffuse", pointLight->getDiffuse());
+		shader->SetUniform("pointLight.specular", pointLight->getSpecular());
 
 		shader->Draw(*shape);
 
