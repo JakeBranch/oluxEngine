@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 
 #include <memory>
 
@@ -53,6 +54,7 @@ namespace OluxEngine
 
             std::shared_ptr<DirectionalLight> dirLight;
             std::shared_ptr<PointLight> pointLight;
+            std::shared_ptr<SpotLight> spotLight;
     
             float angle;
     };

@@ -8,14 +8,12 @@ namespace OluxEngine
         setDiffuse(glm::vec3(1.0f, 1.0f, 1.0f));
         setSpecular(glm::vec3(1.0f, 1.0f, 1.0f));
 
-        position = glm::vec3(0.0f, 5.0f, 0.0f);
+        position = glm::vec3(0.0f, 0.0f, 0.0f);
         direction = glm::vec3(0.0f, 0.0f, -1.0f);
 
         constant = 1.0f;
-
-        //Distance == 100
-        linear = 0.09f;
-        quadratic = 0.032f;
+        linear = 0.014f;
+        quadratic = 0.0007f;
 
         cutoff = glm::cos(glm::radians(12.5f));
         outerCutoff = glm::cos(glm::radians(15.0f));

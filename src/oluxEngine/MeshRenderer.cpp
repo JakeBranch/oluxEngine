@@ -22,6 +22,7 @@ namespace OluxEngine
 		material = std::make_shared<Material>();
 		dirLight = std::make_shared<DirectionalLight>();
 		pointLight = std::make_shared<PointLight>();
+		spotLight = std::make_shared<SpotLight>();
 	}
 
 	/**
@@ -53,18 +54,29 @@ namespace OluxEngine
 		shader->SetUniform("material.shininess", material->getShininess());
 		shader->SetUniform("material.diffuse", texture);
 
-		shader->SetUniform("dirLight.direction", dirLight->getDirection());
-		shader->SetUniform("dirLight.ambient", dirLight->getAmbient());
-		shader->SetUniform("dirLight.diffuse", dirLight->getDiffuse());
-		shader->SetUniform("dirLight.specular", dirLight->getSpecular());
+		// shader->SetUniform("dirLight.direction", dirLight->getDirection());
+		// shader->SetUniform("dirLight.ambient", dirLight->getAmbient());
+		// shader->SetUniform("dirLight.diffuse", dirLight->getDiffuse());
+		// shader->SetUniform("dirLight.specular", dirLight->getSpecular());
 
-		shader->SetUniform("pointLight.position", pointLight->getPosition());
-		shader->SetUniform("pointLight.constant", pointLight->getConstant());
-		shader->SetUniform("pointLight.linear", pointLight->getLinear());
-		shader->SetUniform("pointLight.quadratic", pointLight->getQuadratic());
-		shader->SetUniform("pointLight.ambient", pointLight->getAmbient());
-		shader->SetUniform("pointLight.diffuse", pointLight->getDiffuse());
-		shader->SetUniform("pointLight.specular", pointLight->getSpecular());
+		// shader->SetUniform("pointLight.position", pointLight->getPosition());
+		// shader->SetUniform("pointLight.constant", pointLight->getConstant());
+		// shader->SetUniform("pointLight.linear", pointLight->getLinear());
+		// shader->SetUniform("pointLight.quadratic", pointLight->getQuadratic());
+		// shader->SetUniform("pointLight.ambient", pointLight->getAmbient());
+		// shader->SetUniform("pointLight.diffuse", pointLight->getDiffuse());
+		// shader->SetUniform("pointLight.specular", pointLight->getSpecular());
+
+		shader->SetUniform("spotLight.position", spotLight->getPosition());
+		shader->SetUniform("spotLight.direction", spotLight->getDirection());
+		shader->SetUniform("spotLight.cutOff", spotLight->getCutoff());
+		shader->SetUniform("spotLight.outerCutOff", spotLight->getOuterCutoff());
+		shader->SetUniform("spotLight.constant", spotLight->getConstant());
+		shader->SetUniform("spotLight.linear", spotLight->getLinear());
+		shader->SetUniform("spotLight.quadratic", spotLight->getQuadratic());
+		shader->SetUniform("spotLight.ambient", spotLight->getAmbient());
+		shader->SetUniform("spotLight.diffuse", spotLight->getDiffuse());
+		shader->SetUniform("spotLight.specular", spotLight->getSpecular());
 
 		shader->Draw(*shape);
 
