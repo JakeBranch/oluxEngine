@@ -18,16 +18,22 @@ namespace OluxEngine
             glm::vec3 getAmbient();
             glm::vec3 getDiffuse();
             glm::vec3 getSpecular();
+            glm::vec3 getColor();
 
             void setAmbient(glm::vec3 val);
             void setDiffuse(glm::vec3 val);
             void setSpecular(glm::vec3 val);
+            void setColor(glm::vec3 val);
+            void setAmbientIntensity(float val);
 
             std::string getType();
         private:
             glm::vec3 ambient;
             glm::vec3 diffuse;
             glm::vec3 specular;
+            glm::vec3 color;
+
+            GLfloat ambientIntensity;
 
             std::string type;
     };

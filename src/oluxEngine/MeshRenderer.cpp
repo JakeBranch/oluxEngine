@@ -23,6 +23,8 @@ namespace OluxEngine
 		dirLight = std::make_shared<DirectionalLight>();
 		pointLight = std::make_shared<PointLight>();
 		spotLight = std::make_shared<SpotLight>();
+
+		pointLight->setColor(glm::vec3(0.4f, 0.7f, 0.1f));
 	}
 
 	/**
@@ -35,50 +37,52 @@ namespace OluxEngine
 		glm::mat4 model(1.0f);
 		glm::mat4 viewMatrix = getCore()->getCamera()->getViewMatrix();
 
-		shader->SetUniform("in_View", viewMatrix);
+		material->getShader()->SetUniform("in_View", viewMatrix);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0, 0.0f, -15.0f));
     	// model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
 		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		shader->SetUniform("in_Model", model);
+		material->getShader()->SetUniform("in_Model", model);
 
-		shader->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
+		material->getShader()->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
 
-		//shader->SetUniform("lightPos", phongLight->getPosition());
-		shader->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
-		//shader->SetUniform("lightColor", phongLight->getColor());
+		material->getShader()->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
 
-		shader->SetUniform("material.specular", material->getSpecular());
-		shader->SetUniform("material.shininess", material->getShininess());
-		shader->SetUniform("material.diffuse", texture);
+		//----------------------------------------------------------------------Set material properties
+		material->getShader()->SetUniform("material.specular", material->getSpecular());
+		material->getShader()->SetUniform("material.shininess", material->getShininess());
+		material->getShader()->SetUniform("material.diffuse", material->getDiffuse());
 
-		// shader->SetUniform("dirLight.direction", dirLight->getDirection());
-		// shader->SetUniform("dirLight.ambient", dirLight->getAmbient());
-		// shader->SetUniform("dirLight.diffuse", dirLight->getDiffuse());
-		// shader->SetUniform("dirLight.specular", dirLight->getSpecular());
+		//-----------------------------------------------------------------------Set directional light properties
+		material->getShader()->SetUniform("dirLight.direction", dirLight->getDirection());
+		material->getShader()->SetUniform("dirLight.ambient", dirLight->getAmbient());
+		material->getShader()->SetUniform("dirLight.diffuse", dirLight->getDiffuse());
+		material->getShader()->SetUniform("dirLight.specular", dirLight->getSpecular());
 
-		// shader->SetUniform("pointLight.position", pointLight->getPosition());
-		// shader->SetUniform("pointLight.constant", pointLight->getConstant());
-		// shader->SetUniform("pointLight.linear", pointLight->getLinear());
-		// shader->SetUniform("pointLight.quadratic", pointLight->getQuadratic());
-		// shader->SetUniform("pointLight.ambient", pointLight->getAmbient());
-		// shader->SetUniform("pointLight.diffuse", pointLight->getDiffuse());
-		// shader->SetUniform("pointLight.specular", pointLight->getSpecular());
+		//----------------------------------------------------------------------Set point light properties
+		material->getShader()->SetUniform("pointLight.position", pointLight->getPosition());
+		material->getShader()->SetUniform("pointLight.constant", pointLight->getConstant());
+		material->getShader()->SetUniform("pointLight.linear", pointLight->getLinear());
+		material->getShader()->SetUniform("pointLight.quadratic", pointLight->getQuadratic());
+		material->getShader()->SetUniform("pointLight.ambient", pointLight->getAmbient());
+		material->getShader()->SetUniform("pointLight.diffuse", pointLight->getDiffuse());
+		material->getShader()->SetUniform("pointLight.specular", pointLight->getSpecular());
 
-		shader->SetUniform("spotLight.position", spotLight->getPosition());
-		shader->SetUniform("spotLight.direction", spotLight->getDirection());
-		shader->SetUniform("spotLight.cutOff", spotLight->getCutoff());
-		shader->SetUniform("spotLight.outerCutOff", spotLight->getOuterCutoff());
-		shader->SetUniform("spotLight.constant", spotLight->getConstant());
-		shader->SetUniform("spotLight.linear", spotLight->getLinear());
-		shader->SetUniform("spotLight.quadratic", spotLight->getQuadratic());
-		shader->SetUniform("spotLight.ambient", spotLight->getAmbient());
-		shader->SetUniform("spotLight.diffuse", spotLight->getDiffuse());
-		shader->SetUniform("spotLight.specular", spotLight->getSpecular());
+		//-------------------------------------------------------------------------Set spot light properties
+		// material->getShader()->SetUniform("spotLight.position", spotLight->getPosition());
+		// material->getShader()->SetUniform("spotLight.direction", spotLight->getDirection());
+		// material->getShader()->SetUniform("spotLight.cutOff", spotLight->getCutoff());
+		// material->getShader()->SetUniform("spotLight.outerCutOff", spotLight->getOuterCutoff());
+		// material->getShader()->SetUniform("spotLight.constant", spotLight->getConstant());
+		// material->getShader()->SetUniform("spotLight.linear", spotLight->getLinear());
+		// material->getShader()->SetUniform("spotLight.quadratic", spotLight->getQuadratic());
+		// material->getShader()->SetUniform("spotLight.ambient", spotLight->getAmbient());
+		// material->getShader()->SetUniform("spotLight.diffuse", spotLight->getDiffuse());
+		// material->getShader()->SetUniform("spotLight.specular", spotLight->getSpecular());
 
-		shader->Draw(*shape);
+		material->getShader()->Draw(*shape);
 
 		angle += 0.1f;
 	}
@@ -88,7 +92,7 @@ namespace OluxEngine
 	*/
 	void MeshRenderer::setTexture(std::shared_ptr<Texture> t)
 	{
-		texture = t;
+		material->setDiffuse(t);
 	}
 
 	/**
@@ -99,7 +103,7 @@ namespace OluxEngine
 		const char* vertLoc = vertShader.c_str();
 		const char* fragLoc = fragShader.c_str();
 
-		shader = getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc);
+		material->setShader(getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc));
 	}
 
 	std::shared_ptr<Material> MeshRenderer::getMaterial()

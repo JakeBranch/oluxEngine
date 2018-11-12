@@ -38,16 +38,6 @@ namespace OluxEngine
             std::shared_ptr<VertexArray> shape;
 
             /**
-            * Shader attached to mesh
-            */
-            std::shared_ptr<ShaderProgram> shader;
-
-            /**
-            * Texture attached to mesh
-            */
-			std::shared_ptr<Texture> texture;
-
-            /**
             * Material of the mesh
             */
             std::shared_ptr<Material> material;

@@ -64,7 +64,7 @@ void main()
 
   result += CalcPointLight(pointLight, norm, FragPos, viewDir);
 
-  result = CalcSpotLight(spotLight, norm, FragPos, viewDir);
+ // result += CalcSpotLight(spotLight, norm, FragPos, viewDir);
 
   gl_FragColor = vec4(result, 1.0);
 }
@@ -110,7 +110,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
-{
+{ 
     vec3 lightDir = normalize(light.position - fragPos);
 
     float diff = max(dot(normal, lightDir), 0.0);

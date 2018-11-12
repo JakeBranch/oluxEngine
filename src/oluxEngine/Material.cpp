@@ -5,7 +5,7 @@ namespace OluxEngine
     Material::Material()
     {
         ambient = glm::vec3(1.0f, 0.5f, 0.31f);
-        diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+        // diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
         specular = glm::vec3(0.5f, 0.5f, 0.5f);
         shininess = 32.0f;
     }
@@ -15,10 +15,10 @@ namespace OluxEngine
         ambient = val;
     }
 
-    void Material::setDiffuse(glm::vec3 val)
-    {
-        diffuse = val;
-    }
+    // void Material::setDiffuse(glm::vec3 val)
+    // {
+    //     diffuse = val;
+    // }
 
     void Material::setSpecular(glm::vec3 val)
     {
@@ -30,12 +30,22 @@ namespace OluxEngine
         shininess = val;
     }
 
+    void Material::setShader(std::shared_ptr<ShaderProgram> program)
+    {
+        shader = program;
+    }
+
+    void Material::setDiffuse(std::shared_ptr<Texture> tex)
+    {
+        diffuse = tex;
+    }
+
     glm::vec3 Material::getAmbient()
     {
         return ambient;
     }
 
-    glm::vec3 Material::getDiffuse()
+    std::shared_ptr<Texture> Material::getDiffuse()
     {
         return diffuse;
     }
@@ -48,5 +58,10 @@ namespace OluxEngine
     float Material::getShininess()
     {
         return shininess;
+    }
+
+    std::shared_ptr<ShaderProgram> Material::getShader()
+    {
+        return shader;
     }
 }
