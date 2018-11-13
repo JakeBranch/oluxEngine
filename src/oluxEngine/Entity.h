@@ -1,3 +1,6 @@
+#ifndef OLUXENGINE_ENTITY_H
+#define OLUXENGINE_ENTITY_H
+
 #include "Component.h"
 
 #include <memory>
@@ -56,6 +59,40 @@ namespace OluxEngine
 				return rtn;
 			}
 
+			template <typename T>
+			bool hasComponent()
+			{
+				for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
+					it != components.end(); it++)
+				{
+					std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(*it);
+
+					if(t)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			template <typename T>
+			std::shared_ptr<T> getComponent()
+			{
+				for(std::vector<std::shared_ptr<Component>>::iterator it = components.begin();
+				it != components.end(); it++)
+				{
+					std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(*it);
+
+					if(t)
+					{
+						return t;
+					}
+				}
+
+				throw Exception("Failed to obtain comonent");
+			}
+
 			std::shared_ptr<Core> getCore();
 
 			/**
@@ -88,3 +125,5 @@ namespace OluxEngine
 			bool getAlive();
 	};
 }
+
+#endif

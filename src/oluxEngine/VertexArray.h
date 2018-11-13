@@ -1,3 +1,6 @@
+#ifndef OLUXENGINE_VERTEXARRAY_H
+#define OLUXENGINE_VERTEXARRAY_H
+
 #include <GL\glew.h>
 #include <glm/glm.hpp>
 
@@ -51,3 +54,5 @@ namespace OluxEngine
 		std::vector<GLfloat> getColor();
 	};
 }
+
+#endif

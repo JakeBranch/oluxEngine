@@ -22,5 +22,6 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "Mesh.h"
 
 #endif

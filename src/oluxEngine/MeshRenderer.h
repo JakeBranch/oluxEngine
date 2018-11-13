@@ -5,6 +5,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "Mesh.h"
 
 #include <memory>
 
@@ -23,14 +24,18 @@ namespace OluxEngine
     class MeshRenderer : public Component
     {
         public:
-            void onInit(std::string meshLoc);
+            void onInit();
 			void setTexture(std::shared_ptr<Texture> t);
             void setShaders(std::string vertShader, std::string fragShader);
 
             std::shared_ptr<Material> getMaterial();
+
+            void setMesh(std::shared_ptr<Mesh> mesh);
             
         private:
             void onDisplay();
+
+            std::shared_ptr<Mesh> mesh;
 
             /**
             * Vertex array of the mesh
@@ -42,10 +47,6 @@ namespace OluxEngine
             */
             std::shared_ptr<Material> material;
 
-            std::shared_ptr<DirectionalLight> dirLight;
-            std::shared_ptr<PointLight> pointLight;
-            std::shared_ptr<SpotLight> spotLight;
-    
             float angle;
     };
 }

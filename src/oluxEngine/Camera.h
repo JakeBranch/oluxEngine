@@ -1,6 +1,8 @@
 #ifndef OLUXENGINE_CAMERA_H
 #define OLUXENGINE_CAMERA_H
 
+#include "Component.h"
+
 #include <memory>
 
 #include <GL\glew.h>
@@ -12,7 +14,7 @@ namespace OluxEngine
     /**
     * Class to manage camera properties 
     */
-    class Camera 
+    class Camera : public Component
     {
         public:
             glm::mat4 getViewMatrix();

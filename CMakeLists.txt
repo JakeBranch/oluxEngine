@@ -53,6 +53,7 @@ add_library(
 	src/oluxEngine/DirectionalLight.cpp
 	src/oluxEngine/PointLight.cpp
 	src/oluxEngine/SpotLight.cpp
+	src/oluxEngine/Mesh.cpp
 )
 
 if(MSVC)

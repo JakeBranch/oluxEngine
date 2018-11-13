@@ -61,7 +61,6 @@ namespace OluxEngine
 		}
 
 		rtn->resourceManager = std::make_shared<Resources>();
-		rtn->camera = std::make_shared<Camera>();
 		rtn->keyboard = std::make_shared<Keyboard>();
 		rtn->mouse = std::make_shared<Mouse>();
 
@@ -99,69 +98,89 @@ namespace OluxEngine
 				}
 			}
 
-			keyboard->update();
-			mouse->update();
+			update();
 
-			for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
-				it != entities.end(); it++)
+			// std::cout << "1" << std::endl;
+			std::vector<std::shared_ptr<Entity>> ces;
+			getEntities<Camera>(ces);
+
+			for(size_t i = 0; i < ces.size(); i++)
 			{
-				try
-				{
-					(*it)->update();
-				}
-				catch(Exception& e)
-				{
-					std::cout << "OluxEngine Exception: " << e.what() << std::endl;
-					(*it)->destroy();
-				}
-			}
-
-			for(auto it = entities.begin(); it != entities.end();)
-			{
-				if(!(*it)->getAlive())
-				{
-					it = entities.erase(it);
-				}
-				else
-				{
-					it++;
-				}
-			}
-
-			camera->update();
-
-			glEnable(GL_DEPTH_TEST);
-
-			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			//Display all entitites
-			for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
-				it != entities.end(); it++)
-			{
-				try
-				{
-					(*it)->display();
-				}
-				catch(Exception& e)
-				{
-					std::cout << "OluxEngine Exception: " << e.what() << std::endl;
-					(*it)->destroy();
-				}
-			}
-
-			SDL_GL_SwapWindow(window);
-
-			//--------------------------------------------------UPDATE RESOURCES
-			timer = ( clock() - clockStart ) / (double) CLOCKS_PER_SEC;
-
-			if(timer >= 2)
-			{
-				resourceManager->cleanUp();
-				
-				clockStart = clock();
+				camera = ces.at(i)->getComponent<Camera>();
+	
+				display();
 			}
 		}
+	}
+
+	void Core::update()
+	{
+		keyboard->update();
+		mouse->update();
+
+		if(camera)
+			camera->update();
+
+		for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+			it != entities.end(); it++)
+		{
+			try
+			{
+				(*it)->update();
+			}
+			catch(Exception& e)
+			{
+				std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+				(*it)->destroy();
+			}
+		}
+
+		for(auto it = entities.begin(); it != entities.end();)
+		{
+			if(!(*it)->getAlive())
+			{
+				it = entities.erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
+
+		//--------------------------------------------------UPDATE RESOURCES
+		timer = ( clock() - clockStart ) / (double) CLOCKS_PER_SEC;
+
+		if(timer >= 2)
+		{
+			resourceManager->cleanUp();
+			
+			clockStart = clock();
+		}
+	}
+
+	void Core::display()
+	{
+		glEnable(GL_DEPTH_TEST);
+
+		glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Display all entitites
+		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+			it != entities.end(); it++)
+		{
+			try
+			{
+				(*it)->display();
+			}
+			catch(Exception& e)
+			{
+				std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+				(*it)->destroy();
+			}
+		}
+
+		SDL_GL_SwapWindow(window);
 	}
 
 	/**

@@ -13,6 +13,8 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 
+#include "Entity.h"
+
 #include "Exception.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -22,7 +24,7 @@
 
 namespace OluxEngine
 {
-	class Entity;
+	// class Entity;
 	
 	/**
 	*Core engine class. Handles initialisation, game loop, entity management, and stores references to environment variables.
@@ -35,6 +37,42 @@ namespace OluxEngine
 			void Start();
 			void Stop();
 			std::shared_ptr<Entity> addEntity();
+
+			void update();
+			void display();
+
+			template <typename T>
+			std::shared_ptr<Entity> getEntity()
+			{
+				for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+				it != entities.end(); it++)
+				{
+					if(!(*it)->getAlive()) continue;
+
+					if((*it)->hasComponent<T>())
+					{
+						return *it;
+					}
+				}
+
+				throw Exception("Failed to retrieve entity with specified type");
+			}
+
+			template <typename T>
+			void getEntities(std::vector<std::shared_ptr<Entity>> &found)
+			{
+				// std::vector<std::shared_ptr<Entity>> found;
+				for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+					it != entities.end(); it++)	
+				{
+					if(!(*it)->getAlive()) continue;
+
+					if((*it)->hasComponent<T>())
+					{
+						found.push_back(*it);
+					}
+				}
+			}
 
 			std::shared_ptr<Resources> getResources();
 			std::shared_ptr<Camera> getCamera();
