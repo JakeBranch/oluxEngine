@@ -22,7 +22,8 @@ namespace OluxEngine
             Camera();
             void update();
 
-            void setPosition(glm::vec3 pos);
+            void setPosition(glm::vec3 val);
+            void setRotation(glm::vec3 val);
             glm::vec3 getPosition();
         private:
             glm::vec3 position;

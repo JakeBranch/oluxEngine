@@ -7,10 +7,10 @@ namespace OluxEngine
     */
     Camera::Camera()
     {
-        position = glm::vec3(0.0f, 5.0f, 0.0f);
+        position = glm::vec3(0.0f, 0.0f, 0.0f);
         worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
-        yaw = -90.0f;
-        pitch = -10.0f;
+        yaw = 0.0f;
+        pitch = 0.0f; 
         front = glm::vec3(0.0f, 0.0f, -1.0f);
     }
 
@@ -37,9 +37,15 @@ namespace OluxEngine
         up = glm::normalize(glm::cross(right, front));
     }
 
-    void Camera::setPosition(glm::vec3 pos)
+    void Camera::setPosition(glm::vec3 val)
     {
-        position = pos;
+        position = val;
+    }
+
+    void Camera::setRotation(glm::vec3 val)
+    {
+        pitch = val.x;
+        yaw = val.y;
     }
 
     glm::vec3 Camera::getPosition()

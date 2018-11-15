@@ -194,11 +194,6 @@ namespace OluxEngine
 
         glDrawArrays(GL_TRIANGLES, 0, vertexArray.getVertexCount());
 
-		for(size_t i = 0; i < samplers.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, 0);
-		}
 
         glBindVertexArray(0);
         glUseProgram(0);

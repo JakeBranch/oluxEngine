@@ -72,6 +72,7 @@ namespace OluxEngine
 	*/
 	void Core::Start()
 	{
+		bool test = true;
 		int tick = 0;
 		running = true;
 		while (running)
@@ -100,16 +101,33 @@ namespace OluxEngine
 
 			update();
 
-			// std::cout << "1" << std::endl;
 			std::vector<std::shared_ptr<Entity>> ces;
 			getEntities<Camera>(ces);
+
+			glEnable(GL_DEPTH_TEST);
+
+			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for(size_t i = 0; i < ces.size(); i++)
 			{
 				camera = ces.at(i)->getComponent<Camera>();
 	
+				if(test)
+				{
+					glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
+					test = false;
+				}
+				else
+				{
+					glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
+					test = true;
+				}
+
 				display();
 			}
+
+			SDL_GL_SwapWindow(window);
 		}
 	}
 
@@ -160,11 +178,6 @@ namespace OluxEngine
 
 	void Core::display()
 	{
-		glEnable(GL_DEPTH_TEST);
-
-		glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		//Display all entitites
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
@@ -179,8 +192,6 @@ namespace OluxEngine
 				(*it)->destroy();
 			}
 		}
-
-		SDL_GL_SwapWindow(window);
 	}
 
 	/**

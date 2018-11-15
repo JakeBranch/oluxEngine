@@ -32,12 +32,21 @@ int main(int argc, char* argv[])
 		//------------------------------------------Main camera
 		std::shared_ptr<OluxEngine::Entity> mainCam = core->addEntity();
 		mainCam->addComponent<OluxEngine::Camera>();
+		mainCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(0.0f, 5.0f, 0.0f));
+		mainCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-10.0f, -90.0f, 0.0f));
+
+		std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
+		secondCam->addComponent<OluxEngine::Camera>();
+		secondCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(-15.0f, 5.0f, -15.0f));
+		secondCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-10.0f, 0.0f, 0.0f));
 
 		//-------------------------------------------Directional light
 		std::shared_ptr<OluxEngine::Entity> lights = core->addEntity();
 		lights->addComponent<OluxEngine::DirectionalLight>();
 		lights->addComponent<OluxEngine::PointLight>();
 		lights->addComponent<OluxEngine::SpotLight>();
+
+		lights->getComponent<OluxEngine::PointLight>()->setColor(glm::vec3(0.0f, 1.0f, 0.0f));
 		
 		//-------------------------------------------Player model
 		std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
