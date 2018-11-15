@@ -31,6 +31,20 @@ namespace OluxEngine
         localPosition.z += val.z;
     }
 
+    void Transform::rotate(glm::vec3 val)
+    {
+        localRotation.x += val.x;
+        localRotation.y += val.y;
+        localRotation.z += val.z;
+    }
+
+    void Transform::scale(glm::vec3 val)
+    {
+        localScale.x += val.x;
+        localScale.y += val.y;
+        localScale.z += val.z;
+    }
+
     glm::mat4 Transform::getModelMatrix()
     {
         glm::mat4 model(1.0f);

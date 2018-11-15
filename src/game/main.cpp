@@ -62,17 +62,17 @@ int main(int argc, char* argv[])
 		player->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
 
 		//-------------------------------------------Castle model
-		std::shared_ptr<OluxEngine::Entity> castle = core->addEntity();
-		castle->addComponent<OluxEngine::MeshRenderer>();
+		// std::shared_ptr<OluxEngine::Entity> castle = core->addEntity();
+		// castle->addComponent<OluxEngine::MeshRenderer>();
 
-		castle->addComponent<OluxEngine::Transform>();
-		castle->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 0.0f, -15.0f));
+		// castle->addComponent<OluxEngine::Transform>();
+		// castle->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 0.0f, -15.0f));
 
-		std::shared_ptr<OluxEngine::Texture> castleTexture = core->getResources()->Load<OluxEngine::Texture>("resources/re_hall_diffuse.png");
-		castle->getComponent<OluxEngine::MeshRenderer>()->setTexture(castleTexture);
+		// std::shared_ptr<OluxEngine::Texture> castleTexture = core->getResources()->Load<OluxEngine::Texture>("resources/re_hall_diffuse.png");
+		// castle->getComponent<OluxEngine::MeshRenderer>()->setTexture(castleTexture);
 
-		std::shared_ptr<OluxEngine::Mesh> castleMesh = core->getResources()->Load<OluxEngine::Mesh>("resources/re_hall_baked.obj");
-		castle->getComponent<OluxEngine::MeshRenderer>()->setMesh(castleMesh);
+		// std::shared_ptr<OluxEngine::Mesh> castleMesh = core->getResources()->Load<OluxEngine::Mesh>("resources/re_hall_baked.obj");
+		// castle->getComponent<OluxEngine::MeshRenderer>()->setMesh(castleMesh);
 
 		//--------------------------------------------Start Game
 		core->Start();

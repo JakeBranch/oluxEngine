@@ -6,7 +6,7 @@ namespace OluxEngine
 {
     Keyboard::Keyboard()
     {
-
+        keyboardStates = SDL_GetKeyboardState(NULL);
     }
 
     /**

@@ -85,13 +85,11 @@ namespace OluxEngine
 				{
 					running = false;
 				}
-
-				if(event.type == SDL_KEYDOWN)
+				else if(event.type == SDL_KEYDOWN)
 				{
 					std::cout << "KeyDown: " << event.key.keysym.sym << std::endl;
 				}
-
-				if(event.type == SDL_KEYUP)
+				else if(event.type == SDL_KEYUP)
 				{
 					std::cout << "----------------------------------------" << std::endl;
 					std::cout << "KeyUp: " << event.key.keysym.sym << std::endl;
@@ -135,6 +133,11 @@ namespace OluxEngine
 	{
 		keyboard->update();
 		mouse->update();
+
+		if(keyboard->getKeyDown(SDL_SCANCODE_W))
+		{
+			std::cout << "W" << std::endl;
+		}
 
 		if(camera)
 			camera->update();

@@ -18,6 +18,8 @@ namespace OluxEngine
             void setLocalScale(glm::vec3 val);
 
             void translate(glm::vec3 val);
+            void rotate(glm::vec3 val);
+            void scale(glm::vec3 val);
 
             glm::mat4 getModelMatrix();
 
