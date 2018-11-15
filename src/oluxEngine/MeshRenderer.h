@@ -6,6 +6,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 #include <memory>
 

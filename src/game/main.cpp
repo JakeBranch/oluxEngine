@@ -52,6 +52,9 @@ int main(int argc, char* argv[])
 		std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
 		player->addComponent<OluxEngine::MeshRenderer>();
 
+		player->addComponent<OluxEngine::Transform>();
+		player->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 0.0f, -15.0f));
+
 		std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
 		player->getComponent<OluxEngine::MeshRenderer>()->setTexture(t);
 
@@ -61,6 +64,9 @@ int main(int argc, char* argv[])
 		//-------------------------------------------Castle model
 		std::shared_ptr<OluxEngine::Entity> castle = core->addEntity();
 		castle->addComponent<OluxEngine::MeshRenderer>();
+
+		castle->addComponent<OluxEngine::Transform>();
+		castle->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 0.0f, -15.0f));
 
 		std::shared_ptr<OluxEngine::Texture> castleTexture = core->getResources()->Load<OluxEngine::Texture>("resources/re_hall_diffuse.png");
 		castle->getComponent<OluxEngine::MeshRenderer>()->setTexture(castleTexture);

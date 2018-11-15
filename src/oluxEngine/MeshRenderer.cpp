@@ -36,16 +36,11 @@ namespace OluxEngine
 	*/
 	void MeshRenderer::onDisplay()
 	{
-		glm::mat4 model(1.0f);
 		glm::mat4 viewMatrix = getCore()->getCamera()->getViewMatrix();
 
 		material->getShader()->SetUniform("in_View", viewMatrix);
 
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0, 0.0f, -15.0f));
-    	// model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0, 1, 0));
-		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		material->getShader()->SetUniform("in_Model", model);
+		material->getShader()->SetUniform("in_Model", getEntity()->getComponent<Transform>()->getModelMatrix());
 
 		material->getShader()->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
