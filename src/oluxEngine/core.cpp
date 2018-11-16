@@ -101,13 +101,13 @@ namespace OluxEngine
 
 			update();
 
-			std::vector<std::shared_ptr<Entity>> ces;
-			getEntities<Camera>(ces);
-
 			glEnable(GL_DEPTH_TEST);
 
 			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			std::vector<std::shared_ptr<Entity>> ces;
+			getEntities<Camera>(ces);
 
 			for(size_t i = 0; i < ces.size(); i++)
 			{
@@ -140,7 +140,7 @@ namespace OluxEngine
 			std::cout << "W" << std::endl;
 		}
 
-		std::cout << mouse->getPosition().x << "  :   " << mouse->getPosition().y << std::endl;
+		// std::cout << mouse->getPosition().x << "  :   " << mouse->getPosition().y << std::endl;
 
 		if(mouse->getMouseButtonDown(SDL_BUTTON_LEFT))
 		{

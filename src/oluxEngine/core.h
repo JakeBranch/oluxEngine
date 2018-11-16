@@ -61,7 +61,6 @@ namespace OluxEngine
 			template <typename T>
 			void getEntities(std::vector<std::shared_ptr<Entity>> &found)
 			{
-				// std::vector<std::shared_ptr<Entity>> found;
 				for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
 					it != entities.end(); it++)	
 				{

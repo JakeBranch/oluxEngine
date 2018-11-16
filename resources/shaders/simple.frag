@@ -40,10 +40,15 @@ struct SpotLight {
     vec3 specular;       
 };
 
-uniform Material material;
+#define MAX_NUM_POINT_LIGHTS 10
+#define MAX_NUM_SPOT_LIGHTS 10
+
+uniform int numOfPointLights;
+uniform int numOfSpotLights;
 uniform DirLight dirLight;
-uniform PointLight pointLight;
-uniform SpotLight spotLight;
+uniform PointLight pointLights[MAX_NUM_POINT_LIGHTS];
+uniform SpotLight spotLights[MAX_NUM_SPOT_LIGHTS];
+uniform Material material;
 uniform vec3 cameraPos;
 
 varying vec2 ex_TexCoord;
@@ -57,16 +62,18 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {
-  vec3 norm = normalize(Normal);
-  vec3 viewDir = normalize(cameraPos - FragPos);
+    vec3 norm = normalize(Normal);
+    vec3 viewDir = normalize(cameraPos - FragPos);
 
-  vec3 result = CalcDirLight(dirLight, norm, viewDir);
+    vec3 result = CalcDirLight(dirLight, norm, viewDir);
 
-  result += CalcPointLight(pointLight, norm, FragPos, viewDir);
+    for(int i = 0; i < numOfPointLights; i++)
+        result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
 
- // result += CalcSpotLight(spotLight, norm, FragPos, viewDir);
+    for(int i = 0; i < numOfSpotLights; i++)
+        result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
 
-  gl_FragColor = vec4(result, 1.0);
+    gl_FragColor = vec4(result, 1.0);
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)

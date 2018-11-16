@@ -9,6 +9,8 @@
 #include "Transform.h"
 
 #include <memory>
+#include <vector>
+#include <string>
 
 #include <glm/ext.hpp>
 
@@ -47,7 +49,5 @@ namespace OluxEngine
             * Material of the mesh
             */
             std::shared_ptr<Material> material;
-
-            float angle;
     };
 }

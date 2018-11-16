@@ -17,8 +17,6 @@ namespace OluxEngine
 	*/
 	void MeshRenderer::onInit()
 	{
-		angle = 0;
-
 		material = std::make_shared<Material>();
 		
 		std::string vertShader = "resources/shaders/simple.vert";
@@ -52,36 +50,98 @@ namespace OluxEngine
 		material->getShader()->SetUniform("material.shininess", material->getShininess());
 		material->getShader()->SetUniform("material.diffuse", material->getDiffuse());
 
-		//-----------------------------------------------------------------------Set directional light properties
+		//-----------------------------------------------------------------------|APPLY DIRECTIONAL LIGHT|
 		material->getShader()->SetUniform("dirLight.direction", getCore()->getEntity<DirectionalLight>()->getComponent<DirectionalLight>()->getDirection());
 		material->getShader()->SetUniform("dirLight.ambient", getCore()->getEntity<DirectionalLight>()->getComponent<DirectionalLight>()->getAmbient());
 		material->getShader()->SetUniform("dirLight.diffuse", getCore()->getEntity<DirectionalLight>()->getComponent<DirectionalLight>()->getDiffuse());
 		material->getShader()->SetUniform("dirLight.specular", getCore()->getEntity<DirectionalLight>()->getComponent<DirectionalLight>()->getSpecular());
 
-		//----------------------------------------------------------------------Set point light properties
-		material->getShader()->SetUniform("pointLight.position", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getPosition());
-		material->getShader()->SetUniform("pointLight.constant", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getConstant());
-		material->getShader()->SetUniform("pointLight.linear", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getLinear());
-		material->getShader()->SetUniform("pointLight.quadratic", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getQuadratic());
-		material->getShader()->SetUniform("pointLight.ambient", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getAmbient());
-		material->getShader()->SetUniform("pointLight.diffuse", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getDiffuse());
-		material->getShader()->SetUniform("pointLight.specular", getCore()->getEntity<PointLight>()->getComponent<PointLight>()->getSpecular());
+		//-----------------------------------------------------------------------|APPLY POINT LIGHTS|
+		std::vector<std::shared_ptr<Entity>> pointLights;
+		getCore()->getEntities<PointLight>(pointLights);
 
-		//-------------------------------------------------------------------------Set spot light properties
-		// material->getShader()->SetUniform("spotLight.position", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getPosition());
-		// material->getShader()->SetUniform("spotLight.direction", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getDirection());
-		// material->getShader()->SetUniform("spotLight.cutOff", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getCutoff());
-		// material->getShader()->SetUniform("spotLight.outerCutOff", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getOuterCutoff());
-		// material->getShader()->SetUniform("spotLight.constant", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getConstant());
-		// material->getShader()->SetUniform("spotLight.linear", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getLinear());
-		// material->getShader()->SetUniform("spotLight.quadratic", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getQuadratic());
-		// material->getShader()->SetUniform("spotLight.ambient", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getAmbient());
-		// material->getShader()->SetUniform("spotLight.diffuse", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getDiffuse());
-		// material->getShader()->SetUniform("spotLight.specular", getCore()->getEntity<SpotLight>()->getComponent<SpotLight>()->getSpecular());
+		material->getShader()->SetUniform("numOfPointLights", (int)pointLights.size());
+
+		for(size_t i = 0; i < pointLights.size(); i++)
+		{
+			std::shared_ptr<PointLight> light = pointLights.at(i)->getComponent<PointLight>();
+
+			std::string prefix = "pointLights[";
+			prefix += std::to_string(i);
+			prefix += "].";
+
+			std::string uniformLoc;	
+		
+			uniformLoc = prefix + "position";
+			material->getShader()->SetUniform(uniformLoc, light->getPosition());
+
+			uniformLoc = prefix + "constant";
+			material->getShader()->SetUniform(uniformLoc, light->getConstant());
+
+			uniformLoc = prefix + "linear";
+			material->getShader()->SetUniform(uniformLoc, light->getLinear());
+
+			uniformLoc = prefix + "quadratic";
+			material->getShader()->SetUniform(uniformLoc, light->getQuadratic());
+
+			uniformLoc = prefix + "ambient";
+			material->getShader()->SetUniform(uniformLoc, light->getAmbient());
+
+			uniformLoc = prefix + "diffuse";
+			material->getShader()->SetUniform(uniformLoc, light->getDiffuse());
+
+			uniformLoc = prefix + "specular";
+			material->getShader()->SetUniform(uniformLoc, light->getSpecular());
+		}
+
+		//-----------------------------------------------------------------------|APPLY SPOT LIGHTS|
+		std::vector<std::shared_ptr<Entity>> spotLights;
+		getCore()->getEntities<SpotLight>(spotLights);
+
+		material->getShader()->SetUniform("numOfSpotLights", (int)spotLights.size());
+
+		for(size_t i = 0; i < spotLights.size(); i++)
+		{
+			std::shared_ptr<SpotLight> light = spotLights.at(i)->getComponent<SpotLight>();
+
+			std::string prefix = "spotLights[";
+			prefix += std::to_string(i);
+			prefix += "].";
+
+			std::string uniformLoc;
+
+			uniformLoc = prefix + "position";
+			material->getShader()->SetUniform(uniformLoc, light->getPosition());
+
+			uniformLoc = prefix + "direction";
+			material->getShader()->SetUniform(uniformLoc, light->getDirection());
+
+			uniformLoc = prefix + "cutOff";
+			material->getShader()->SetUniform(uniformLoc, light->getCutoff());
+
+			uniformLoc = prefix + "outerCutOff";
+			material->getShader()->SetUniform(uniformLoc, light->getOuterCutoff());
+
+			uniformLoc = prefix + "constant";
+			material->getShader()->SetUniform(uniformLoc, light->getConstant());
+
+			uniformLoc = prefix + "linear";
+			material->getShader()->SetUniform(uniformLoc, light->getLinear());
+
+			uniformLoc = prefix + "quadratic";
+			material->getShader()->SetUniform(uniformLoc, light->getQuadratic());
+
+			uniformLoc = prefix + "ambient";
+			material->getShader()->SetUniform(uniformLoc, light->getAmbient());
+
+			uniformLoc = prefix + "diffuse";
+			material->getShader()->SetUniform(uniformLoc, light->getDiffuse());
+
+			uniformLoc = prefix + "specular";
+			material->getShader()->SetUniform(uniformLoc, light->getSpecular());
+		}
 
 		material->getShader()->Draw(*mesh->getShape());
-
-		angle += 0.1f;
 	}
 
 	/**
