@@ -3,6 +3,10 @@
 
 #include <SDL.h>
 #include <glm/glm.hpp>
+#include <vector>
+#include <string>
+
+#define MOUSE_LEFT 0
 
 namespace OluxEngine
 {
@@ -14,24 +18,24 @@ namespace OluxEngine
         public:
         Mouse();
 
-        void update();
+        void updatePosition(int x, int y);
         glm::vec2 getPosition();
 
+        void setButtonDown(int button);
+        void setButtonUp(int button);
+
+        bool getMouseButtonDown(int button);
+        bool getMouseButtonUp(int button);
+
         private:
-        /**
-        * X position of mouse
-        */ 
-        int x;
-
-        /**
-        * Y position of mouse
-        */ 
-        int y;
-
         /**
         * Position of mouse
         */
         glm::vec2 position;
+
+        std::vector<int> mouseButtons;
+        std::vector<int> upMouseButtons;
+        std::vector<int> downMouseButtons;
     };
 }
 

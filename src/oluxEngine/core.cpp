@@ -85,15 +85,17 @@ namespace OluxEngine
 				{
 					running = false;
 				}
-				else if(event.type == SDL_KEYDOWN)
+				else if(event.type == SDL_MOUSEMOTION)
 				{
-					std::cout << "KeyDown: " << event.key.keysym.sym << std::endl;
+					mouse->updatePosition(event.motion.x, event.motion.y);
 				}
-				else if(event.type == SDL_KEYUP)
+				else if(event.type == SDL_MOUSEBUTTONDOWN)
 				{
-					std::cout << "----------------------------------------" << std::endl;
-					std::cout << "KeyUp: " << event.key.keysym.sym << std::endl;
-					std::cout << "----------------------------------------" << std::endl;
+					mouse->setButtonDown(event.button.button);
+				}
+				else if(event.type == SDL_MOUSEBUTTONUP)
+				{
+					mouse->setButtonUp(event.button.button);
 				}
 			}
 
@@ -132,9 +134,23 @@ namespace OluxEngine
 	void Core::update()
 	{
 		keyboard->update();
-		mouse->update();
 
 		if(keyboard->getKeyDown(SDL_SCANCODE_W))
+		{
+			std::cout << "W" << std::endl;
+		}
+
+		std::cout << mouse->getPosition().x << "  :   " << mouse->getPosition().y << std::endl;
+
+		if(mouse->getMouseButtonDown(SDL_BUTTON_LEFT))
+		{
+			std::cout << "W" << std::endl;
+		}
+		else if(mouse->getMouseButtonDown(SDL_BUTTON_RIGHT))
+		{
+			std::cout << "W" << std::endl;
+		}
+		else if(mouse->getMouseButtonDown(SDL_BUTTON_MIDDLE))
 		{
 			std::cout << "W" << std::endl;
 		}

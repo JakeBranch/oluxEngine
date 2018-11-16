@@ -9,14 +9,64 @@ namespace OluxEngine
 
     }
 
-    /**
-    * Update mouse position
-    */
-    void Mouse::update()
+    void Mouse::updatePosition(int x, int y)
     {
-        SDL_GetMouseState(&x, &y);
-        position.x = (float)x;
-        position.y = (float)y;
+        position.x = x;
+        position.y = y;
+    }
+
+    bool Mouse::getMouseButtonDown(int button)
+    {
+        for(int i = 0; i < downMouseButtons.size(); i++)
+        {
+            if(downMouseButtons.at(i) == button)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool Mouse::getMouseButtonUp(int button)
+    {
+        for(int i = 0; i < upMouseButtons.size(); i++)
+        {
+            if(upMouseButtons.at(i) == button)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void Mouse::setButtonDown(int button)
+    {
+        downMouseButtons.push_back(button);
+
+        for(int i = 0; i < upMouseButtons.size(); i++)
+        {
+            if(upMouseButtons.at(i) == button)
+            {
+                upMouseButtons.erase(upMouseButtons.begin() + i);
+                i--;
+            }
+        }
+    }
+
+    void Mouse::setButtonUp(int button)
+    {
+        upMouseButtons.push_back(button);
+
+        for(int i = 0; i < downMouseButtons.size(); i++)
+        {
+            if(downMouseButtons.at(i) == button)
+            {
+                downMouseButtons.erase(downMouseButtons.begin() + i);
+                i--;
+            }
+        }
     }
 
     /**
