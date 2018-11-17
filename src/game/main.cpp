@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 		std::shared_ptr<OluxEngine::Entity> pLight1 = core->addEntity();
 		pLight1->addComponent<OluxEngine::PointLight>();
 		pLight1->getComponent<OluxEngine::PointLight>()->setColor(glm::vec3(0.0f, 1.0f, 0.0f));
-		pLight1->getComponent<OluxEngine::PointLight>()->setPosition(glm::vec3(-5.0f, 0.0f, -5.0f));
+		pLight1->getComponent<OluxEngine::PointLight>()->setPosition(glm::vec3(5.0f, 0.0f, -5.0f));
 
 		std::shared_ptr<OluxEngine::Entity> pLight2 = core->addEntity();
 		pLight2->addComponent<OluxEngine::PointLight>();
