@@ -54,6 +54,8 @@ add_library(
 	src/oluxEngine/PointLight.cpp
 	src/oluxEngine/SpotLight.cpp
 	src/oluxEngine/Mesh.cpp
+	src/oluxEngine/StaticModelCollider.cpp
+	src/oluxEngine/tribox.cpp
 )
 
 if(MSVC)
@@ -71,6 +73,10 @@ add_executable(
 	src/game/main.cpp
 	src/game/TestScene.cpp
 	src/game/TestScene.h
+	src/game/Environment.cpp
+	src/game/Environment.h
+	src/game/Player.cpp
+	src/game/Player.h
 	contrib/stb_image/stb_image.cpp
 )
 

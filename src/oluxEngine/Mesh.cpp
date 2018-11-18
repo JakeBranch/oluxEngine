@@ -14,4 +14,9 @@ namespace OluxEngine
     {
         return shape;
     }
+
+    std::vector<Face> Mesh::getFaces()
+	{
+		return shape->getFaces();
+	}
 }
