@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include <iostream>
 
 namespace OluxEngine
 {
@@ -7,6 +8,16 @@ namespace OluxEngine
         localPosition = glm::vec3(0.0f, 0.0f, 0.0f);
         localRotation = glm::vec3(0.0f, 0.0f, 0.0f);
         localScale = glm::vec3(1.0f, 1.0f, 1.0f);
+    }
+
+    glm::vec3 Transform::getPosition()
+    {
+        return localPosition;
+    }
+
+    glm::vec3 Transform::getScale()
+    {
+        return localScale;
     }
 
     void Transform::setLocalPosition(glm::vec3 val)
@@ -29,6 +40,10 @@ namespace OluxEngine
         localPosition.x += val.x;
         localPosition.y += val.y;
         localPosition.z += val.z;
+
+        // glm::vec4 fwd = glm::vec4(localPosition, 1) * getModelMatrix();
+
+        std::cout << localPosition.x << "  :  " << localPosition.y << "  :  " << localPosition.z << std::endl;
     }
 
     void Transform::rotate(glm::vec3 val)

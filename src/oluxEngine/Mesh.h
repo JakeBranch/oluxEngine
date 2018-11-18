@@ -3,6 +3,7 @@
 
 #include "Resource.h"
 #include "VertexArray.h"
+#include "Face.h"
 
 #include <memory>
 
@@ -15,6 +16,7 @@ namespace OluxEngine
 			// static std::shared_ptr<Mesh> Create(unsigned int width, unsigned int height, unsigned char* data);
 
             std::shared_ptr<VertexArray> getShape();
+			std::vector<Face> getFaces();
 
         private:
             std::shared_ptr<VertexArray> shape;

@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "Exception.h"
+#include "Face.h"
 
 namespace OluxEngine
 {
@@ -40,6 +41,8 @@ namespace OluxEngine
 		std::vector<GLfloat> normal;
 		std::vector<GLfloat> color;
 
+		std::vector<Face> faces;
+
 	public:
 		VertexArray();
 		VertexArray(std::string path);
@@ -52,6 +55,8 @@ namespace OluxEngine
 		std::vector<GLfloat> getTexCoord();
 		std::vector<GLfloat> getNormal();
 		std::vector<GLfloat> getColor();
+
+		std::vector<Face> getFaces();
 	};
 }
 

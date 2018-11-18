@@ -25,5 +25,4 @@ namespace OluxEngine
 	{
 		return getEntity()->getCore();
 	}
-
 }

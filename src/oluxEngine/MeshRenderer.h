@@ -1,3 +1,6 @@
+#ifndef OLUXENGINE_MESHRENDERER_H
+#define OLUXENGINE_MESHRENDERER_H
+
 #include "Component.h"
 #include "Resources.h"
 #include "Texture.h"
@@ -32,6 +35,7 @@ namespace OluxEngine
             void setShaders(std::string vertShader, std::string fragShader);
 
             std::shared_ptr<Material> getMaterial();
+            std::shared_ptr<Mesh> getMesh();
 
             void setMesh(std::shared_ptr<Mesh> mesh);
             
@@ -51,3 +55,5 @@ namespace OluxEngine
             std::shared_ptr<Material> material;
     };
 }
+
+#endif

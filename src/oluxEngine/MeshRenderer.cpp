@@ -169,4 +169,9 @@ namespace OluxEngine
 	{
 		return material;
 	}
+
+	std::shared_ptr<Mesh> MeshRenderer::getMesh()
+	{
+		return mesh;
+	}
 }
