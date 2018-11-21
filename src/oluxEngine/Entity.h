@@ -59,6 +59,18 @@ namespace OluxEngine
 				return rtn;
 			}
 
+			/**
+			*Template function to add a component to an entity with two arguments
+			*/
+			template <typename T, typename A, typename B, typename C>
+			std::shared_ptr<T> addComponent(A a, B b, C c)
+			{
+				ADDCOMPONENT
+					rtn->onInit(a, b, c);
+
+				return rtn;
+			}
+
 			template <typename T>
 			bool hasComponent()
 			{
@@ -90,7 +102,7 @@ namespace OluxEngine
 					}
 				}
 
-				throw Exception("Failed to obtain comonent");
+				throw Exception("Failed to obtain component");
 			}
 
 			std::shared_ptr<Core> getCore();

@@ -2,6 +2,7 @@
 #define OLUXENGINE_KEYBOARD_H
 
 #include <SDL.h>
+#include <vector>
 
 namespace OluxEngine
 {

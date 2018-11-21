@@ -34,7 +34,7 @@ namespace OluxEngine
         std::vector<Sampler> samplers;
 
         public:
-			static std::shared_ptr<ShaderProgram> Load(const char* vertLoc, const char* fragLoc);
+			static std::shared_ptr<ShaderProgram> Load(std::string vertLoc, std::string fragLoc);
 			static std::shared_ptr<ShaderProgram> Create(const char* vertCode, const char* fragCode, const char* vertLoc, const char* fragLoc);
 
 			ShaderProgram();

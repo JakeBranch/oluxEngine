@@ -36,10 +36,11 @@ namespace OluxEngine
 
 			void Start();
 			void Stop();
-			std::shared_ptr<Entity> addEntity();
 
 			void update();
 			void display();
+
+			std::shared_ptr<Entity> addEntity();
 
 			template <typename T>
 			std::shared_ptr<Entity> getEntity()

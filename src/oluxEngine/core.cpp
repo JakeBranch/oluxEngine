@@ -113,16 +113,16 @@ namespace OluxEngine
 			{
 				camera = ces.at(i)->getComponent<Camera>();
 	
-				if(test)
-				{
-					glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
-					test = false;
-				}
-				else
-				{
-					glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
-					test = true;
-				}
+				// if(test)
+				// {
+				// 	glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
+				// 	test = false;
+				// }
+				// else
+				// {
+				// 	glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
+				// 	test = true;
+				// }
 
 				display();
 			}
@@ -134,26 +134,6 @@ namespace OluxEngine
 	void Core::update()
 	{
 		keyboard->update();
-
-		// if(keyboard->getKeyDown(SDL_SCANCODE_W))
-		// {
-		// 	std::cout << "W" << std::endl;
-		// }
-
-		// // std::cout << mouse->getPosition().x << "  :   " << mouse->getPosition().y << std::endl;
-
-		// if(mouse->getMouseButtonDown(SDL_BUTTON_LEFT))
-		// {
-		// 	std::cout << "W" << std::endl;
-		// }
-		// else if(mouse->getMouseButtonDown(SDL_BUTTON_RIGHT))
-		// {
-		// 	std::cout << "W" << std::endl;
-		// }
-		// else if(mouse->getMouseButtonDown(SDL_BUTTON_MIDDLE))
-		// {
-		// 	std::cout << "W" << std::endl;
-		// }
 
 		if(camera)
 			camera->update();

@@ -10,7 +10,7 @@
 class Player : public OluxEngine::Component
 {
 	public:
-		void onInit(std::string meshLoc);
+		void onInit(std::string meshLoc, std::string textureLoc);
 		void onBegin();
 		void update();
 

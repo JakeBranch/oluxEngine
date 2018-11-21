@@ -53,6 +53,8 @@ namespace OluxEngine
             * Material of the mesh
             */
             std::shared_ptr<Material> material;
+
+            float angle;
     };
 }
 

@@ -21,10 +21,10 @@ namespace OluxEngine
 		
 		std::string vertShader = "resources/shaders/simple.vert";
 		std::string fragShader = "resources/shaders/simple.frag";
-		const char* vertLoc = vertShader.c_str();
-		const char* fragLoc = fragShader.c_str();
 
-		material->setShader(getCore()->getResources()->Load<ShaderProgram>(vertLoc, fragLoc));
+		material->setShader(getCore()->getResources()->Load<ShaderProgram>(vertShader, fragShader));
+
+		angle = 0;
 	}
 
 	/**
@@ -34,9 +34,7 @@ namespace OluxEngine
 	*/
 	void MeshRenderer::onDisplay()
 	{
-		glm::mat4 viewMatrix = getCore()->getCamera()->getViewMatrix();
-
-		material->getShader()->SetUniform("in_View", viewMatrix);
+		material->getShader()->SetUniform("in_View", getCore()->getCamera()->getViewMatrix());
 
 		material->getShader()->SetUniform("in_Model", getEntity()->getComponent<Transform>()->getModelMatrix());
 

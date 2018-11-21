@@ -34,13 +34,14 @@ int main(int argc, char* argv[])
 		//------------------------------------------Main camera
 		std::shared_ptr<OluxEngine::Entity> mainCam = core->addEntity();
 		mainCam->addComponent<OluxEngine::Camera>();
-		mainCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(0.0f, 5.0f, 0.0f));
-		mainCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-10.0f, -90.0f, 0.0f));
+		// mainCam->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 10.0f, 0.0f));
+		mainCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(-20.0f, 180.0f, 0.0f));
 
-		std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
-		secondCam->addComponent<OluxEngine::Camera>();
-		secondCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(-15.0f, 5.0f, -15.0f));
-		secondCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-10.0f, 0.0f, 0.0f));
+
+		// std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
+		// secondCam->addComponent<OluxEngine::Camera>();
+		// secondCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(-10.0f, 10.0f, -0.0f));
+		// secondCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-45.0f, 0.0f, 0.0f));
 
 		//-------------------------------------------Directional light
 		std::shared_ptr<OluxEngine::Entity> lights = core->addEntity();
@@ -78,16 +79,17 @@ int main(int argc, char* argv[])
 		// player->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
 
 		std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
-		player->addComponent<Player>("resources/curuthers.obj");
+		player->addComponent<Player>("resources/curuthers.obj", "resources/curuthers_diffuse.png");
 
-		std::shared_ptr<OluxEngine::Texture> playerTex = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
-		player->getComponent<OluxEngine::MeshRenderer>()->setTexture(playerTex);
+		// std::shared_ptr<OluxEngine::Texture> playerTex = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
+		// player->getComponent<OluxEngine::MeshRenderer>()->setTexture(playerTex);
 
 		//--------------------------------------------Start Game
-		core->Start();
+		core->Start(); 
 	}
 	catch(OluxEngine::Exception& e)
 	{
+
 		std::cout << "OluxEngine Exception: " << e.what() << std::endl;
 	}
 

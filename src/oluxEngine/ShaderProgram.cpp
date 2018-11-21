@@ -17,15 +17,18 @@ namespace OluxEngine
  	/**
     *Reads/Writes shader code from file
     */
-	std::shared_ptr<ShaderProgram> ShaderProgram::Load(const char* vertLoc, const char* fragLoc)
+	std::shared_ptr<ShaderProgram> ShaderProgram::Load(std::string vertLoc, std::string fragLoc)
 	{		
-		std::ifstream fileStream(vertLoc, std::ios::in);
+		const char* vertLocation = vertLoc.c_str();
+		const char* fragLocation = fragLoc.c_str();
+		
+		std::ifstream fileStream(vertLocation, std::ios::in);
 		std::string vertSrc;
 
 		if (!fileStream.is_open())
 		{
 			std::string errorMessage = "Failed to open shader file: ";
-			errorMessage += vertLoc;
+			errorMessage += vertLocation;
 			throw Exception(errorMessage);
 		}
 
@@ -38,13 +41,13 @@ namespace OluxEngine
 
 		fileStream.close();
 
-		fileStream.open(fragLoc, std::ios::in);
+		fileStream.open(fragLocation, std::ios::in);
 		std::string fragSrc;
 
 		if (!fileStream.is_open())
 		{
 			std::string errorMessage = "Failed to open shader file: ";
-			errorMessage += fragLoc;
+			errorMessage += fragLocation;
 			throw Exception(errorMessage);
 		}
 
@@ -60,7 +63,7 @@ namespace OluxEngine
 		const char *vertCode = vertSrc.c_str();
 		const char *fragCode = fragSrc.c_str();
 
-		std::shared_ptr<ShaderProgram> rtn = Create(vertCode, fragCode, vertLoc, fragLoc);
+		std::shared_ptr<ShaderProgram> rtn = Create(vertCode, fragCode, vertLocation, fragLocation);
 
 		return rtn;
 	}
