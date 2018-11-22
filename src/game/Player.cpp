@@ -4,8 +4,6 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
     getEntity()->addComponent<OluxEngine::MeshRenderer>();
     getEntity()->addComponent<OluxEngine::Transform>();
-    // getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 10.0, -15.0f));
-    // getEntity()->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, 180.0f, 0.0f));
 
     std::shared_ptr<OluxEngine::Mesh> playerMesh = getCore()->getResources()->Load<OluxEngine::Mesh>(meshLoc);
     getEntity()->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
@@ -38,7 +36,7 @@ void Player::update()
 
     glm::vec3 lp = getEntity()->getComponent<OluxEngine::Transform>()->getPosition() + glm::vec3(0, -1, 0);
 
-    getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, -4, 0) * deltaTime);
+    getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, -8, 0) * deltaTime);
 
 	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
     {
@@ -61,15 +59,15 @@ void Player::update()
     
     if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_A))
     {
-        getEntity()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0, speed*5, 0) * deltaTime);
+        getEntity()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0, speed*10, 0) * deltaTime);
 
-        getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0.0f, speed*5, 0.0f) * deltaTime);
+        getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0.0f, speed*10, 0.0f) * deltaTime);
     }
     else if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_D))
     {
-        getEntity()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0, -speed*5, 0) * deltaTime);
+        getEntity()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0, -speed*10, 0) * deltaTime);
 
-        getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0.0f, -speed*5, 0.0f) * deltaTime);
+        getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->rotate(glm::vec3(0.0f, -speed*10, 0.0f) * deltaTime);
     }
 
     if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_SPACE))

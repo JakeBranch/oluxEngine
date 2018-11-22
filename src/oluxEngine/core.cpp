@@ -113,16 +113,16 @@ namespace OluxEngine
 			{
 				camera = ces.at(i)->getComponent<Camera>();
 	
-				// if(test)
-				// {
-				// 	glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
-				// 	test = false;
-				// }
-				// else
-				// {
-				// 	glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
-				// 	test = true;
-				// }
+				if(test)
+				{
+					glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
+					test = false;
+				}
+				else
+				{
+					glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
+					test = true;
+				}
 
 				display();
 			}

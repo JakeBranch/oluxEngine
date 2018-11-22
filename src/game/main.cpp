@@ -35,13 +35,13 @@ int main(int argc, char* argv[])
 		std::shared_ptr<OluxEngine::Entity> mainCam = core->addEntity();
 		mainCam->addComponent<OluxEngine::Camera>();
 		// mainCam->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 10.0f, 0.0f));
-		mainCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(-20.0f, 180.0f, 0.0f));
+		mainCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, 180.0f, 0.0f));
 
 
-		// std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
-		// secondCam->addComponent<OluxEngine::Camera>();
-		// secondCam->getComponent<OluxEngine::Camera>()->setPosition(glm::vec3(-10.0f, 10.0f, -0.0f));
-		// secondCam->getComponent<OluxEngine::Camera>()->setRotation(glm::vec3(-45.0f, 0.0f, 0.0f));
+		std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
+		secondCam->addComponent<OluxEngine::Camera>();
+		secondCam->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-10.0f, 3.0f, -0.0f));
+		secondCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, -90.0f, 0.0f));
 
 		//-------------------------------------------Directional light
 		std::shared_ptr<OluxEngine::Entity> lights = core->addEntity();
