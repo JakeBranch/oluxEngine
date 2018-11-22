@@ -139,7 +139,14 @@ namespace OluxEngine
 			material->getShader()->SetUniform(uniformLoc, light->getSpecular());
 		}
 
-		material->getShader()->Draw(*mesh->getShape());
+		if(getCore()->postProcessingEnabled())
+		{
+			material->getShader()->Draw(getCore()->getPostProcessor()->sceneRt, mesh->getShape());
+		}
+		else
+		{
+			material->getShader()->Draw(mesh->getShape());
+		}
 	}
 
 	/**

@@ -56,6 +56,9 @@ add_library(
 	src/oluxEngine/Mesh.cpp
 	src/oluxEngine/StaticModelCollider.cpp
 	src/oluxEngine/tribox.cpp
+	src/oluxEngine/RenderTexture.cpp
+	src/oluxEngine/PostProcessor.cpp
+	src/oluxEngine/Gui.cpp
 )
 
 if(MSVC)

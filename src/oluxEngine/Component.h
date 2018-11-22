@@ -36,6 +36,7 @@ namespace OluxEngine
 		virtual void onBegin();
 		virtual void update();
 		virtual void onDisplay();
+		virtual void onGui();
 	};
 
 }

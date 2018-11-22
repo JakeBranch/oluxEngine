@@ -4,6 +4,7 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
     getEntity()->addComponent<OluxEngine::MeshRenderer>();
     getEntity()->addComponent<OluxEngine::Transform>();
+    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0, 20, 0));
 
     std::shared_ptr<OluxEngine::Mesh> playerMesh = getCore()->getResources()->Load<OluxEngine::Mesh>(meshLoc);
     getEntity()->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
@@ -96,4 +97,12 @@ void Player::update()
     glm::vec3 pPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
     getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 3.5f, np.z));
+}
+
+void Player::onGui()
+{
+    if(getCore()->getGui()->button(0, 0, 300, 100))
+    {
+        std::cout << "INSIDE" << std::endl;
+    }
 }

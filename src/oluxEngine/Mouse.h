@@ -35,6 +35,7 @@ namespace OluxEngine
 
         std::vector<int> upMouseButtons;
         std::vector<int> downMouseButtons;
+        std::vector<int> mouseButtons;
     };
 }
 

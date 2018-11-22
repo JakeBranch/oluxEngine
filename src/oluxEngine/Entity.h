@@ -133,6 +133,7 @@ namespace OluxEngine
 			void update();
 			void display();
 			void destroy();
+			void gui();
 
 			bool getAlive();
 	};

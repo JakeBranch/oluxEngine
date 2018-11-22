@@ -14,6 +14,7 @@ namespace OluxEngine
 	{
 		std::shared_ptr<Core> rtn = std::make_shared<Core>();
 		rtn->running = true;
+		rtn->postProcessing = true;
 		rtn->self = rtn;
 
 		rtn->clockStart = clock();
@@ -63,7 +64,9 @@ namespace OluxEngine
 		rtn->resourceManager = std::make_shared<Resources>();
 		rtn->keyboard = std::make_shared<Keyboard>();
 		rtn->mouse = std::make_shared<Mouse>();
-
+		rtn->postProcessor = std::make_shared<PostProcessor>(rtn);
+		rtn->gui = std::make_shared<Gui>(rtn);
+		
 		return rtn;
 	}
 
@@ -102,10 +105,14 @@ namespace OluxEngine
 			update();
 
 			glEnable(GL_DEPTH_TEST);
+			postProcessor->sceneRt->clear();
 
+			if(!postProcessing)
+			{
 			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			}
+			
 			std::vector<std::shared_ptr<Entity>> ces;
 			getEntities<Camera>(ces);
 
@@ -113,19 +120,30 @@ namespace OluxEngine
 			{
 				camera = ces.at(i)->getComponent<Camera>();
 	
-				if(test)
-				{
-					glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
-					test = false;
-				}
-				else
-				{
-					glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
-					test = true;
-				}
+				// if(test)
+				// {
+				// 	glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
+				// 	test = false;
+				// }
+				// else
+				// {
+				// 	glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
+				// 	test = true;
+				// }
 
 				display();
 			}
+
+			if(postProcessing)
+			{
+				glDisable(GL_DEPTH_TEST);
+				glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+				// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				postProcessor->display();
+			}
+
+			onGui();
 
 			SDL_GL_SwapWindow(window);
 		}
@@ -193,6 +211,23 @@ namespace OluxEngine
 		}
 	}
 
+	void Core::onGui()
+	{
+		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+			it != entities.end(); it++)
+		{
+			try
+			{
+				(*it)->gui();
+			}
+			catch(Exception& e)
+			{
+				std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+				(*it)->destroy();
+			}
+		}
+	}
+
 	/**
 	*Stops application
 	*/
@@ -225,6 +260,11 @@ namespace OluxEngine
 		return keyboard;
 	}
 
+	std::shared_ptr<Mouse> Core::getMouse()
+	{
+		return mouse;
+	}
+
 	/**
 	*Creates, stores, and returns an entity
 	*/
@@ -236,5 +276,20 @@ namespace OluxEngine
 		rtn->core = self;
 
 		return rtn;
+	}
+
+	bool Core::postProcessingEnabled()
+	{
+		return postProcessing;
+	}
+
+	std::shared_ptr<PostProcessor> Core::getPostProcessor()
+	{
+		return postProcessor;
+	}
+
+	std::shared_ptr<Gui> Core::getGui()
+	{
+		return gui;
 	}
 }

@@ -38,12 +38,12 @@ int main(int argc, char* argv[])
 		mainCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, 180.0f, 0.0f));
 
 
-		std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
-		secondCam->addComponent<OluxEngine::Camera>();
-		secondCam->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-10.0f, 3.0f, -0.0f));
-		secondCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, -90.0f, 0.0f));
+		// std::shared_ptr<OluxEngine::Entity> secondCam = core->addEntity();
+		// secondCam->addComponent<OluxEngine::Camera>();
+		// secondCam->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-10.0f, 3.0f, -0.0f));
+		// secondCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, -90.0f, 0.0f));
 
-		//-------------------------------------------Directional light
+		//------------------------------------------lights
 		std::shared_ptr<OluxEngine::Entity> lights = core->addEntity();
 		lights->addComponent<OluxEngine::DirectionalLight>();
 		lights->addComponent<OluxEngine::SpotLight>();
@@ -60,30 +60,15 @@ int main(int argc, char* argv[])
 
 		//-------------------------------------------Environment
 		std::shared_ptr<OluxEngine::Entity> environment = core->addEntity();
-		environment->addComponent<Environment>("resources/re_hall_baked.obj");
+		environment->addComponent<Environment>("resources/maze2.obj");
 
 		std::shared_ptr<OluxEngine::Texture> envTexture = core->getResources()->Load<OluxEngine::Texture>("resources/re_hall_diffuse.png");
 		environment->getComponent<OluxEngine::MeshRenderer>()->setTexture(envTexture);
 
-		//-------------------------------------------Player model
-		// std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
-		// player->addComponent<OluxEngine::MeshRenderer>();
-
-		// player->addComponent<OluxEngine::Transform>();
-		// player->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 0.0f, -15.0f));
-
-		// std::shared_ptr<OluxEngine::Texture> t = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
-		// player->getComponent<OluxEngine::MeshRenderer>()->setTexture(t);
-
-		// std::shared_ptr<OluxEngine::Mesh> playerMesh = core->getResources()->Load<OluxEngine::Mesh>("resources/curuthers.obj");
-		// player->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
-
+		//-------------------------------------------Player
 		std::shared_ptr<OluxEngine::Entity> player = core->addEntity();
 		player->addComponent<Player>("resources/curuthers.obj", "resources/curuthers_diffuse.png");
-
-		// std::shared_ptr<OluxEngine::Texture> playerTex = core->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
-		// player->getComponent<OluxEngine::MeshRenderer>()->setTexture(playerTex);
-
+		
 		//--------------------------------------------Start Game
 		core->Start(); 
 	}

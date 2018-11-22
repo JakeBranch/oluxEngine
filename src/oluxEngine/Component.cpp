@@ -9,6 +9,7 @@ namespace OluxEngine
 	void Component::onBegin() { }
 	void Component::update() { }
 	void Component::onDisplay() { }
+	void Component::onGui() { }
 
 	/**
 	*Return reference to the entity the component is attached to
