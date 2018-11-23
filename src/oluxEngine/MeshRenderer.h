@@ -33,11 +33,10 @@ namespace OluxEngine
             void onInit();
 			void setTexture(std::shared_ptr<Texture> t);
             void setShaders(std::string vertShader, std::string fragShader);
+            void setMesh(std::shared_ptr<Mesh> mesh);
 
             std::shared_ptr<Material> getMaterial();
             std::shared_ptr<Mesh> getMesh();
-
-            void setMesh(std::shared_ptr<Mesh> mesh);
             
         private:
             void onDisplay();
@@ -53,8 +52,6 @@ namespace OluxEngine
             * Material of the mesh
             */
             std::shared_ptr<Material> material;
-
-            float angle;
     };
 }
 

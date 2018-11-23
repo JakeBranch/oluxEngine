@@ -29,5 +29,6 @@
 #include "RenderTexture.h"
 #include "PostProcessor.h"
 #include "Gui.h"
+#include "BoxCollider.h"
 
 #endif

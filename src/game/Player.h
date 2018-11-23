@@ -12,10 +12,12 @@ class Player : public OluxEngine::Component
 	public:
 		void onInit(std::string meshLoc, std::string textureLoc);
 		void onBegin();
-		void update();
+		void onUpdate();
 		void onGui();
 
         std::shared_ptr<OluxEngine::StaticModelCollider> smc;
+
+		glm::vec3 size;
 
 		float speed;
 

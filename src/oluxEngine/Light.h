@@ -13,8 +13,6 @@ namespace OluxEngine
     class Light : public Component
     {
         public:
-            Light();
-
             void onInit();
 
             glm::vec3 getAmbient();

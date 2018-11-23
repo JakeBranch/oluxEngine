@@ -30,23 +30,24 @@ namespace OluxEngine
 
     class StaticModelCollider : public Component
     {
-        std::vector<std::shared_ptr<ColliderColumn>> cols;
-        Extent extent;
-
-        float resolution;
-        float tryStep;
-        float maxStep;
-        float tryInc;
-        float maxInc;
-
-        void generateExtent(std::vector<Face> meshFaces);
-        void addFace(Face);
-
         public:
             void onInit();
             Extent getExtent();
             bool isColliding(glm::vec3 position, glm::vec3 size);
 
             glm::vec3 getCollisionResponse(glm::vec3 position, glm::vec3 lastPosition, glm::vec3 size, bool& solved);
+    
+        private:
+            std::vector<std::shared_ptr<ColliderColumn>> cols;
+            Extent extent;
+
+            float resolution;
+            float tryStep;
+            float maxStep;
+            float tryInc;
+            float maxInc;
+
+            void generateExtent(std::vector<Face> meshFaces);
+            void addFace(Face);
     };
 }

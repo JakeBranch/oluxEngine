@@ -32,7 +32,7 @@ namespace OluxEngine
     /**
     * Update camera properties
     */ 
-    void Camera::update()
+    void Camera::onUpdate()
     {
         // yaw += 0.25f;
         front.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));

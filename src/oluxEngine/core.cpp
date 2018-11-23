@@ -73,7 +73,7 @@ namespace OluxEngine
 	/**
 	* Starts game loop. Handles updating and drawing of entities and environment variables
 	*/
-	void Core::Start()
+	void Core::start()
 	{
 		bool test = true;
 		int tick = 0;
@@ -102,7 +102,7 @@ namespace OluxEngine
 				}
 			}
 
-			update();
+			onUpdate();
 
 			glEnable(GL_DEPTH_TEST);
 			postProcessor->sceneRt->clear();
@@ -119,19 +119,8 @@ namespace OluxEngine
 			for(size_t i = 0; i < ces.size(); i++)
 			{
 				camera = ces.at(i)->getComponent<Camera>();
-	
-				// if(test)
-				// {
-				// 	glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
-				// 	test = false;
-				// }
-				// else
-				// {
-				// 	glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
-				// 	test = true;
-				// }
 
-				display();
+				onDisplay();
 			}
 
 			if(postProcessing)
@@ -149,19 +138,19 @@ namespace OluxEngine
 		}
 	}
 
-	void Core::update()
+	void Core::onUpdate()
 	{
 		keyboard->update();
 
 		if(camera)
-			camera->update();
+			camera->onUpdate();
 
 		for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
 			{
-				(*it)->update();
+				(*it)->onUpdate();
 			}
 			catch(Exception& e)
 			{
@@ -193,7 +182,7 @@ namespace OluxEngine
 		}
 	}
 
-	void Core::display()
+	void Core::onDisplay()
 	{
 		//Display all entitites
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
@@ -201,7 +190,7 @@ namespace OluxEngine
 		{
 			try
 			{
-				(*it)->display();
+				(*it)->onDisplay();
 			}
 			catch(Exception& e)
 			{
@@ -218,7 +207,7 @@ namespace OluxEngine
 		{
 			try
 			{
-				(*it)->gui();
+				(*it)->onGui();
 			}
 			catch(Exception& e)
 			{
@@ -231,7 +220,7 @@ namespace OluxEngine
 	/**
 	*Stops application
 	*/
-	void Core::Stop()
+	void Core::stop()
 	{
 		running = false;
 	}

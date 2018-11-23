@@ -18,7 +18,7 @@ void Environment::onBegin()
 
 }
 
-void Environment::update()
+void Environment::onUpdate()
 {
 
 }

@@ -6,6 +6,8 @@
 #include "Face.h"
 
 #include <memory>
+#include <glm/glm.hpp>
+#include <vector>
 
 namespace OluxEngine
 {
@@ -17,6 +19,7 @@ namespace OluxEngine
 
             std::shared_ptr<VertexArray> getShape();
 			std::vector<Face> getFaces();
+			glm::vec3 getSize();
 
         private:
             std::shared_ptr<VertexArray> shape;

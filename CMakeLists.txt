@@ -59,6 +59,7 @@ add_library(
 	src/oluxEngine/RenderTexture.cpp
 	src/oluxEngine/PostProcessor.cpp
 	src/oluxEngine/Gui.cpp
+	src/oluxEngine/BoxCollider.cpp
 )
 
 if(MSVC)

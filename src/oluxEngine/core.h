@@ -12,6 +12,7 @@
 
 #include <cstdio>
 #include <ctime>
+#include <string>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -37,11 +38,11 @@ namespace OluxEngine
 		public:
 			static std::shared_ptr<Core> initialise();
 
-			void Start();
-			void Stop();
+			void start();
+			void stop();
 
-			void update();
-			void display();
+			void onUpdate();
+			void onDisplay();
 			void onGui();
 
 			std::shared_ptr<Entity> addEntity();
@@ -55,6 +56,22 @@ namespace OluxEngine
 					if(!(*it)->getAlive()) continue;
 
 					if((*it)->hasComponent<T>())
+					{
+						return *it;
+					}
+				}
+
+				throw Exception("Failed to retrieve entity with specified type");
+			}
+
+			std::shared_ptr<Entity> getEntity(std::string tag)
+			{
+				for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+				it != entities.end(); it++)
+				{
+					if(!(*it)->getAlive()) continue;
+
+					if((*it)->getTag() == tag)
 					{
 						return *it;
 					}
@@ -78,16 +95,29 @@ namespace OluxEngine
 				}
 			}
 
+			void getEntities(std::vector<std::shared_ptr<Entity>> &found, std::string tag)
+			{
+				for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+					it != entities.end(); it++)	
+				{
+					if(!(*it)->getAlive()) continue;
+
+					if((*it)->getTag() == tag)
+					{
+						found.push_back(*it);
+					}
+				}
+			}
+
 			std::shared_ptr<Resources> getResources();
 			std::shared_ptr<Camera> getCamera();
 			std::shared_ptr<Keyboard> getKeyboard();
 			std::shared_ptr<Mouse> getMouse();
-
-			bool postProcessingEnabled();
-
 			std::shared_ptr<PostProcessor> getPostProcessor();
 			std::shared_ptr<Gui> getGui();
 
+			bool postProcessingEnabled();
+			
 		private:
 			bool running;
 			bool postProcessing;

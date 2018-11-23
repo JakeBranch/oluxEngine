@@ -10,7 +10,7 @@ class Environment : public OluxEngine::Component
 	public:
 		void onInit(std::string meshLoc);
 		void onBegin();
-		void update();
+		void onUpdate();
 };
 
 #endif

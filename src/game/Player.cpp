@@ -4,7 +4,7 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
     getEntity()->addComponent<OluxEngine::MeshRenderer>();
     getEntity()->addComponent<OluxEngine::Transform>();
-    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0, 20, 0));
+    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0, 30, 0));
 
     std::shared_ptr<OluxEngine::Mesh> playerMesh = getCore()->getResources()->Load<OluxEngine::Mesh>(meshLoc);
     getEntity()->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
@@ -14,9 +14,18 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 
     smc = getCore()->getEntity<OluxEngine::StaticModelCollider>()->getComponent<OluxEngine::StaticModelCollider>();
 
+    getEntity()->addComponent<OluxEngine::BoxCollider>();
+
     speed = 15.0f;
 
     lastTime = SDL_GetTicks();
+
+    std::shared_ptr<OluxEngine::MeshRenderer> mr = getEntity()->getComponent<OluxEngine::MeshRenderer>();
+    std::shared_ptr<OluxEngine::Mesh> mesh = mr->getMesh();
+
+    std::vector<OluxEngine::Face> meshFaces = mesh->getFaces();
+    size = mesh->getSize();
+    std::cout << size.x << size.y << size.z;
 }
 
 void Player::onBegin() 
@@ -24,7 +33,7 @@ void Player::onBegin()
 	
 }
 
-void Player::update()
+void Player::onUpdate()
 {
     if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_R))
     {
@@ -37,7 +46,7 @@ void Player::update()
 
     glm::vec3 lp = getEntity()->getComponent<OluxEngine::Transform>()->getPosition() + glm::vec3(0, -1, 0);
 
-    getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, -8, 0) * deltaTime);
+    getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, -4, 0) * deltaTime);
 
 	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
     {
@@ -79,7 +88,7 @@ void Player::update()
     glm::vec3 np = getEntity()->getComponent<OluxEngine::Transform>()->getPosition() + glm::vec3(0, -1, 0);
 
     bool solved = false;
-    glm::vec3 sp = smc->getCollisionResponse(np, lp, glm::vec3(1, 2, 1), solved);
+    glm::vec3 sp = smc->getCollisionResponse(np, lp, glm::vec3(2, 4, 2), solved);
 
     if(solved)
     {
@@ -96,7 +105,28 @@ void Player::update()
 
     glm::vec3 pPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
-    getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 3.5f, np.z));
+    getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 1.0f, np.z));
+    
+    std::vector<std::shared_ptr<OluxEngine::Entity>> collectables;
+    getCore()->getEntities(collectables, "Collectable");
+
+glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
+
+    // std::cout << playerPos.x << " : " << playerPos.y << " : " << playerPos.z << std::endl;
+
+    if(collectables.size() >= 1)
+    {
+        // -19.5611 : -6.7494 : 23.4603
+        glm::vec3 collectableSize = collectables.at(0)->getComponent<OluxEngine::MeshRenderer>()->getMesh()->getSize();
+        glm::vec3 collectablePos = collectables.at(0)->getComponent<OluxEngine::Transform>()->getPosition();
+
+        glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
+
+        if(getEntity()->getComponent<OluxEngine::BoxCollider>()->isColliding(playerPos, collectablePos, collectableSize))
+        {
+            collectables.at(0)->destroy();
+        }
+    }
 }
 
 void Player::onGui()

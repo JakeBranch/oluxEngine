@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "Exception.h"
 
@@ -114,6 +115,11 @@ namespace OluxEngine
 			*/
 			bool alive = true;
 
+			std::string getTag();
+			void setTag(std::string tag);
+
+			void destroy();
+
 		private:
 			/**
 			*Reference to self
@@ -130,11 +136,12 @@ namespace OluxEngine
 			*/
 			std::vector<std::shared_ptr<Component>> components;
 
-			void update();
-			void display();
-			void destroy();
-			void gui();
+			std::string tag;
 
+			void onUpdate();
+			void onDisplay();
+			void onGui();
+			
 			bool getAlive();
 	};
 }

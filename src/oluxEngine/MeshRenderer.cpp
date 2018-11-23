@@ -23,8 +23,6 @@ namespace OluxEngine
 		std::string fragShader = "resources/shaders/simple.frag";
 
 		material->setShader(getCore()->getResources()->Load<ShaderProgram>(vertShader, fragShader));
-
-		angle = 0;
 	}
 
 	/**

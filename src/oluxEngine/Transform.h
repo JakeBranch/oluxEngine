@@ -12,7 +12,10 @@ namespace OluxEngine
     {
         public:
             void onInit();
-            // void update();
+
+            void translate(glm::vec3 val);
+            void rotate(glm::vec3 val);
+            void scale(glm::vec3 val);
 
             void setLocalPosition(glm::vec3 val);
             void setLocalRotation(glm::vec3 val);
@@ -21,10 +24,6 @@ namespace OluxEngine
             glm::vec3 getPosition();
             glm::vec3 getRotation();
             glm::vec3 getScale();
-
-            void translate(glm::vec3 val);
-            void rotate(glm::vec3 val);
-            void scale(glm::vec3 val);
 
             glm::mat4 getModelMatrix();
 
