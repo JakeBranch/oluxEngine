@@ -7,8 +7,9 @@ namespace OluxEngine
 	Component::~Component() { }
 	void Component::onInit() { }
 	void Component::onBegin() { }
-	void Component::update() { }
+	void Component::onUpdate() { }
 	void Component::onDisplay() { }
+	void Component::onGui() { }
 
 	/**
 	*Return reference to the entity the component is attached to
@@ -25,5 +26,4 @@ namespace OluxEngine
 	{
 		return getEntity()->getCore();
 	}
-
 }

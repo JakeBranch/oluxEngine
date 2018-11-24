@@ -13,8 +13,6 @@ namespace OluxEngine
     class Light : public Component
     {
         public:
-            Light();
-
             void onInit();
 
             glm::vec3 getAmbient();
@@ -28,7 +26,6 @@ namespace OluxEngine
             void setColor(glm::vec3 val);
             void setAmbientIntensity(float val);
 
-            std::string getType();
         private:
             glm::vec3 ambient;
             glm::vec3 diffuse;
@@ -36,8 +33,6 @@ namespace OluxEngine
             glm::vec3 color;
 
             GLfloat ambientIntensity;
-
-            std::string type;
     };
 }
 

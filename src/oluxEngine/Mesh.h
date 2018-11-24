@@ -3,8 +3,11 @@
 
 #include "Resource.h"
 #include "VertexArray.h"
+#include "Face.h"
 
 #include <memory>
+#include <glm/glm.hpp>
+#include <vector>
 
 namespace OluxEngine
 {
@@ -15,6 +18,8 @@ namespace OluxEngine
 			// static std::shared_ptr<Mesh> Create(unsigned int width, unsigned int height, unsigned char* data);
 
             std::shared_ptr<VertexArray> getShape();
+			std::vector<Face> getFaces();
+			glm::vec3 getSize();
 
         private:
             std::shared_ptr<VertexArray> shape;

@@ -23,5 +23,12 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Mesh.h"
+#include "Face.h"
+#include "Vertex.h"
+#include "StaticModelCollider.h"
+#include "RenderTexture.h"
+#include "PostProcessor.h"
+#include "Gui.h"
+#include "BoxCollider.h"
 
 #endif

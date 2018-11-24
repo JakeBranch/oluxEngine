@@ -2,6 +2,8 @@
 #define OLUXENGINE_CAMERA_H
 
 #include "Component.h"
+#include "Transform.h"
+#include "Entity.h"
 
 #include <memory>
 
@@ -17,14 +19,15 @@ namespace OluxEngine
     class Camera : public Component
     {
         public:
-            glm::mat4 getViewMatrix();
-
-            Camera();
-            void update();
+            void onInit();
+            void onUpdate();
 
             void setPosition(glm::vec3 val);
             void setRotation(glm::vec3 val);
+            
             glm::vec3 getPosition();
+            glm::mat4 getViewMatrix();
+            
         private:
             glm::vec3 position;
             glm::vec3 front;
@@ -34,9 +37,6 @@ namespace OluxEngine
 
             GLfloat yaw;
             GLfloat pitch;
-
-            // GLfloat moveSpeed;
-            // GLfloat turnSpeed;
     };
 }
 

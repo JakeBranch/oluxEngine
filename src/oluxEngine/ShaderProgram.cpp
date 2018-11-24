@@ -17,15 +17,18 @@ namespace OluxEngine
  	/**
     *Reads/Writes shader code from file
     */
-	std::shared_ptr<ShaderProgram> ShaderProgram::Load(const char* vertLoc, const char* fragLoc)
+	std::shared_ptr<ShaderProgram> ShaderProgram::Load(std::string vertLoc, std::string fragLoc)
 	{		
-		std::ifstream fileStream(vertLoc, std::ios::in);
+		const char* vertLocation = vertLoc.c_str();
+		const char* fragLocation = fragLoc.c_str();
+		
+		std::ifstream fileStream(vertLocation, std::ios::in);
 		std::string vertSrc;
 
 		if (!fileStream.is_open())
 		{
 			std::string errorMessage = "Failed to open shader file: ";
-			errorMessage += vertLoc;
+			errorMessage += vertLocation;
 			throw Exception(errorMessage);
 		}
 
@@ -38,13 +41,13 @@ namespace OluxEngine
 
 		fileStream.close();
 
-		fileStream.open(fragLoc, std::ios::in);
+		fileStream.open(fragLocation, std::ios::in);
 		std::string fragSrc;
 
 		if (!fileStream.is_open())
 		{
 			std::string errorMessage = "Failed to open shader file: ";
-			errorMessage += fragLoc;
+			errorMessage += fragLocation;
 			throw Exception(errorMessage);
 		}
 
@@ -60,7 +63,27 @@ namespace OluxEngine
 		const char *vertCode = vertSrc.c_str();
 		const char *fragCode = fragSrc.c_str();
 
-		std::shared_ptr<ShaderProgram> rtn = Create(vertCode, fragCode, vertLoc, fragLoc);
+		std::shared_ptr<ShaderProgram> rtn = Create(vertCode, fragCode, vertLocation, fragLocation);
+
+		std::shared_ptr<VertexBuffer> positions = std::make_shared<VertexBuffer>();
+		positions->add(glm::vec2(-1.0f, 1.0f));
+		positions->add(glm::vec2(-1.0f, -1.0f));
+		positions->add(glm::vec2(1.0f, -1.0f));
+		positions->add(glm::vec2(1.0f, -1.0f));
+		positions->add(glm::vec2(1.0f, 1.0f));
+		positions->add(glm::vec2(-1.0f, 1.0f));
+
+		std::shared_ptr<VertexBuffer> texCoords = std::make_shared<VertexBuffer>();
+		texCoords->add(glm::vec2(0.0f, 0.0f));
+		texCoords->add(glm::vec2(0.0f, -1.0f));
+		texCoords->add(glm::vec2(1.0f, -1.0f));
+		texCoords->add(glm::vec2(1.0f, -1.0f));
+		texCoords->add(glm::vec2(1.0f, 0.0f));
+		texCoords->add(glm::vec2(0.0f, 0.0f));
+
+		rtn->simpleShape = std::make_shared<VertexArray>();
+		rtn->simpleShape->setBuffer("in_Position", positions);
+		rtn->simpleShape->setBuffer("in_TexCoord", texCoords);
 
 		return rtn;
 	}
@@ -173,31 +196,104 @@ namespace OluxEngine
 	/**
 	*Draws the given mesh
 	*/
-    void ShaderProgram::Draw(VertexArray& vertexArray)
+    void ShaderProgram::Draw(std::shared_ptr<VertexArray> vertexArray)
     {
+		glViewport(viewport.x, viewport.y, viewport.z, viewport.w);
         glUseProgram(id);
-        glBindVertexArray(vertexArray.getId());
+        glBindVertexArray(vertexArray->getId());
 
 		for(size_t i = 0; i < samplers.size(); i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
 
-			if(samplers.at(i).texture)
+			if(samplers.at(i).isRenderTexture)
 			{
-				glBindTexture(GL_TEXTURE_2D, samplers.at(i).texture->getId());
+				if(samplers.at(i).renderTexture)
+				{
+					glBindTexture(GL_TEXTURE_2D, samplers.at(i).renderTexture->getId());
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, 0);
+				}
 			}
 			else
 			{
-				glBindTexture(GL_TEXTURE_2D, 0);
+				if(samplers.at(i).texture)
+				{
+					glBindTexture(GL_TEXTURE_2D, samplers.at(i).texture->getId());
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, 0);
+				}
 			}
 		}
 
-        glDrawArrays(GL_TRIANGLES, 0, vertexArray.getVertexCount());
+        glDrawArrays(GL_TRIANGLES, 0, vertexArray->getVertexCount());
 
+		for(size_t i = 0; i < samplers.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 
         glBindVertexArray(0);
         glUseProgram(0);
     }
+
+	void ShaderProgram::Draw(std::shared_ptr<RenderTexture> renderTexture, std::shared_ptr<VertexArray> vertexArray)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, renderTexture->getFbId());
+		glm::vec4 lastViewport = viewport;
+		viewport = glm::vec4(0, 0, renderTexture->getSize().x, renderTexture->getSize().y);
+		Draw(vertexArray);
+		viewport = lastViewport;
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void ShaderProgram::Draw(std::shared_ptr<RenderTexture> renderTexture)
+	{
+		Draw(renderTexture, simpleShape);
+	}
+
+	void ShaderProgram::Draw()
+	{
+		Draw(simpleShape);
+	}
+
+	void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<RenderTexture> renderTexture)
+	{
+		GLint uniformId = glGetUniformLocation(id, uniform.c_str());
+
+		if(uniformId == -1)
+		{
+			throw std::exception();
+		}
+
+		for(size_t i = 0; i < samplers.size(); i++)
+		{
+			if(samplers.at(i).id == uniformId)
+			{
+			samplers.at(i).renderTexture = renderTexture;
+
+			glUseProgram(id);
+			glUniform1i(uniformId, i);
+			glUseProgram(0);
+			return;
+			}
+		}
+
+		Sampler s;
+		s.id = uniformId;
+		s.renderTexture = renderTexture;
+		s.isRenderTexture = true;
+		samplers.push_back(s);
+
+		glUseProgram(id);
+		glUniform1i(uniformId, samplers.size() - 1);
+		glUseProgram(0);
+	}
 
 	/**
 	*Sets uniform variable to vec3 value
@@ -322,6 +418,7 @@ namespace OluxEngine
 		Sampler s;
 		s.id = uniformId;
 		s.texture = texture;
+		s.isRenderTexture = false;
 		samplers.push_back(s);
 
 		glUseProgram(id);
@@ -336,4 +433,9 @@ namespace OluxEngine
     {
         return id;
     }
+
+	void ShaderProgram::setViewport(glm::vec4 viewport)
+	{
+		this->viewport = viewport;
+	}
 }

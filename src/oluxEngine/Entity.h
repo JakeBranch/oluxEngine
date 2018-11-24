@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "Exception.h"
 
@@ -59,6 +60,18 @@ namespace OluxEngine
 				return rtn;
 			}
 
+			/**
+			*Template function to add a component to an entity with two arguments
+			*/
+			template <typename T, typename A, typename B, typename C>
+			std::shared_ptr<T> addComponent(A a, B b, C c)
+			{
+				ADDCOMPONENT
+					rtn->onInit(a, b, c);
+
+				return rtn;
+			}
+
 			template <typename T>
 			bool hasComponent()
 			{
@@ -90,7 +103,7 @@ namespace OluxEngine
 					}
 				}
 
-				throw Exception("Failed to obtain comonent");
+				throw Exception("Failed to obtain component");
 			}
 
 			std::shared_ptr<Core> getCore();
@@ -101,6 +114,11 @@ namespace OluxEngine
 			*If(alive = true) delete entitiy
 			*/
 			bool alive = true;
+
+			std::string getTag();
+			void setTag(std::string tag);
+
+			void destroy();
 
 		private:
 			/**
@@ -118,10 +136,12 @@ namespace OluxEngine
 			*/
 			std::vector<std::shared_ptr<Component>> components;
 
-			void update();
-			void display();
-			void destroy();
+			std::string tag;
 
+			void onUpdate();
+			void onDisplay();
+			void onGui();
+			
 			bool getAlive();
 	};
 }

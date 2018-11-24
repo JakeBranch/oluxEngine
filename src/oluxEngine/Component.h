@@ -34,8 +34,9 @@ namespace OluxEngine
 
 		virtual void onInit();
 		virtual void onBegin();
-		virtual void update();
+		virtual void onUpdate();
 		virtual void onDisplay();
+		virtual void onGui();
 	};
 
 }

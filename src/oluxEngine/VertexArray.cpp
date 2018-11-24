@@ -15,7 +15,7 @@ namespace OluxEngine
 
 		if(!id)
 		{
-			throw std::exception();
+			throw Exception("Failed to generate vertex array");
 		}
 
 		buffers.resize(10);
@@ -23,7 +23,7 @@ namespace OluxEngine
 
 		if(!file.is_open())
 		{
-			throw std::exception();
+			throw Exception("Failed to open file");
 		}
 
 		std::string line;
@@ -75,38 +75,62 @@ namespace OluxEngine
 			}
 			else if(splitLine.at(0) == "f")
 			{
+				Face f;
+
 				std::vector<std::string> subsplit;
 				splitString(splitLine.at(1), '/', subsplit);
 
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.a.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+      			f.a.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
 
 				splitString(splitLine.at(2), '/', subsplit);
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.b.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+      			f.b.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
 
 				splitString(splitLine.at(3), '/', subsplit);
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.c.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+     			f.c.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
+				faces.push_back(f);
 
 				if(splitLine.size() < 5) continue;
+				f = Face();
+
 				splitString(splitLine.at(3), '/', subsplit);
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.a.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+      			f.a.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
 
 				splitString(splitLine.at(4), '/', subsplit);
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.b.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+      			f.b.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
 
 				splitString(splitLine.at(1), '/', subsplit);
 				positionBuffer->add(positions.at(atoi(subsplit.at(0).c_str()) - 1));
-				if(texCoordBuffer) texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
-				if(normalBuffer) normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+				if(texCoordBuffer && subsplit.at(1) != "") texCoordBuffer->add(texCoords.at(atoi(subsplit.at(1).c_str()) - 1));
+				if(normalBuffer && subsplit.at(2) != "") normalBuffer->add(normals.at(atoi(subsplit.at(2).c_str()) - 1));
+
+				f.c.position = positions.at(atoi(subsplit.at(0).c_str()) - 1);
+      			f.c.texCoord = texCoords.at(atoi(subsplit.at(1).c_str()) - 1);
+				faces.push_back(f);
 			}
 		}
 
@@ -306,5 +330,10 @@ namespace OluxEngine
 	std::vector<GLfloat> VertexArray::getColor()
 	{
 		return color;
+	}
+
+	std::vector<Face> VertexArray::getFaces()
+	{
+		return faces;
 	}
 }

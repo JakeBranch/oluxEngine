@@ -1,3 +1,6 @@
+#ifndef OLUXENGINE_VERTEXBUFFER_H
+#define OLUXENGINE_VERTEXBUFFER_H
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
@@ -42,3 +45,5 @@ namespace OluxEngine
 			GLuint getId();
 	};
 }
+
+#endif

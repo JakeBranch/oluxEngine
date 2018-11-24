@@ -54,6 +54,12 @@ add_library(
 	src/oluxEngine/PointLight.cpp
 	src/oluxEngine/SpotLight.cpp
 	src/oluxEngine/Mesh.cpp
+	src/oluxEngine/StaticModelCollider.cpp
+	src/oluxEngine/tribox.cpp
+	src/oluxEngine/RenderTexture.cpp
+	src/oluxEngine/PostProcessor.cpp
+	src/oluxEngine/Gui.cpp
+	src/oluxEngine/BoxCollider.cpp
 )
 
 if(MSVC)
@@ -71,6 +77,16 @@ add_executable(
 	src/game/main.cpp
 	src/game/TestScene.cpp
 	src/game/TestScene.h
+	src/game/Environment.cpp
+	src/game/Environment.h
+	src/game/Player.cpp
+	src/game/Player.h
+	src/game/MainMenu.cpp
+	src/game/MainMenu.h
+	src/game/GameScene.cpp
+	src/game/GameScene.h
+	src/game/Collectable.cpp
+	src/game/Collectable.h
 	contrib/stb_image/stb_image.cpp
 )
 

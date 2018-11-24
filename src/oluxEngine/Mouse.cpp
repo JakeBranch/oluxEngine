@@ -17,10 +17,19 @@ namespace OluxEngine
 
     bool Mouse::getMouseButtonDown(int button)
     {
+        for(int i = 0; i < mouseButtons.size(); i++)
+        {
+            if(mouseButtons.at(i) == button)
+            {
+                return false;
+            }
+        }
+
         for(int i = 0; i < downMouseButtons.size(); i++)
         {
             if(downMouseButtons.at(i) == button)
             {
+                mouseButtons.push_back(button);
                 return true;
             }
         }
@@ -57,6 +66,15 @@ namespace OluxEngine
 
     void Mouse::setButtonUp(int button)
     {
+        for(int i = 0; i < mouseButtons.size(); i++)
+        {
+            if(mouseButtons.at(i) == button)
+            {
+                mouseButtons.erase(mouseButtons.begin() + i);
+                i--;
+            }
+        }
+
         upMouseButtons.push_back(button);
 
         for(int i = 0; i < downMouseButtons.size(); i++)

@@ -17,7 +17,7 @@ namespace OluxEngine
 	/**
 	* Trigger Update() on all of the entity's components
 	*/
-	void Entity::update()
+	void Entity::onUpdate()
 	{
 		for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
 			it != components.end(); it++)
@@ -28,19 +28,28 @@ namespace OluxEngine
 				(*it)->began = true;
 			}
 
-			(*it)->update();
+			(*it)->onUpdate();
 		}
 	}
 
 	/**
 	* Trigger onDisplay() on all of the Entity's components
 	*/
-	void Entity::display()
+	void Entity::onDisplay()
 	{
 		for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
 			it != components.end(); it++)
 		{
 			(*it)->onDisplay();
+		}
+	}
+
+	void Entity::onGui()
+	{
+		for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
+			it != components.end(); it++)
+		{
+			(*it)->onGui();
 		}
 	}
 
@@ -58,5 +67,15 @@ namespace OluxEngine
 	bool Entity::getAlive()
 	{
 		return alive;
+	}
+
+	std::string Entity::getTag()
+	{
+		return tag;
+	}
+
+	void Entity::setTag(std::string tag)
+	{
+		this->tag = tag;
 	}
 }

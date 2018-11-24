@@ -14,6 +14,7 @@ namespace OluxEngine
 	{
 		std::shared_ptr<Core> rtn = std::make_shared<Core>();
 		rtn->running = true;
+		rtn->postProcessing = true;
 		rtn->self = rtn;
 
 		rtn->clockStart = clock();
@@ -63,16 +64,17 @@ namespace OluxEngine
 		rtn->resourceManager = std::make_shared<Resources>();
 		rtn->keyboard = std::make_shared<Keyboard>();
 		rtn->mouse = std::make_shared<Mouse>();
-
+		rtn->postProcessor = std::make_shared<PostProcessor>(rtn);
+		rtn->gui = std::make_shared<Gui>(rtn);
+		
 		return rtn;
 	}
 
 	/**
 	* Starts game loop. Handles updating and drawing of entities and environment variables
 	*/
-	void Core::Start()
+	void Core::start()
 	{
-		bool test = true;
 		int tick = 0;
 		running = true;
 		while (running)
@@ -99,71 +101,56 @@ namespace OluxEngine
 				}
 			}
 
-			update();
+			onUpdate();
 
 			glEnable(GL_DEPTH_TEST);
+			postProcessor->sceneRt->clear();
 
-			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			std::vector<std::shared_ptr<Entity>> ces;
+			if(!postProcessing)
+			{
+				glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			}
+			
+			std::list<std::shared_ptr<Entity>> ces;
 			getEntities<Camera>(ces);
 
-			for(size_t i = 0; i < ces.size(); i++)
+			for(std::list<std::shared_ptr<Entity>>::iterator it = ces.begin();
+				it != ces.end(); it++)	
 			{
-				camera = ces.at(i)->getComponent<Camera>();
-	
-				if(test)
-				{
-					glViewport(0, 0, (GLsizei)(300), (GLsizei)(800));
-					test = false;
-				}
-				else
-				{
-					glViewport(300, 0, (GLsizei)(300), (GLsizei)(800));
-					test = true;
-				}
-
-				display();
+				camera = (*it)->getComponent<Camera>();
+				
+				onDisplay();
 			}
+
+
+			if(postProcessing)
+			{
+				glDisable(GL_DEPTH_TEST);
+				glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+
+				postProcessor->display();
+			}
+
+			onGui();
 
 			SDL_GL_SwapWindow(window);
 		}
 	}
 
-	void Core::update()
+	void Core::onUpdate()
 	{
 		keyboard->update();
 
-		if(keyboard->getKeyDown(SDL_SCANCODE_W))
-		{
-			std::cout << "W" << std::endl;
-		}
-
-		// std::cout << mouse->getPosition().x << "  :   " << mouse->getPosition().y << std::endl;
-
-		if(mouse->getMouseButtonDown(SDL_BUTTON_LEFT))
-		{
-			std::cout << "W" << std::endl;
-		}
-		else if(mouse->getMouseButtonDown(SDL_BUTTON_RIGHT))
-		{
-			std::cout << "W" << std::endl;
-		}
-		else if(mouse->getMouseButtonDown(SDL_BUTTON_MIDDLE))
-		{
-			std::cout << "W" << std::endl;
-		}
-
 		if(camera)
-			camera->update();
+			camera->onUpdate();
 
-		for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
 			{
-				(*it)->update();
+				(*it)->onUpdate();
 			}
 			catch(Exception& e)
 			{
@@ -171,8 +158,9 @@ namespace OluxEngine
 				(*it)->destroy();
 			}
 		}
-
-		for(auto it = entities.begin(); it != entities.end();)
+		
+		for(std::list<std::shared_ptr<Entity>>::iterator it = entities.begin(); 
+			it != entities.end();)
 		{
 			if(!(*it)->getAlive())
 			{
@@ -195,15 +183,32 @@ namespace OluxEngine
 		}
 	}
 
-	void Core::display()
+	void Core::onDisplay()
 	{
 		//Display all entitites
-		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
 			{
-				(*it)->display();
+				(*it)->onDisplay();
+			}
+			catch(Exception& e)
+			{
+				std::cout << "OluxEngine Exception: " << e.what() << std::endl;
+				(*it)->destroy();
+			}
+		}
+	}
+
+	void Core::onGui()
+	{
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
+			it != entities.end(); it++)
+		{
+			try
+			{
+				(*it)->onGui();
 			}
 			catch(Exception& e)
 			{
@@ -216,7 +221,7 @@ namespace OluxEngine
 	/**
 	*Stops application
 	*/
-	void Core::Stop()
+	void Core::stop()
 	{
 		running = false;
 	}
@@ -245,16 +250,36 @@ namespace OluxEngine
 		return keyboard;
 	}
 
+	std::shared_ptr<Mouse> Core::getMouse()
+	{
+		return mouse;
+	}
+
 	/**
 	*Creates, stores, and returns an entity
 	*/
 	std::shared_ptr<Entity> Core::addEntity()
 	{
 		std::shared_ptr<Entity> rtn = std::make_shared<Entity>();
-		entities.push_back(rtn);
 		rtn->self = rtn;
 		rtn->core = self;
+		entities.push_back(rtn);
 
 		return rtn;
+	}
+
+	bool Core::postProcessingEnabled()
+	{
+		return postProcessing;
+	}
+
+	std::shared_ptr<PostProcessor> Core::getPostProcessor()
+	{
+		return postProcessor;
+	}
+
+	std::shared_ptr<Gui> Core::getGui()
+	{
+		return gui;
 	}
 }

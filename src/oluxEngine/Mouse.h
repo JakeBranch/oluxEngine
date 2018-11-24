@@ -33,9 +33,9 @@ namespace OluxEngine
         */
         glm::vec2 position;
 
-        std::vector<int> mouseButtons;
         std::vector<int> upMouseButtons;
         std::vector<int> downMouseButtons;
+        std::vector<int> mouseButtons;
     };
 }
 

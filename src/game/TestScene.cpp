@@ -10,7 +10,7 @@ void TestScene::onInit()
 	std::cout << "onInit" << std::endl;
 }
 
-void TestScene::update()
+void TestScene::onUpdate()
 {
 	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
 	{
