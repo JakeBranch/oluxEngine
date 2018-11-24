@@ -11,8 +11,8 @@ namespace OluxEngine
         linear = 0.014f;
         quadratic = 0.0007f;
 
-        cutoff = glm::cos(glm::radians(12.5f));
-        outerCutoff = glm::cos(glm::radians(15.0f));
+        cutoff = glm::cos(glm::radians(15.0f));
+        outerCutoff = glm::cos(glm::radians(18.5f));
     }
 
     glm::vec3 SpotLight::getPosition()
@@ -53,5 +53,10 @@ namespace OluxEngine
     void SpotLight::setPosition(glm::vec3 val)
     {
         position = val;
+    }
+
+    void SpotLight::setDirection(glm::vec3 val)
+    {
+        direction = val;
     }
 }

@@ -63,5 +63,6 @@ namespace OluxEngine
     void Light::setAmbientIntensity(float val)
     {
         ambientIntensity = val;
+        setAmbient(glm::vec3(getColor().x * ambientIntensity, getColor().y * ambientIntensity, getColor().z * ambientIntensity));
     }
 }

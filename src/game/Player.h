@@ -3,6 +3,7 @@
 #include "Environment.h"
 
 #include <string>
+#include <list>
 
 #include <SDL.h>
 #include <glm/glm.hpp>

@@ -51,7 +51,7 @@ namespace OluxEngine
 			template <typename T>
 			std::shared_ptr<Entity> getEntity()
 			{
-				for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+				for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 				it != entities.end(); it++)
 				{
 					if(!(*it)->getAlive()) continue;
@@ -67,7 +67,7 @@ namespace OluxEngine
 
 			std::shared_ptr<Entity> getEntity(std::string tag)
 			{
-				for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+				for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 				it != entities.end(); it++)
 				{
 					if(!(*it)->getAlive()) continue;
@@ -82,9 +82,9 @@ namespace OluxEngine
 			}
 
 			template <typename T>
-			void getEntities(std::vector<std::shared_ptr<Entity>> &found)
+			void getEntities(std::list<std::shared_ptr<Entity>> &found)
 			{
-				for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+				for(std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 					it != entities.end(); it++)	
 				{
 					if(!(*it)->getAlive()) continue;
@@ -96,9 +96,9 @@ namespace OluxEngine
 				}
 			}
 
-			void getEntities(std::vector<std::shared_ptr<Entity>> &found, std::string tag)
+			void getEntities(std::list<std::shared_ptr<Entity>> &found, std::string tag)
 			{
-				for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+				for(std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 					it != entities.end(); it++)	
 				{
 					if(!(*it)->getAlive()) continue;
@@ -124,8 +124,8 @@ namespace OluxEngine
 			bool postProcessing;
 
 
-			std::vector<std::shared_ptr<Entity>> entities;
-			// std::list<std::shared_ptr<Entity>> entities;
+			// std::vector<std::shared_ptr<Entity>> entities;
+			std::list<std::shared_ptr<Entity>> entities;
 
 
 			std::weak_ptr<Core> self;

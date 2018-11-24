@@ -14,7 +14,7 @@
 #include <memory>
 #include <vector>
 #include <string>
-
+#include <list>
 #include <glm/ext.hpp>
 
 #include "Exception.h"

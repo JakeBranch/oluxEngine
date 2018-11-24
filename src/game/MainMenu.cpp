@@ -8,7 +8,7 @@ void MainMenu::onInit()
 
 void MainMenu::onGui()
 {
-    if(getCore()->getGui()->button(0, 0, 300, 100))
+    if(getCore()->getGui()->button(150, 350, 300, 100))
     {
         play();
     }
@@ -18,5 +18,4 @@ void MainMenu::play()
 {
     getCore()->addEntity()->addComponent<GameScene>();
     getEntity()->destroy();
-    getCore()->getEntity<OluxEngine::PointLight>()->destroy();
 }

@@ -53,18 +53,21 @@ namespace OluxEngine
 		material->getShader()->SetUniform("dirLight.specular", getCore()->getEntity<DirectionalLight>()->getComponent<DirectionalLight>()->getSpecular());
 
 		//-----------------------------------------------------------------------|APPLY POINT LIGHTS|
-		std::vector<std::shared_ptr<Entity>> pointLights;
+		std::list<std::shared_ptr<Entity>> pointLights;
 		getCore()->getEntities<PointLight>(pointLights);
 
 		material->getShader()->SetUniform("numOfPointLights", (int)pointLights.size());
-
-		for(size_t i = 0; i < pointLights.size(); i++)
+	
+		int index = 0;
+		for(std::list<std::shared_ptr<Entity>>::iterator it = pointLights.begin();
+			it != pointLights.end(); it++)	
 		{
-			std::shared_ptr<PointLight> light = pointLights.at(i)->getComponent<PointLight>();
+			std::shared_ptr<PointLight> light = (*it)->getComponent<PointLight>();
 
 			std::string prefix = "pointLights[";
-			prefix += std::to_string(i);
+			prefix += std::to_string(index);
 			prefix += "].";
+			index++;
 
 			std::string uniformLoc;	
 		
@@ -91,18 +94,21 @@ namespace OluxEngine
 		}
 
 		//-----------------------------------------------------------------------|APPLY SPOT LIGHTS|
-		std::vector<std::shared_ptr<Entity>> spotLights;
+		std::list<std::shared_ptr<Entity>> spotLights;
 		getCore()->getEntities<SpotLight>(spotLights);
 
 		material->getShader()->SetUniform("numOfSpotLights", (int)spotLights.size());
 
-		for(size_t i = 0; i < spotLights.size(); i++)
+		index = 0;
+		for(std::list<std::shared_ptr<Entity>>::iterator it = spotLights.begin();
+			it != spotLights.end(); it++)	
 		{
-			std::shared_ptr<SpotLight> light = spotLights.at(i)->getComponent<SpotLight>();
+			std::shared_ptr<SpotLight> light = (*it)->getComponent<SpotLight>();
 
 			std::string prefix = "spotLights[";
-			prefix += std::to_string(i);
+			prefix += std::to_string(index);
 			prefix += "].";
+			index = 0;
 
 			std::string uniformLoc;
 
@@ -136,6 +142,47 @@ namespace OluxEngine
 			uniformLoc = prefix + "specular";
 			material->getShader()->SetUniform(uniformLoc, light->getSpecular());
 		}
+
+		// for(size_t i = 0; i < spotLights.size(); i++)
+		// {
+		// 	std::shared_ptr<SpotLight> light = spotLights.at(i)->getComponent<SpotLight>();
+
+		// 	std::string prefix = "spotLights[";
+		// 	prefix += std::to_string(i);
+		// 	prefix += "].";
+
+		// 	std::string uniformLoc;
+
+		// 	uniformLoc = prefix + "position";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getPosition());
+
+		// 	uniformLoc = prefix + "direction";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getDirection());
+
+		// 	uniformLoc = prefix + "cutOff";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getCutoff());
+
+		// 	uniformLoc = prefix + "outerCutOff";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getOuterCutoff());
+
+		// 	uniformLoc = prefix + "constant";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getConstant());
+
+		// 	uniformLoc = prefix + "linear";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getLinear());
+
+		// 	uniformLoc = prefix + "quadratic";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getQuadratic());
+
+		// 	uniformLoc = prefix + "ambient";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getAmbient());
+
+		// 	uniformLoc = prefix + "diffuse";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getDiffuse());
+
+		// 	uniformLoc = prefix + "specular";
+		// 	material->getShader()->SetUniform(uniformLoc, light->getSpecular());
+		// }
 
 		if(getCore()->postProcessingEnabled())
 		{

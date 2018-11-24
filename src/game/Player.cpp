@@ -44,15 +44,22 @@ void Player::onUpdate()
 
     getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, -4, 0) * deltaTime);
 
+    glm::vec3 direction;
+    float yRotation = getEntity()->getComponent<OluxEngine::Transform>()->getRotation().y;
+    direction.x = glm::sin(glm::radians(yRotation));
+    direction.y = 0;
+    direction.z = glm::cos(glm::radians(yRotation));
+
 	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
     {
         // getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, 0, speed) * deltaTime);
 
-        float yRotation = getEntity()->getComponent<OluxEngine::Transform>()->getRotation().y;
-        float xAmount = glm::sin(glm::radians(yRotation)) * speed;
-        float zAmount = glm::cos(glm::radians(yRotation)) * speed;
+        // float yRotation = getEntity()->getComponent<OluxEngine::Transform>()->getRotation().y;
+        direction.x = glm::sin(glm::radians(yRotation)) * speed;
+        direction.z = glm::cos(glm::radians(yRotation)) * speed;
+        direction.y = 0;
 
-        getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(xAmount, 0, zAmount) * deltaTime);
+        getEntity()->getComponent<OluxEngine::Transform>()->translate(direction * deltaTime);
     }
     else if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_S))
     {
@@ -103,22 +110,25 @@ void Player::onUpdate()
 
     getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 1.0f, np.z));
     
-    std::vector<std::shared_ptr<OluxEngine::Entity>> collectables;
+    std::list<std::shared_ptr<OluxEngine::Entity>> collectables;
     getCore()->getEntities(collectables, "Collectable");
 
-
-    // std::cout << np.x << " : " << np.y << " : " << np.z << std::endl;
-
-    if(collectables.size() >= 1)
+    // std::cout << collectables.size() << std::endl;
+    for(std::list<std::shared_ptr<OluxEngine::Entity>>::iterator it = collectables.begin();
+		it != collectables.end(); it++)	
     {
-        glm::vec3 collectableSize = collectables.at(0)->getComponent<OluxEngine::MeshRenderer>()->getMesh()->getSize();
-        glm::vec3 collectablePos = collectables.at(0)->getComponent<OluxEngine::Transform>()->getPosition();
+        glm::vec3 collectableSize = (*it)->getComponent<OluxEngine::MeshRenderer>()->getMesh()->getSize();
+        glm::vec3 collectablePos = (*it)->getComponent<OluxEngine::Transform>()->getPosition();
 
-        glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
+         glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
         if(getEntity()->getComponent<OluxEngine::BoxCollider>()->isColliding(np, collectablePos, collectableSize))
         {
-            collectables.at(0)->destroy();
+            (*it)->destroy();
         }
     }
+
+    std::shared_ptr<OluxEngine::SpotLight> spotLight = getCore()->getEntity<OluxEngine::SpotLight>()->getComponent<OluxEngine::SpotLight>();
+    spotLight->setPosition(np);
+    spotLight->setDirection(direction);
 }

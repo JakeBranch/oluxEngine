@@ -108,25 +108,26 @@ namespace OluxEngine
 
 			if(!postProcessing)
 			{
-			glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			}
 			
-			std::vector<std::shared_ptr<Entity>> ces;
+			std::list<std::shared_ptr<Entity>> ces;
 			getEntities<Camera>(ces);
 
-			for(size_t i = 0; i < ces.size(); i++)
+			for(std::list<std::shared_ptr<Entity>>::iterator it = ces.begin();
+				it != ces.end(); it++)	
 			{
-				camera = ces.at(i)->getComponent<Camera>();
-
+				camera = (*it)->getComponent<Camera>();
+				
 				onDisplay();
 			}
+
 
 			if(postProcessing)
 			{
 				glDisable(GL_DEPTH_TEST);
 				glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
-				// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 				postProcessor->display();
 			}
@@ -144,7 +145,7 @@ namespace OluxEngine
 		if(camera)
 			camera->onUpdate();
 
-		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
@@ -158,7 +159,7 @@ namespace OluxEngine
 			}
 		}
 		
-		for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); 
+		for(std::list<std::shared_ptr<Entity>>::iterator it = entities.begin(); 
 			it != entities.end();)
 		{
 			if(!(*it)->getAlive())
@@ -185,7 +186,7 @@ namespace OluxEngine
 	void Core::onDisplay()
 	{
 		//Display all entitites
-		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
@@ -202,7 +203,7 @@ namespace OluxEngine
 
 	void Core::onGui()
 	{
-		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
