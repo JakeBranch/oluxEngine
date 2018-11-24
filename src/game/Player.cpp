@@ -4,7 +4,7 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
     getEntity()->addComponent<OluxEngine::MeshRenderer>();
     getEntity()->addComponent<OluxEngine::Transform>();
-    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0, 30, 0));
+    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-0.7f, -5.0f, 31.7f));
 
     std::shared_ptr<OluxEngine::Mesh> playerMesh = getCore()->getResources()->Load<OluxEngine::Mesh>(meshLoc);
     getEntity()->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
@@ -35,10 +35,6 @@ void Player::onBegin()
 
 void Player::onUpdate()
 {
-    if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_R))
-    {
-        getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(0.0f, 10.0, -15.0f));
-    }
     double now = SDL_GetTicks();
     double diffTime = now - lastTime;
     lastTime = now;
@@ -103,36 +99,26 @@ void Player::onUpdate()
     
     getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(np);
 
-    glm::vec3 pPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
+    //glm::vec3 pPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
     getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 1.0f, np.z));
     
     std::vector<std::shared_ptr<OluxEngine::Entity>> collectables;
     getCore()->getEntities(collectables, "Collectable");
 
-glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
-    // std::cout << playerPos.x << " : " << playerPos.y << " : " << playerPos.z << std::endl;
+    // std::cout << np.x << " : " << np.y << " : " << np.z << std::endl;
 
     if(collectables.size() >= 1)
     {
-        // -19.5611 : -6.7494 : 23.4603
         glm::vec3 collectableSize = collectables.at(0)->getComponent<OluxEngine::MeshRenderer>()->getMesh()->getSize();
         glm::vec3 collectablePos = collectables.at(0)->getComponent<OluxEngine::Transform>()->getPosition();
 
         glm::vec3 playerPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
 
-        if(getEntity()->getComponent<OluxEngine::BoxCollider>()->isColliding(playerPos, collectablePos, collectableSize))
+        if(getEntity()->getComponent<OluxEngine::BoxCollider>()->isColliding(np, collectablePos, collectableSize))
         {
             collectables.at(0)->destroy();
         }
-    }
-}
-
-void Player::onGui()
-{
-    if(getCore()->getGui()->button(0, 0, 300, 100))
-    {
-        std::cout << "INSIDE" << std::endl;
     }
 }

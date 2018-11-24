@@ -40,8 +40,8 @@ struct SpotLight {
     vec3 specular;       
 };
 
-#define MAX_NUM_POINT_LIGHTS 10
-#define MAX_NUM_SPOT_LIGHTS 10
+#define MAX_NUM_POINT_LIGHTS 50
+#define MAX_NUM_SPOT_LIGHTS 50
 
 uniform int numOfPointLights;
 uniform int numOfSpotLights;

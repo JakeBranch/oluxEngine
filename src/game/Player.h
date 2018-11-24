@@ -13,7 +13,6 @@ class Player : public OluxEngine::Component
 		void onInit(std::string meshLoc, std::string textureLoc);
 		void onBegin();
 		void onUpdate();
-		void onGui();
 
         std::shared_ptr<OluxEngine::StaticModelCollider> smc;
 

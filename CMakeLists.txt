@@ -81,6 +81,10 @@ add_executable(
 	src/game/Environment.h
 	src/game/Player.cpp
 	src/game/Player.h
+	src/game/MainMenu.cpp
+	src/game/MainMenu.h
+	src/game/GameScene.cpp
+	src/game/GameScene.h
 	contrib/stb_image/stb_image.cpp
 )
 

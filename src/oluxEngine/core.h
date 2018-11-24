@@ -13,6 +13,7 @@
 #include <cstdio>
 #include <ctime>
 #include <string>
+#include <list>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -121,7 +122,12 @@ namespace OluxEngine
 		private:
 			bool running;
 			bool postProcessing;
+
+
 			std::vector<std::shared_ptr<Entity>> entities;
+			// std::list<std::shared_ptr<Entity>> entities;
+
+
 			std::weak_ptr<Core> self;
 			std::shared_ptr <Resources> resourceManager;
 			std::shared_ptr<Camera> camera;

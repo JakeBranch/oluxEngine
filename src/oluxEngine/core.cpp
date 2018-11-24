@@ -75,7 +75,6 @@ namespace OluxEngine
 	*/
 	void Core::start()
 	{
-		bool test = true;
 		int tick = 0;
 		running = true;
 		while (running)
@@ -145,7 +144,7 @@ namespace OluxEngine
 		if(camera)
 			camera->onUpdate();
 
-		for (std::vector<std::shared_ptr<Entity> > ::iterator it = entities.begin();
+		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
 			try
@@ -158,8 +157,9 @@ namespace OluxEngine
 				(*it)->destroy();
 			}
 		}
-
-		for(auto it = entities.begin(); it != entities.end();)
+		
+		for(std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); 
+			it != entities.end();)
 		{
 			if(!(*it)->getAlive())
 			{
@@ -260,9 +260,9 @@ namespace OluxEngine
 	std::shared_ptr<Entity> Core::addEntity()
 	{
 		std::shared_ptr<Entity> rtn = std::make_shared<Entity>();
-		entities.push_back(rtn);
 		rtn->self = rtn;
 		rtn->core = self;
+		entities.push_back(rtn);
 
 		return rtn;
 	}
