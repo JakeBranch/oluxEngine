@@ -85,6 +85,8 @@ add_executable(
 	src/game/MainMenu.h
 	src/game/GameScene.cpp
 	src/game/GameScene.h
+	src/game/Collectable.cpp
+	src/game/Collectable.h
 	contrib/stb_image/stb_image.cpp
 )
 

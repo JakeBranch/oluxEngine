@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "Environment.h"
 #include "Player.h"
+#include "Collectable.h"
 
 void GameScene::onInit()
 {
@@ -57,15 +58,18 @@ void GameScene::onInit()
 
     // std::cout << "2ND FINAL" << std::endl;
 
+    // std::shared_ptr<OluxEngine::Entity> collectable = getCore()->addEntity();
+    // collectable->setTag("Collectable");
+    // collectable->addComponent<OluxEngine::MeshRenderer>();
+    // collectable->addComponent<OluxEngine::Transform>();
+    // collectable->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-5.5f, -7.5f, 24.5f));
+    // std::shared_ptr<OluxEngine::Mesh> mesh = getCore()->getResources()->Load<OluxEngine::Mesh>("resources/collectable.obj");
+    // collectable->getComponent<OluxEngine::MeshRenderer>()->setMesh(mesh);
+    // std::shared_ptr<OluxEngine::Texture> colTex = getCore()->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
+    // collectable->getComponent<OluxEngine::MeshRenderer>()->setTexture(colTex);
+
     std::shared_ptr<OluxEngine::Entity> collectable = getCore()->addEntity();
-    collectable->setTag("Collectable");
-    collectable->addComponent<OluxEngine::MeshRenderer>();
-    collectable->addComponent<OluxEngine::Transform>();
-    collectable->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-19.5f, -7.5, 23.5f));
-    std::shared_ptr<OluxEngine::Mesh> mesh = getCore()->getResources()->Load<OluxEngine::Mesh>("resources/collectable.obj");
-    collectable->getComponent<OluxEngine::MeshRenderer>()->setMesh(mesh);
-    std::shared_ptr<OluxEngine::Texture> colTex = getCore()->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
-    collectable->getComponent<OluxEngine::MeshRenderer>()->setTexture(colTex);
+    collectable->addComponent<Collectable>();
 
     std::shared_ptr<OluxEngine::Entity> player = getCore()->addEntity();
     player->addComponent<Player>("resources/curuthers.obj", "resources/curuthers_diffuse.png");
@@ -75,8 +79,5 @@ void GameScene::onInit()
 
 void GameScene::onGui()
 {
-    // if(getCore()->getGui()->button(300, 300, 300, 100))
-    // {
-    //     std::cout << "INSIDE" << std::endl;
-    // }
+    
 }

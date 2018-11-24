@@ -11,11 +11,11 @@ namespace OluxEngine
         texture = tmp->getResources()->Load<Texture>("resources/button2.png");
     }
 
-    bool Gui::button(int xPos, int yPos, int width, int height)
+    bool Gui::button(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex)
     {
         std::shared_ptr<Core> tmp = core.lock();
         shader->setViewport(glm::vec4(xPos, yPos, width, height));
-        shader->SetUniform("in_Texture", texture);
+        shader->SetUniform("in_Texture", tex);
         shader->Draw();
 
         glm::vec2 mousePos = tmp->getMouse()->getPosition();
@@ -37,5 +37,13 @@ namespace OluxEngine
         }
 
         return false;
+    }
+
+    void Gui::image(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex)
+    {
+        std::shared_ptr<Core> tmp = core.lock();
+        shader->setViewport(glm::vec4(xPos, yPos, width, height));
+        shader->SetUniform("in_Texture", tex);
+        shader->Draw();
     }
 }

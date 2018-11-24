@@ -4,7 +4,7 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
     getEntity()->addComponent<OluxEngine::MeshRenderer>();
     getEntity()->addComponent<OluxEngine::Transform>();
-    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-0.7f, -5.0f, 31.7f));
+    getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(13.5f, -5.5f, 0.5f));
 
     std::shared_ptr<OluxEngine::Mesh> playerMesh = getCore()->getResources()->Load<OluxEngine::Mesh>(meshLoc);
     getEntity()->getComponent<OluxEngine::MeshRenderer>()->setMesh(playerMesh);
@@ -113,7 +113,7 @@ void Player::onUpdate()
     std::list<std::shared_ptr<OluxEngine::Entity>> collectables;
     getCore()->getEntities(collectables, "Collectable");
 
-    // std::cout << collectables.size() << std::endl;
+    // std::cout << np.x << " : " << np.y << " : " << np.z << std::endl;
     for(std::list<std::shared_ptr<OluxEngine::Entity>>::iterator it = collectables.begin();
 		it != collectables.end(); it++)	
     {

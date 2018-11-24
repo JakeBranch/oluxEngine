@@ -22,7 +22,8 @@ namespace OluxEngine
        
         void display();
 
-        bool button(int xPos, int yPos, int width, int height);
+        bool button(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex);
+        void image(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex);
 
         std::shared_ptr<Texture> texture;
         std::shared_ptr<ShaderProgram> shader;
