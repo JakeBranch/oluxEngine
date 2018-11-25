@@ -138,12 +138,12 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	*Propogates update instruction to rest of system
+	*/
 	void Core::onUpdate()
 	{
 		keyboard->update();
-
-		if(camera)
-			camera->onUpdate();
 
 		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
@@ -183,9 +183,11 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	*Propogates display instruction to rest of system
+	*/
 	void Core::onDisplay()
 	{
-		//Display all entitites
 		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
 			it != entities.end(); it++)
 		{
@@ -201,6 +203,9 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	*Propogates gui instruction to rest of system
+	*/
 	void Core::onGui()
 	{
 		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
@@ -268,18 +273,39 @@ namespace OluxEngine
 		return rtn;
 	}
 
+	/**
+	*returns if post processing is enabled
+	*/
 	bool Core::postProcessingEnabled()
 	{
 		return postProcessing;
 	}
 
+	/**
+	*returns reference to post processor
+	*/
 	std::shared_ptr<PostProcessor> Core::getPostProcessor()
 	{
 		return postProcessor;
 	}
 
+	/**
+	*returns reference to GUI
+	*/
 	std::shared_ptr<Gui> Core::getGui()
 	{
 		return gui;
+	}
+
+	/**
+	*Removes all entities from memory
+	*/
+	void Core::clearWorld()
+	{
+		for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
+			it != entities.end(); it++)
+		{
+			(*it)->destroy();
+		}
 	}
 }

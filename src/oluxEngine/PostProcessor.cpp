@@ -2,6 +2,9 @@
 #include "Core.h"
 namespace OluxEngine
 {
+    /**
+	*Initialise post processing properties
+	*/
     PostProcessor::PostProcessor(std::weak_ptr<Core> coreRef)
     {
         core = coreRef;
@@ -19,6 +22,9 @@ namespace OluxEngine
         mergeRt = tmp->getResources()->Load<RenderTexture>(600, 800);
     }
 
+    /**
+	*display post processing
+	*/
     void PostProcessor::display()
     {
         lightKeyShader->SetUniform("in_Texture", sceneRt);

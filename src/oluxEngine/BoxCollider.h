@@ -7,6 +7,9 @@
 
 namespace OluxEngine 
 {
+    /**
+    * class to handle box-box collision
+    */
     class BoxCollider : public Component
     {
         public:

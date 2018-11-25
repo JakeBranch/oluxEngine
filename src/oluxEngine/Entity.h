@@ -19,6 +19,9 @@ namespace OluxEngine
 {
 	class Core;
 
+	/**
+	*Base class for entities
+	*/
 	class Entity
 	{
 		friend class Core;
@@ -72,6 +75,9 @@ namespace OluxEngine
 				return rtn;
 			}
 
+			/**
+			*Function to check if an entity has a component
+			*/	
 			template <typename T>
 			bool hasComponent()
 			{
@@ -89,6 +95,9 @@ namespace OluxEngine
 				return false;
 			}
 
+			/**
+			*function to retrieve a component of specified type
+			*/
 			template <typename T>
 			std::shared_ptr<T> getComponent()
 			{

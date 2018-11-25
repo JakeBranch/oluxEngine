@@ -9,6 +9,9 @@
 
 namespace OluxEngine
 {
+	/**
+	*Class to manage resources
+	*/
 	class Resources
 	{
 		public:

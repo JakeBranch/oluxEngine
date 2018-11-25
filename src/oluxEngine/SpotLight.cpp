@@ -2,6 +2,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*initialise spot light properties
+	*/
     SpotLight::SpotLight()
     {
         position = glm::vec3(0.0f, 0.0f, 0.0f);

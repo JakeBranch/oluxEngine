@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "EndScene.h"
 
 void Player::onInit(std::string meshLoc, std::string textureLoc)
 {
@@ -25,12 +26,8 @@ void Player::onInit(std::string meshLoc, std::string textureLoc)
 
     std::vector<OluxEngine::Face> meshFaces = mesh->getFaces();
     size = mesh->getSize();
-    std::cout << size.x << size.y << size.z;
-}
 
-void Player::onBegin() 
-{
-	
+    points = 0;
 }
 
 void Player::onUpdate()
@@ -52,22 +49,20 @@ void Player::onUpdate()
 
 	if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_W))
     {
-        // getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(0, 0, speed) * deltaTime);
-
-        // float yRotation = getEntity()->getComponent<OluxEngine::Transform>()->getRotation().y;
-        direction.x = glm::sin(glm::radians(yRotation)) * speed;
-        direction.z = glm::cos(glm::radians(yRotation)) * speed;
+      
+        direction.x *= speed;
+        direction.z *= speed;
         direction.y = 0;
 
         getEntity()->getComponent<OluxEngine::Transform>()->translate(direction * deltaTime);
     }
     else if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_S))
     {
-        float yRotation = getEntity()->getComponent<OluxEngine::Transform>()->getRotation().y;
-        float xAmount = glm::sin(glm::radians(yRotation)) * speed;
-        float zAmount = glm::cos(glm::radians(yRotation)) * speed;
+        direction.x *= speed;
+        direction.z *= speed;
+        direction.y = 0;
 
-        getEntity()->getComponent<OluxEngine::Transform>()->translate(glm::vec3(-xAmount, 0, -zAmount) * deltaTime);
+        getEntity()->getComponent<OluxEngine::Transform>()->translate(-direction * deltaTime);
     }
     
     if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_A))
@@ -106,14 +101,11 @@ void Player::onUpdate()
     
     getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(np);
 
-    //glm::vec3 pPos = getEntity()->getComponent<OluxEngine::Transform>()->getPosition();
-
     getCore()->getEntity<OluxEngine::Camera>()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(np.x, np.y += 1.0f, np.z));
     
     std::list<std::shared_ptr<OluxEngine::Entity>> collectables;
     getCore()->getEntities(collectables, "Collectable");
 
-    // std::cout << np.x << " : " << np.y << " : " << np.z << std::endl;
     for(std::list<std::shared_ptr<OluxEngine::Entity>>::iterator it = collectables.begin();
 		it != collectables.end(); it++)	
     {
@@ -125,10 +117,30 @@ void Player::onUpdate()
         if(getEntity()->getComponent<OluxEngine::BoxCollider>()->isColliding(np, collectablePos, collectableSize))
         {
             (*it)->destroy();
+
+            points++;
+            if(points >= collectables.size())
+            {
+                getCore()->clearWorld();
+                getCore()->addEntity()->addComponent<EndScene>();
+            }
         }
     }
 
     std::shared_ptr<OluxEngine::SpotLight> spotLight = getCore()->getEntity<OluxEngine::SpotLight>()->getComponent<OluxEngine::SpotLight>();
     spotLight->setPosition(np);
     spotLight->setDirection(direction);
+
+
+    //-----------------------------------------------------------------------------------------------------------Cheats
+    if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_R))
+    {
+        getEntity()->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(13.5f, -5.5f, 0.5f));
+    }
+
+    if(getCore()->getKeyboard()->getKeyDown(SDL_SCANCODE_F))
+    {
+        getCore()->clearWorld();
+        getCore()->addEntity()->addComponent<EndScene>();
+    }
 }

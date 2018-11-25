@@ -1,10 +1,9 @@
 #include <iostream>
 #include <oluxEngine\OluxEngine.h>
 
-class TestScene : public OluxEngine::Component
+class EndScene : public OluxEngine::Component
 {
 	public:
 		void onInit();
-		void onBegin();
-		void onUpdate();
+        void onGui();
 };

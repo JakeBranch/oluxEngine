@@ -11,11 +11,13 @@
 
 namespace OluxEngine
 {
+	/**
+    *class to handle loading and storing of a mesh
+    */
 	class Mesh : public Resource
 	{
 		public:
 			static std::shared_ptr<Mesh> Load(std::string path);
-			// static std::shared_ptr<Mesh> Create(unsigned int width, unsigned int height, unsigned char* data);
 
             std::shared_ptr<VertexArray> getShape();
 			std::vector<Face> getFaces();

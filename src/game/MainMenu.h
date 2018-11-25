@@ -4,7 +4,6 @@
 class MainMenu : public OluxEngine::Component
 {
 	public:
-		void onInit();
         void onGui();
         
         void play();

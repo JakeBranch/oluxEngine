@@ -9,12 +9,18 @@ namespace OluxEngine
 
     }
 
+    /**
+    *update mouse position (called on SDL_MOUSEMOTION)
+    */
     void Mouse::updatePosition(int x, int y)
     {
         position.x = x;
         position.y = y;
     }
 
+    /**
+    *Return if mouse button is pressed
+    */
     bool Mouse::getMouseButtonDown(int button)
     {
         for(int i = 0; i < mouseButtons.size(); i++)
@@ -37,6 +43,9 @@ namespace OluxEngine
         return false;
     }
 
+    /**
+    *Return if mouse button is up
+    */
     bool Mouse::getMouseButtonUp(int button)
     {
         for(int i = 0; i < upMouseButtons.size(); i++)
@@ -50,6 +59,9 @@ namespace OluxEngine
         return false;
     }
 
+    /**
+    * set mouse button down (called on SDL_MOUSEBUTTONDOWN)
+    */
     void Mouse::setButtonDown(int button)
     {
         downMouseButtons.push_back(button);
@@ -64,6 +76,9 @@ namespace OluxEngine
         }
     }
 
+    /**
+    * set mouse button up (called on SDL_MOUSEBUTTONUP)
+    */
     void Mouse::setButtonUp(int button)
     {
         for(int i = 0; i < mouseButtons.size(); i++)

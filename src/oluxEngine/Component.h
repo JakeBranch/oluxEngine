@@ -5,7 +5,6 @@
 
 namespace OluxEngine
 {
-
 	class Entity;
 	class Core;
 

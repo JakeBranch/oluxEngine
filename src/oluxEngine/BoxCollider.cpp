@@ -7,6 +7,9 @@ namespace OluxEngine
 
     }
     
+    /**
+    * checks if two box colliders are overlapping - returns true if they are
+    */
     bool BoxCollider::isColliding(glm::vec3 playerPos, glm::vec3 objPos, glm::vec3 objSize)
     {
         if(playerPos.x > objPos.x && playerPos.x < objPos.x + objSize.x)

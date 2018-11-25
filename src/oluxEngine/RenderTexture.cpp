@@ -3,6 +3,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Load and return render texture
+	*/
 	std::shared_ptr<RenderTexture> RenderTexture::Load(int width, int height)
 	{
         std::shared_ptr<RenderTexture> rtn = std::make_shared<RenderTexture>();
@@ -52,6 +55,9 @@ namespace OluxEngine
         return texId;
     }
 
+    /**
+	*Clear render texture from memory
+	*/
     void RenderTexture::clear()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);

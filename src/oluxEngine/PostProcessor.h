@@ -10,6 +10,9 @@ namespace OluxEngine
 {   
     class Core;
 
+    /**
+	*Class to handle post processing
+	*/
     class PostProcessor
     {
         public:

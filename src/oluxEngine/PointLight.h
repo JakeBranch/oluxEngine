@@ -5,6 +5,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Class to hold point light properties
+	*/
 	class PointLight : public Light
     {
         public:

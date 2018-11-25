@@ -44,6 +44,9 @@ namespace OluxEngine
 		}
 	}
 
+	/**
+	* Trigger onGui() on all of the Entity's components
+	*/
 	void Entity::onGui()
 	{
 		for (std::vector<std::shared_ptr<Component> >::iterator it = components.begin();
@@ -69,11 +72,17 @@ namespace OluxEngine
 		return alive;
 	}
 
+	/**
+	* return entity's tag
+	*/
 	std::string Entity::getTag()
 	{
 		return tag;
 	}
 
+	/**
+	* set entity's tag
+	*/
 	void Entity::setTag(std::string tag)
 	{
 		this->tag = tag;

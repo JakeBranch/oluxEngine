@@ -48,6 +48,9 @@ namespace OluxEngine
 
 			std::shared_ptr<Entity> addEntity();
 
+			/**
+			*Returns entity with component of specified type
+			*/
 			template <typename T>
 			std::shared_ptr<Entity> getEntity()
 			{
@@ -65,6 +68,9 @@ namespace OluxEngine
 				throw Exception("Failed to retrieve entity with specified type");
 			}
 
+			/**
+			*Returns entity with specified tag
+			*/
 			std::shared_ptr<Entity> getEntity(std::string tag)
 			{
 				for (std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
@@ -81,6 +87,9 @@ namespace OluxEngine
 				throw Exception("Failed to retrieve entity with specified type");
 			}
 
+			/**
+			*Returns list of entites with component of specified type
+			*/
 			template <typename T>
 			void getEntities(std::list<std::shared_ptr<Entity>> &found)
 			{
@@ -96,6 +105,9 @@ namespace OluxEngine
 				}
 			}
 
+			/**
+			*Returns list of entities with specified tag
+			*/
 			void getEntities(std::list<std::shared_ptr<Entity>> &found, std::string tag)
 			{
 				for(std::list<std::shared_ptr<Entity>>::iterator it = entities.begin();
@@ -110,6 +122,8 @@ namespace OluxEngine
 				}
 			}
 
+			void clearWorld();
+
 			std::shared_ptr<Resources> getResources();
 			std::shared_ptr<Camera> getCamera();
 			std::shared_ptr<Keyboard> getKeyboard();
@@ -123,10 +137,7 @@ namespace OluxEngine
 			bool running;
 			bool postProcessing;
 
-
-			// std::vector<std::shared_ptr<Entity>> entities;
 			std::list<std::shared_ptr<Entity>> entities;
-
 
 			std::weak_ptr<Core> self;
 			std::shared_ptr <Resources> resourceManager;

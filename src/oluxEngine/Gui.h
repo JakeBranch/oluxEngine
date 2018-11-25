@@ -15,6 +15,9 @@ namespace OluxEngine
 {   
     class Core;
 
+    /**
+    *Class to handle GUI
+    */
     class Gui
     {
         public:

@@ -75,8 +75,6 @@ endif()
 add_executable(
 	game
 	src/game/main.cpp
-	src/game/TestScene.cpp
-	src/game/TestScene.h
 	src/game/Environment.cpp
 	src/game/Environment.h
 	src/game/Player.cpp
@@ -87,6 +85,8 @@ add_executable(
 	src/game/GameScene.h
 	src/game/Collectable.cpp
 	src/game/Collectable.h
+	src/game/EndScene.cpp
+	src/game/EndScene.h
 	contrib/stb_image/stb_image.cpp
 )
 

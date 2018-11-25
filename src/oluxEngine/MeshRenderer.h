@@ -32,7 +32,6 @@ namespace OluxEngine
         public:
             void onInit();
 			void setTexture(std::shared_ptr<Texture> t);
-            void setShaders(std::string vertShader, std::string fragShader);
             void setMesh(std::shared_ptr<Mesh> mesh);
 
             std::shared_ptr<Material> getMaterial();

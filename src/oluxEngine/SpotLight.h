@@ -5,6 +5,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Class to hold spot light properties
+	*/
 	class SpotLight : public Light
     {
         public:

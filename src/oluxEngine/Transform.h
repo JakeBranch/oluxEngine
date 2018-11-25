@@ -8,6 +8,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Class to handle transformations
+	*/
     class Transform : public Component
     {
         public:

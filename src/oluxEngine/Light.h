@@ -10,6 +10,9 @@
 
 namespace OluxEngine
 {
+    /**
+    *Base class for all light types
+    */
     class Light : public Component
     {
         public:

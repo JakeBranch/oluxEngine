@@ -1,8 +1,6 @@
 #ifndef OLUXENGINE_MATERIAL_H
 #define OLUXENGINE_MATERIAL_H
 
-// #include "ShaderProgram.h"
-
 #include <glm/glm.hpp>
 #include <memory>
 #include "Texture.h"
@@ -11,6 +9,9 @@ namespace OluxEngine
 {
     class ShaderProgram;
 
+    /**
+    *Class to store material properties
+    */
 	class Material
 	{
         public:

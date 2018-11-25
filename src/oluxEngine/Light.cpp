@@ -2,6 +2,9 @@
 
 namespace OluxEngine
 {
+    /**
+    *Initialise light properties
+    */
     void Light::onInit()
     {
         ambient = glm::vec3(0.05f, 0.05f, 0.05f);

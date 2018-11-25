@@ -5,16 +5,13 @@
 
 void GameScene::onInit()
 {
-    // began = false;
-    std::cout << "START" << std::endl;
+
     std::shared_ptr<OluxEngine::Entity> mainCam = getCore()->addEntity();
     mainCam->addComponent<OluxEngine::Camera>();
     mainCam->getComponent<OluxEngine::Transform>()->setLocalRotation(glm::vec3(0.0f, 180.0f, 0.0f));
 
     std::shared_ptr<OluxEngine::Entity> dLight = getCore()->addEntity();
     dLight->addComponent<OluxEngine::DirectionalLight>();
-    // dLight->getComponent<OluxEngine::DirectionalLight>()->setAmbientIntensity(0.00001);
-    // dLight->getComponent<OluxEngine::DirectionalLight>()->setAmbient(glm::vec3(0.001f, 0.001f, 0.001f));
     dLight->getComponent<OluxEngine::DirectionalLight>()->setColor(glm::vec3(0.02f, 0.02f, 0.02f));
 
     std::shared_ptr<OluxEngine::Entity> sLight = getCore()->addEntity();
@@ -56,25 +53,24 @@ void GameScene::onInit()
     std::shared_ptr<OluxEngine::Texture> envTex = getCore()->getResources()->Load<OluxEngine::Texture>("resources/environment.png");
     env->getComponent<OluxEngine::MeshRenderer>()->setTexture(envTex);
 
-    // std::cout << "2ND FINAL" << std::endl;
+    std::shared_ptr<OluxEngine::Entity> collectable1 = getCore()->addEntity();
+    collectable1->addComponent<Collectable>();
+    collectable1->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(5.0f, -7.5f, 65.0f));
 
-    // std::shared_ptr<OluxEngine::Entity> collectable = getCore()->addEntity();
-    // collectable->setTag("Collectable");
-    // collectable->addComponent<OluxEngine::MeshRenderer>();
-    // collectable->addComponent<OluxEngine::Transform>();
-    // collectable->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-5.5f, -7.5f, 24.5f));
-    // std::shared_ptr<OluxEngine::Mesh> mesh = getCore()->getResources()->Load<OluxEngine::Mesh>("resources/collectable.obj");
-    // collectable->getComponent<OluxEngine::MeshRenderer>()->setMesh(mesh);
-    // std::shared_ptr<OluxEngine::Texture> colTex = getCore()->getResources()->Load<OluxEngine::Texture>("resources/curuthers_diffuse.png");
-    // collectable->getComponent<OluxEngine::MeshRenderer>()->setTexture(colTex);
+    std::shared_ptr<OluxEngine::Entity> collectable2 = getCore()->addEntity();
+    collectable2->addComponent<Collectable>();
+    collectable2->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(37.0f, 12.5f, -38.0f));
 
-    std::shared_ptr<OluxEngine::Entity> collectable = getCore()->addEntity();
-    collectable->addComponent<Collectable>();
+    std::shared_ptr<OluxEngine::Entity> collectable3 = getCore()->addEntity();
+    collectable3->addComponent<Collectable>();
+    collectable3->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-10.0f, 2.0f, -72.5f));
+
+    std::shared_ptr<OluxEngine::Entity> collectable4 = getCore()->addEntity();
+    collectable4->addComponent<Collectable>();
+    collectable4->getComponent<OluxEngine::Transform>()->setLocalPosition(glm::vec3(-9.5f, 12.0f, -80.5f));
 
     std::shared_ptr<OluxEngine::Entity> player = getCore()->addEntity();
     player->addComponent<Player>("resources/curuthers.obj", "resources/curuthers_diffuse.png");
-    
-    std::cout << "FINAL" << std::endl;
 }
 
 void GameScene::onGui()

@@ -13,7 +13,6 @@
 
 #include <SDL_opengl.h>
 
-#include "TestScene.h"
 #include "MainMenu.h"
 #include "Environment.h"
 #include "Player.h"
@@ -24,7 +23,7 @@ int main(int argc, char* argv[])
 	{
 		std::shared_ptr<OluxEngine::Core> core = OluxEngine::Core::initialise();
 
-		//------------------------------------------Test scene
+		//------------------------------------------Load main menu
 		std::shared_ptr<OluxEngine::Entity> mainMenu = core->addEntity();
 		mainMenu->addComponent<MainMenu>();
 		

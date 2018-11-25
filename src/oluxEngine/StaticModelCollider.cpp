@@ -6,6 +6,9 @@ int triBoxOverlap(float boxcenter[3],
 
 namespace OluxEngine
 {
+    /**
+	*Initialise spatial partition
+	*/
     void StaticModelCollider::onInit()
     {
         resolution = 10.0f;
@@ -83,6 +86,9 @@ namespace OluxEngine
         extent.max.z += 1;
     }
 
+    /**
+	*add face to spatial partition
+	*/
     void StaticModelCollider::addFace(Face face)
     {
         float f[3][3] = {0};
@@ -117,7 +123,6 @@ namespace OluxEngine
             if(triBoxOverlap(bc, bhs, f))
             {
                 cols.at(i)->faces.push_back(face);
-                //std::cout << "Pushing face into " << i << std::endl;
                 found = true;
             }
         }
@@ -161,6 +166,9 @@ namespace OluxEngine
         return false;
     }
 
+    /**
+	*check if colliding
+	*/
     bool StaticModelCollider::isColliding(glm::vec3 position, glm::vec3 size)
     {
         glm::vec3 pos = position - extent.min;
@@ -178,6 +186,9 @@ namespace OluxEngine
         return false;
     }
 
+    /**
+	*check if colliding and return collision response
+	*/
     glm::vec3 StaticModelCollider::getCollisionResponse(glm::vec3 position, glm::vec3 lastPosition, glm::vec3 size, bool& solved)
     {
         glm::vec3 diff = position - lastPosition;
@@ -215,7 +226,6 @@ namespace OluxEngine
 
         while(true)
         {
-            //if(!isColliding(solve, size)) break;
             solve.x += amount;
             if(!isColliding(solve, size)) break;
             solve.x -= amount;
@@ -241,7 +251,6 @@ namespace OluxEngine
         solved = true;
         amount = tryInc;
 
-        // Attempt to uncollide in x/z/y (walls + steps)
         while(true)
         {
             solve.y = lastPosition.y;
@@ -272,20 +281,18 @@ namespace OluxEngine
         solved = true;
         amount = tryInc;
 
-        // Attempt to uncollide in x+z (corners)
         while(true)
         {
-            //if(!isColliding(solve, size)) break;
-            solve.x -= amount; // TL
+            solve.x -= amount;
             solve.z += amount;
             if(!isColliding(solve, size)) break;
-            solve.x += amount; // TR
+            solve.x += amount; 
             solve.x += amount;
             if(!isColliding(solve, size)) break;
-            solve.z -= amount; // BR
+            solve.z -= amount;
             solve.z -= amount;
             if(!isColliding(solve, size)) break;
-            solve.x -= amount; // BL
+            solve.x -= amount;
             solve.x -= amount;
             if(!isColliding(solve, size)) break;
             solve.z += amount;
@@ -303,21 +310,19 @@ namespace OluxEngine
         solved = true;
         amount = tryInc;
 
-        // Attempt to uncollide in x+z/y (corners + steps)
         while(true)
         {
-            //if(!isColliding(solve, size)) break;
             solve.y = lastPosition.y;
-            solve.x -= amount; // TL
+            solve.x -= amount; 
             solve.z += amount;
             if(!isColliding(solve, size)) break;
-            solve.x += amount; // TR
+            solve.x += amount; 
             solve.x += amount;
             if(!isColliding(solve, size)) break;
-            solve.z -= amount; // BR
+            solve.z -= amount; 
             solve.z -= amount;
             if(!isColliding(solve, size)) break;
-            solve.x -= amount; // BL
+            solve.x -= amount; 
             solve.x -= amount;
             if(!isColliding(solve, size)) break;
             solve.z += amount;

@@ -20,23 +20,8 @@ namespace OluxEngine
     {
         public:
             void onInit();
-            void onUpdate();
 
-            void setPosition(glm::vec3 val);
-            void setRotation(glm::vec3 val);
-            
-            glm::vec3 getPosition();
             glm::mat4 getViewMatrix();
-            
-        private:
-            glm::vec3 position;
-            glm::vec3 front;
-            glm::vec3 up;
-            glm::vec3 right;
-            glm::vec3 worldUp;
-
-            GLfloat yaw;
-            GLfloat pitch;
     };
 }
 

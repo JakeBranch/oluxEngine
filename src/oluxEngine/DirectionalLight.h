@@ -5,6 +5,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Class to hold directional light properties
+	*/
 	class DirectionalLight : public Light
     {
         public:

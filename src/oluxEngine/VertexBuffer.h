@@ -10,6 +10,9 @@
 
 namespace OluxEngine
 {
+	/**
+	*Wrapper for openGL vertex buffers
+	*/
 	class VertexBuffer
 	{
 		private:

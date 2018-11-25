@@ -9,6 +9,9 @@
 
 namespace OluxEngine
 {
+    /**
+	*Class to handle loading and storing of render textures
+	*/
     class RenderTexture : public Resource
     {
         GLuint fbo;
@@ -17,7 +20,7 @@ namespace OluxEngine
 
         public:
         static std::shared_ptr<RenderTexture> Load(int width, int height);
-        // static std::shared_ptr<RenderTexture> Create(unsigned int width, unsigned int height, unsigned char* data);
+ 
         GLuint getId();
         glm::vec2 getSize();
 

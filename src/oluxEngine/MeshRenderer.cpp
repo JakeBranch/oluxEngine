@@ -39,7 +39,7 @@ namespace OluxEngine
 		material->getShader()->SetUniform("in_Projection", glm::perspective(glm::radians(45.0f),
      				(float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.f));
 
-		material->getShader()->SetUniform("cameraPos", getCore()->getCamera()->getPosition());
+		material->getShader()->SetUniform("cameraPos", getCore()->getCamera()->getEntity()->getComponent<Transform>()->getPosition());
 
 		//----------------------------------------------------------------------Set material properties
 		material->getShader()->SetUniform("material.specular", material->getSpecular());
@@ -143,47 +143,6 @@ namespace OluxEngine
 			material->getShader()->SetUniform(uniformLoc, light->getSpecular());
 		}
 
-		// for(size_t i = 0; i < spotLights.size(); i++)
-		// {
-		// 	std::shared_ptr<SpotLight> light = spotLights.at(i)->getComponent<SpotLight>();
-
-		// 	std::string prefix = "spotLights[";
-		// 	prefix += std::to_string(i);
-		// 	prefix += "].";
-
-		// 	std::string uniformLoc;
-
-		// 	uniformLoc = prefix + "position";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getPosition());
-
-		// 	uniformLoc = prefix + "direction";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getDirection());
-
-		// 	uniformLoc = prefix + "cutOff";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getCutoff());
-
-		// 	uniformLoc = prefix + "outerCutOff";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getOuterCutoff());
-
-		// 	uniformLoc = prefix + "constant";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getConstant());
-
-		// 	uniformLoc = prefix + "linear";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getLinear());
-
-		// 	uniformLoc = prefix + "quadratic";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getQuadratic());
-
-		// 	uniformLoc = prefix + "ambient";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getAmbient());
-
-		// 	uniformLoc = prefix + "diffuse";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getDiffuse());
-
-		// 	uniformLoc = prefix + "specular";
-		// 	material->getShader()->SetUniform(uniformLoc, light->getSpecular());
-		// }
-
 		if(getCore()->postProcessingEnabled())
 		{
 			material->getShader()->Draw(getCore()->getPostProcessor()->sceneRt, mesh->getShape());
@@ -205,14 +164,6 @@ namespace OluxEngine
 	void MeshRenderer::setMesh(std::shared_ptr<Mesh> mesh)
 	{
 		this->mesh = mesh;
-	}
-
-	/**
-	* Set shaders attached to the mesh
-	*/
-	void MeshRenderer::setShaders(std::string vertShader, std::string fragShader)
-	{
-	
 	}
 
 	std::shared_ptr<Material> MeshRenderer::getMaterial()

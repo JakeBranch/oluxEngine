@@ -2,6 +2,9 @@
 
 namespace OluxEngine
 {
+    /**
+    *Load and return mesh
+    */
     std::shared_ptr<Mesh> Mesh::Load(std::string path)
 	{
         std::shared_ptr<Mesh> rtn = std::make_shared<Mesh>();
@@ -20,6 +23,9 @@ namespace OluxEngine
 		return shape->getFaces();
 	}
 
+    /**
+    *Calculate dimensions of mesh
+    */
     glm::vec3 Mesh::getSize()
     {
         std::vector<glm::vec3> positions;

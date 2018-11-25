@@ -28,6 +28,9 @@ namespace OluxEngine
         bool isColliding(glm::vec3 position, glm::vec3 size);
     };
 
+    /**
+	*Class to handle static model collision w/ spatial partitioning
+	*/
     class StaticModelCollider : public Component
     {
         public:

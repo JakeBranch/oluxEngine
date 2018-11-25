@@ -15,6 +15,9 @@ namespace OluxEngine
 {
 	class VertexBuffer;
 
+    /**
+	*Wrapper for openGL vertex arrays
+	*/
 	class VertexArray
 	{
 		/**

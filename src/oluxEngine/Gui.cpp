@@ -3,6 +3,9 @@
 
 namespace OluxEngine
 {
+    /**
+    *Initialise GUI properties
+    */
     Gui::Gui(std::weak_ptr<Core> coreRef)
     {
         core = coreRef;
@@ -11,6 +14,9 @@ namespace OluxEngine
         texture = tmp->getResources()->Load<Texture>("resources/button2.png");
     }
 
+    /**
+    *create, draw and handle interaction of a GUI button
+    */
     bool Gui::button(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex)
     {
         std::shared_ptr<Core> tmp = core.lock();
@@ -39,6 +45,9 @@ namespace OluxEngine
         return false;
     }
 
+    /**
+    *create and display a GUI image
+    */
     void Gui::image(int xPos, int yPos, int width, int height, std::shared_ptr<Texture> tex)
     {
         std::shared_ptr<Core> tmp = core.lock();
