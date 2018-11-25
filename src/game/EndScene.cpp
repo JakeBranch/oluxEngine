@@ -8,7 +8,7 @@ void EndScene::onInit()
 
 void EndScene::onGui()
 {
-    std::shared_ptr<OluxEngine::Texture> background = getCore()->getResources()->Load<OluxEngine::Texture>("resources/background.png");
+    std::shared_ptr<OluxEngine::Texture> background = getCore()->getResources()->Load<OluxEngine::Texture>("resources/endBackground.png");
     getCore()->getGui()->image(0, 0, 600, 800, background);
 
     std::shared_ptr<OluxEngine::Texture> tex = getCore()->getResources()->Load<OluxEngine::Texture>("resources/button2.png");
