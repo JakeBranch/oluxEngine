@@ -118,6 +118,9 @@ void Player::onUpdate()
         {
             (*it)->destroy();
 
+            std::shared_ptr<OluxEngine::Sound> soundfx = getCore()->getResources()->Load<OluxEngine::Sound>("resources/soundFx.ogg");
+		    soundfx->play();
+
             points++;
             if(points >= collectables.size())
             {
