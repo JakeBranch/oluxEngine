@@ -3,7 +3,9 @@
 
 Features:
 Entity-Component Architecture
+
 Collision w/ Spatial Partitioning
+
 Directional/Point/Spot Lights
 IMGUI
 Keyboard/Mouse Input
