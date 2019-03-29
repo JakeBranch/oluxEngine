@@ -1,5 +1,5 @@
 # oluxEngine
-3D Game engine for University project 
+3D Game engine made in C++ for University project 
 
 git clone  
 cd oluxEngine  
