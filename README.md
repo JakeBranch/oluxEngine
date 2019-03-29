@@ -1,7 +1,7 @@
 # oluxEngine - WIP
 3D Game engine made in C++ for University project
 
-Features:
+Features:  
 -Entity-Component Architecture  
 -Collision w/ Spatial Partitioning  
 -Directional/Point/Spot Lights  
